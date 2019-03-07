@@ -1,0 +1,43 @@
+﻿body {
+    background-color: #125C8A;
+    
+}
+
+/* The Modal (background) */
+.modal-login {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+    width: 100%;
+    margin: 5px 0 22px 0;
+    background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Set a style for the submit/login button */
+    .form-container .btn {
+        background-color: #125C8A;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}
