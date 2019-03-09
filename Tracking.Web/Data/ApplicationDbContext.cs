@@ -11,7 +11,11 @@ namespace Tracking.Web.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        {
-        }
+        { }
+        public DbSet<Bank> Banks { get; set; }
+        public DbSet<LegalEntity> LegalEntities { get; set; }
+        public DbSet<RiskType> RiskTypes { get; set; }
+        public DbSet<Severity> Severities { get; set; }
+        public DbSet<Status> Statuses { get; set; }
     }
 }
