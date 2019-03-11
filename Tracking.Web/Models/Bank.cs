@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
-    public class Bank
+    public class Bank : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string BankABI { get; set; }
     }

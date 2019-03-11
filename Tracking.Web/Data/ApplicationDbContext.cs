@@ -17,5 +17,7 @@ namespace Tracking.Web.Data
         public DbSet<RiskType> RiskTypes { get; set; }
         public DbSet<Severity> Severities { get; set; }
         public DbSet<Status> Statuses { get; set; }
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<File> Files { get; set; }
     }
 }

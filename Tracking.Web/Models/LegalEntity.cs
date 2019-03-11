@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
-    public class LegalEntity
+    public class LegalEntity : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-
+        // Cod. Legal Entity
+        public string Code { get; set; }
         // has_many interventions
         List<Intervention> Interventions { get; set; }
     }

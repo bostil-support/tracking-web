@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
-    public class Severity : BaseEntity
+    public class File : BaseEntity
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
+        public string FilePath { get; set; }
     }
 }

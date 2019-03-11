@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
-    public class Intervention
+    public class Intervention : BaseEntity
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         // Descrizione
         public string Description { get; set; }
@@ -16,12 +15,25 @@ namespace Tracking.Web.Models
         // Validatore 
         public int ValidatorId { get; set; }
 
-        [ForeignKey("TeamInfoKey")]
+        [ForeignKey("ValidatorId")]
         public User User { get; set; }
 
         public int LegalEntityId { get; set; }
         public LegalEntity LegalEntity { get; set; }
 
-        
+        // Area normativa
+        public string RegulatoryArea { get; set; }
+        // Macro Requisito Normativo
+        public string MacroRegulatoryRequiment { get; set; }
+
+        // relationship Status
+        public int StatusId { get; set; }
+        public Status Status { get; set; }
+
+        // relationship with Note
+        public List<Note> Notes { get; set; }
+
+
+
     }
 }

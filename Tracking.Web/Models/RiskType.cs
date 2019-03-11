@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
-    public class RiskType
+    public class RiskType : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
     }
 }
