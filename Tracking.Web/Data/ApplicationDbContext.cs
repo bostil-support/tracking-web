@@ -20,8 +20,14 @@ namespace Tracking.Web.Data
                 .WithMany(t => t.Interventions)
                 .HasForeignKey(p => p.ValidatorId)
                 .HasPrincipalKey(t => t.Id);
-                //.OnDelete(DeleteBehavior.Restrict);
 
+          
+            builder.Entity<Intervention>()
+                .HasOne(p => p.CensusUser)
+                .WithMany(t => t.UsersInterventions)
+                .HasForeignKey(p => p.CensusUserId)
+                .HasPrincipalKey(t => t.Id);
+          
             base.OnModelCreating(builder);
         }
 

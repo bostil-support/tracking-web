@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tracking.Web.Data;
 
 namespace Tracking.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190312103833_UpdateDb")]
+    partial class UpdateDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,8 +167,6 @@ namespace Tracking.Web.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CensusUserId");
-
                     b.Property<string>("Description");
 
                     b.Property<int>("LegalEntityId");
@@ -182,8 +182,6 @@ namespace Tracking.Web.Data.Migrations
                     b.Property<string>("ValidatorId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CensusUserId");
 
                     b.HasIndex("LegalEntityId");
 
@@ -373,10 +371,6 @@ namespace Tracking.Web.Data.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.Intervention", b =>
                 {
-                    b.HasOne("Tracking.Web.Models.User", "CensusUser")
-                        .WithMany("UsersInterventions")
-                        .HasForeignKey("CensusUserId");
-
                     b.HasOne("Tracking.Web.Models.LegalEntity", "LegalEntity")
                         .WithMany()
                         .HasForeignKey("LegalEntityId")
