@@ -12,7 +12,6 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "SQLCONNSTR_DEFAULTCONNECTION": "Data Source=.\\SQLEXPRESS2;Initial Catalog=Tracking;Integrated Security=True;MultipleActiveResultSets=true",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

@@ -13,10 +13,8 @@ namespace Tracking.Web.Models
         public string Description { get; set; }
 
         // Validatore 
-        public int ValidatorId { get; set; }
-
-        [ForeignKey("ValidatorId")]
-        public User User { get; set; }
+        public string ValidatorId { get; set; }
+        public User Validator { get; set; }
 
         public int LegalEntityId { get; set; }
         public LegalEntity LegalEntity { get; set; }

@@ -12,6 +12,19 @@ namespace Tracking.Web.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Intervention>()
+                .HasOne(p => p.Validator)
+                .WithMany(t => t.Interventions)
+                .HasForeignKey(p => p.ValidatorId)
+                .HasPrincipalKey(t => t.Id);
+                //.OnDelete(DeleteBehavior.Restrict);
+
+            base.OnModelCreating(builder);
+        }
+
         public DbSet<Bank> Banks { get; set; }
         public DbSet<LegalEntity> LegalEntities { get; set; }
         public DbSet<RiskType> RiskTypes { get; set; }
@@ -19,5 +32,6 @@ namespace Tracking.Web.Data
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<File> Files { get; set; }
+        public DbSet<Intervention> Interventions { get; set; }
     }
 }
