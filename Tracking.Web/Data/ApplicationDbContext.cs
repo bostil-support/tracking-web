@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Tracking.Web.Models;
 
 namespace Tracking.Web.Data
@@ -10,6 +12,10 @@ namespace Tracking.Web.Data
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        { }
+
+        public ApplicationDbContext(DbContextOptions options)
             : base(options)
         { }
 
@@ -39,5 +45,10 @@ namespace Tracking.Web.Data
         public DbSet<Note> Notes { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Intervention> Interventions { get; set; }
+
+        public bool IsDatabaseExist()
+        {
+            return (Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists();
+        }
     }
 }
