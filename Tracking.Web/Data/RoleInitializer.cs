@@ -9,7 +9,7 @@ namespace Tracking.Web.Data
 {
     public class RoleInitializer
     {
-        public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task InitializeAsync(UserManager<TrackingUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             string complianceEmail = "compliance@tracking.com";
             string businessEmail = "business@tracking.com";
@@ -25,7 +25,7 @@ namespace Tracking.Web.Data
 
             if (await userManager.FindByNameAsync(complianceEmail) == null)
             {
-                User user = new User { Email = complianceEmail, UserName = complianceEmail };
+                TrackingUser user = new TrackingUser { Email = complianceEmail, UserName = complianceEmail };
                 IdentityResult result = await userManager.CreateAsync(user, password);
                 if (result.Succeeded)
                 {
@@ -35,7 +35,7 @@ namespace Tracking.Web.Data
 
             if (await userManager.FindByNameAsync(businessEmail) == null)
             {
-                User user = new User { Email = businessEmail, UserName = businessEmail };
+                TrackingUser user = new TrackingUser { Email = businessEmail, UserName = businessEmail };
                 IdentityResult result = await userManager.CreateAsync(user, password);
                 if (result.Succeeded)
                 {

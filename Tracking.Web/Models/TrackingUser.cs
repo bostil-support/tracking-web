@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Tracking.Web.Models
 {
-    public class User : IdentityUser
+    public class TrackingUser : IdentityUser
     {
         public List<Intervention> Interventions { get; set; }
         public List<Intervention> UsersInterventions { get; set; }

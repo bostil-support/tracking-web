@@ -7,17 +7,19 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Tracking.Web.Models
 {
-    public class Role : IdentityRole
+    public class TrackingRole : IdentityRole
     {
         public string Description { get; set; }
 
-        public Role() : base()
+        /*
+        public TrackingRole() : base()
         {
         }
-
-        public Role(string roleName, string description) : base(roleName)
+        
+        public TrackingRole(string roleName, string description) : base(roleName)
         {
             Description = description;
         }
+        */
     }
 }

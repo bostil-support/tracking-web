@@ -17,7 +17,7 @@ namespace Tracking.Web.Models
 
         // relationship with User
         public int UserId { get; set; }
-        public User User { get; set; }
+        public TrackingUser User { get; set; }
 
         // relationship with Intervantion
         public int InterventionId { get; set; }

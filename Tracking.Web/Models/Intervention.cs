@@ -14,11 +14,11 @@ namespace Tracking.Web.Models
 
         // Validatore 
         public string ValidatorId { get; set; }
-        public User Validator { get; set; }
+        public TrackingUser Validator { get; set; }
 
         // field Utente Censimento
         public string CensusUserId { get; set; }
-        public User CensusUser { get; set; } 
+        public TrackingUser CensusUser { get; set; } 
 
         public int LegalEntityId { get; set; }
         public LegalEntity LegalEntity { get; set; }

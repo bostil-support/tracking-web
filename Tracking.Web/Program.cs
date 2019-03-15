@@ -27,7 +27,7 @@ namespace Tracking.Web
 
                 try
                 {
-                    var userManager = services.GetRequiredService<UserManager<User>>();
+                    var userManager = services.GetRequiredService<UserManager<TrackingUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     task = RoleInitializer.InitializeAsync(userManager, roleManager);
                     task.Wait();

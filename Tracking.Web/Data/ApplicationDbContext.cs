@@ -9,13 +9,13 @@ using Tracking.Web.Models;
 
 namespace Tracking.Web.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<TrackingUser, TrackingRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         { }
 
-        public ApplicationDbContext(DbContextOptions options)
+        protected ApplicationDbContext(DbContextOptions options)
             : base(options)
         { }
 

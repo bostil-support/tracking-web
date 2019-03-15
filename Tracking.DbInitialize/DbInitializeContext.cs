@@ -19,7 +19,7 @@ namespace Tracking.DbInitialize
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=Tracking;Integrated Security=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS2;Initial Catalog=Tracking;Integrated Security=True;MultipleActiveResultSets=true");
             base.OnConfiguring(optionsBuilder);
         }
     }

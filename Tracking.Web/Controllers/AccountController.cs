@@ -11,10 +11,10 @@ namespace Tracking.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<TrackingUser> _userManager;
+        private readonly SignInManager<TrackingUser> _signInManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

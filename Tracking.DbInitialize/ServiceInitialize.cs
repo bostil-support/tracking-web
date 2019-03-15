@@ -9,11 +9,12 @@ namespace Tracking.DbInitialize
     public class ServiceInitialize
     {
         private static ServiceCollection _services;
+
         public static ServiceProvider ServiceProviderInitialize()
         {
             _services = new ServiceCollection();
             _services.AddDbContext<DbInitializeContext>()
-             .AddIdentity<User, Role>()
+             .AddIdentity<TrackingUser, TrackingRole>()
              .AddEntityFrameworkStores<DbInitializeContext>();
 
             return _services.BuildServiceProvider();

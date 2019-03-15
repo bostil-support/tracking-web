@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tracking.Web.Data;
 
-namespace Tracking.Web.Data.Migrations
+namespace Tracking.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190312124856_UpdateIntervention")]
-    partial class UpdateIntervention
+    [Migration("20190314151721_InitialData")]
+    partial class InitialData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,30 +20,6 @@ namespace Tracking.Web.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -277,7 +253,33 @@ namespace Tracking.Web.Data.Migrations
                     b.ToTable("Statuses");
                 });
 
-            modelBuilder.Entity("Tracking.Web.Models.User", b =>
+            modelBuilder.Entity("Tracking.Web.Models.TrackingRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Tracking.Web.Models.TrackingUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -330,7 +332,7 @@ namespace Tracking.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                    b.HasOne("Tracking.Web.Models.TrackingRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -338,7 +340,7 @@ namespace Tracking.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Tracking.Web.Models.User")
+                    b.HasOne("Tracking.Web.Models.TrackingUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -346,7 +348,7 @@ namespace Tracking.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Tracking.Web.Models.User")
+                    b.HasOne("Tracking.Web.Models.TrackingUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -354,12 +356,12 @@ namespace Tracking.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                    b.HasOne("Tracking.Web.Models.TrackingRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Tracking.Web.Models.User")
+                    b.HasOne("Tracking.Web.Models.TrackingUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -367,7 +369,7 @@ namespace Tracking.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Tracking.Web.Models.User")
+                    b.HasOne("Tracking.Web.Models.TrackingUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -375,7 +377,7 @@ namespace Tracking.Web.Data.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.Intervention", b =>
                 {
-                    b.HasOne("Tracking.Web.Models.User", "CensusUser")
+                    b.HasOne("Tracking.Web.Models.TrackingUser", "CensusUser")
                         .WithMany("UsersInterventions")
                         .HasForeignKey("CensusUserId");
 
@@ -389,7 +391,7 @@ namespace Tracking.Web.Data.Migrations
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Tracking.Web.Models.User", "Validator")
+                    b.HasOne("Tracking.Web.Models.TrackingUser", "Validator")
                         .WithMany("Interventions")
                         .HasForeignKey("ValidatorId");
                 });
@@ -405,7 +407,7 @@ namespace Tracking.Web.Data.Migrations
                         .HasForeignKey("InterventionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Tracking.Web.Models.User", "User")
+                    b.HasOne("Tracking.Web.Models.TrackingUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId1");
                 });

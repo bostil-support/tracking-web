@@ -38,14 +38,14 @@ namespace Tracking.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<User, IdentityRole>(options =>
+            services.AddIdentity<TrackingUser, TrackingRole>(options =>
                 {
                     options.SignIn.RequireConfirmedEmail = false;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddScoped<SignInManager<User>, SignInManager<User>>();
-            services.AddScoped<UserManager<User>, UserManager<User>>();
+            services.AddScoped<SignInManager<TrackingUser>, SignInManager<TrackingUser>>();
+            services.AddScoped<UserManager<TrackingUser>, UserManager<TrackingUser>>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
