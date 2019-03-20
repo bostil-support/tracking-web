@@ -10,8 +10,8 @@ using Tracking.Web.Data;
 namespace Tracking.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190314151721_InitialData")]
-    partial class InitialData
+    [Migration("20190319093741_RemoveRelationshisInterventionUser")]
+    partial class RemoveRelationshisInterventionUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,9 +109,7 @@ namespace Tracking.Web.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.Bank", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("BankABI");
 
@@ -124,9 +122,7 @@ namespace Tracking.Web.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.File", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("FilePath");
 
@@ -139,44 +135,22 @@ namespace Tracking.Web.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.Intervention", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CensusUserId");
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("LegalEntityId");
-
-                    b.Property<string>("MacroRegulatoryRequiment");
-
-                    b.Property<string>("RegulatoryArea");
-
-                    b.Property<int>("StatusId");
+                    b.Property<int>("Id");
 
                     b.Property<string>("Title");
 
-                    b.Property<string>("ValidatorId");
+                    b.Property<string>("TrackingUserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CensusUserId");
-
-                    b.HasIndex("LegalEntityId");
-
-                    b.HasIndex("StatusId");
-
-                    b.HasIndex("ValidatorId");
+                    b.HasIndex("TrackingUserId");
 
                     b.ToTable("Interventions");
                 });
 
             modelBuilder.Entity("Tracking.Web.Models.LegalEntity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Code");
 
@@ -189,15 +163,13 @@ namespace Tracking.Web.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.Note", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Description");
 
                     b.Property<int?>("FileId");
 
-                    b.Property<int>("InterventionId");
+                    b.Property<int>("SurveyId");
 
                     b.Property<int>("UserId");
 
@@ -207,7 +179,7 @@ namespace Tracking.Web.Migrations
 
                     b.HasIndex("FileId");
 
-                    b.HasIndex("InterventionId");
+                    b.HasIndex("SurveyId");
 
                     b.HasIndex("UserId1");
 
@@ -216,9 +188,7 @@ namespace Tracking.Web.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.RiskType", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Name");
 
@@ -229,9 +199,7 @@ namespace Tracking.Web.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.Severity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Name");
 
@@ -242,15 +210,58 @@ namespace Tracking.Web.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.Status", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
                     b.ToTable("Statuses");
+                });
+
+            modelBuilder.Entity("Tracking.Web.Models.Survey", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<string>("ActionDescription");
+
+                    b.Property<string>("ActionOwner");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("DueDateLocal");
+
+                    b.Property<DateTime>("DueDateOriginal");
+
+                    b.Property<DateTime>("ImportDownloadDate");
+
+                    b.Property<int>("InterventionId");
+
+                    b.Property<int>("LegalEntityId");
+
+                    b.Property<string>("ScrepArea");
+
+                    b.Property<string>("SrepCluster");
+
+                    b.Property<int>("StatusId");
+
+                    b.Property<string>("SurveySeverity");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("UserName");
+
+                    b.Property<string>("ValidatorAttribute");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InterventionId");
+
+                    b.HasIndex("LegalEntityId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Surveys");
                 });
 
             modelBuilder.Entity("Tracking.Web.Models.TrackingRole", b =>
@@ -377,9 +388,33 @@ namespace Tracking.Web.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.Intervention", b =>
                 {
-                    b.HasOne("Tracking.Web.Models.TrackingUser", "CensusUser")
+                    b.HasOne("Tracking.Web.Models.TrackingUser")
                         .WithMany("UsersInterventions")
-                        .HasForeignKey("CensusUserId");
+                        .HasForeignKey("TrackingUserId");
+                });
+
+            modelBuilder.Entity("Tracking.Web.Models.Note", b =>
+                {
+                    b.HasOne("Tracking.Web.Models.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId");
+
+                    b.HasOne("Tracking.Web.Models.Survey", "Survey")
+                        .WithMany("Notes")
+                        .HasForeignKey("SurveyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Tracking.Web.Models.TrackingUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("Tracking.Web.Models.Survey", b =>
+                {
+                    b.HasOne("Tracking.Web.Models.Intervention", "Intervention")
+                        .WithMany("Surveys")
+                        .HasForeignKey("InterventionId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Tracking.Web.Models.LegalEntity", "LegalEntity")
                         .WithMany()
@@ -390,26 +425,6 @@ namespace Tracking.Web.Migrations
                         .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Tracking.Web.Models.TrackingUser", "Validator")
-                        .WithMany("Interventions")
-                        .HasForeignKey("ValidatorId");
-                });
-
-            modelBuilder.Entity("Tracking.Web.Models.Note", b =>
-                {
-                    b.HasOne("Tracking.Web.Models.File", "File")
-                        .WithMany()
-                        .HasForeignKey("FileId");
-
-                    b.HasOne("Tracking.Web.Models.Intervention", "Intervention")
-                        .WithMany("Notes")
-                        .HasForeignKey("InterventionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Tracking.Web.Models.TrackingUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

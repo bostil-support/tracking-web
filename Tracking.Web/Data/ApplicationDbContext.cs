@@ -21,19 +21,6 @@ namespace Tracking.Web.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Intervention>()
-                .HasOne(p => p.Validator)
-                .WithMany(t => t.Interventions)
-                .HasForeignKey(p => p.ValidatorId)
-                .HasPrincipalKey(t => t.Id);
-
-          
-            builder.Entity<Intervention>()
-                .HasOne(p => p.CensusUser)
-                .WithMany(t => t.UsersInterventions)
-                .HasForeignKey(p => p.CensusUserId)
-                .HasPrincipalKey(t => t.Id);
-          
             base.OnModelCreating(builder);
         }
 
@@ -45,6 +32,7 @@ namespace Tracking.Web.Data
         public DbSet<Note> Notes { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Intervention> Interventions { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
 
         public bool IsDatabaseExist()
         {

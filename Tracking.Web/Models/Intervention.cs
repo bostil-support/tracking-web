@@ -9,33 +9,9 @@ namespace Tracking.Web.Models
     public class Intervention : BaseEntity
     {
         public string Title { get; set; }
-        // Descrizione
-        public string Description { get; set; }
-
-        // Validatore 
-        public string ValidatorId { get; set; }
-        public TrackingUser Validator { get; set; }
-
-        // field Utente Censimento
-        public string CensusUserId { get; set; }
-        public TrackingUser CensusUser { get; set; } 
-
-        public int LegalEntityId { get; set; }
-        public LegalEntity LegalEntity { get; set; }
-
-        // Area normativa
-        public string RegulatoryArea { get; set; }
-        // Macro Requisito Normativo
-        public string MacroRegulatoryRequiment { get; set; }
-
-        // relationship Status
-        public int StatusId { get; set; }
-        public Status Status { get; set; }
-
-        // relationship with Note
-        public List<Note> Notes { get; set; }
-
-
-
+        /// <summary>
+        /// One intervention musst to include surveys 
+        /// </summary>
+        public List<Survey> Surveys { get; set; }
     }
 }

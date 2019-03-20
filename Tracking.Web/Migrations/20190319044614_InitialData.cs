@@ -52,8 +52,7 @@ namespace Tracking.Web.Migrations
                 name: "Banks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     BankABI = table.Column<string>(nullable: true)
                 },
@@ -66,8 +65,7 @@ namespace Tracking.Web.Migrations
                 name: "Files",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     FilePath = table.Column<string>(nullable: true)
                 },
@@ -80,8 +78,7 @@ namespace Tracking.Web.Migrations
                 name: "LegalEntities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Code = table.Column<string>(nullable: true)
                 },
@@ -94,8 +91,7 @@ namespace Tracking.Web.Migrations
                 name: "RiskTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -107,8 +103,7 @@ namespace Tracking.Web.Migrations
                 name: "Severities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -120,8 +115,7 @@ namespace Tracking.Web.Migrations
                 name: "Statuses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -239,57 +233,75 @@ namespace Tracking.Web.Migrations
                 name: "Interventions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    ValidatorId = table.Column<string>(nullable: true),
-                    CensusUserId = table.Column<string>(nullable: true),
-                    LegalEntityId = table.Column<int>(nullable: false),
-                    RegulatoryArea = table.Column<string>(nullable: true),
-                    MacroRegulatoryRequiment = table.Column<string>(nullable: true),
-                    StatusId = table.Column<int>(nullable: false)
+                    TrackingUserId = table.Column<string>(nullable: true),
+                    TrackingUserId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Interventions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Interventions_AspNetUsers_CensusUserId",
-                        column: x => x.CensusUserId,
+                        name: "FK_Interventions_AspNetUsers_TrackingUserId",
+                        column: x => x.TrackingUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Interventions_LegalEntities_LegalEntityId",
-                        column: x => x.LegalEntityId,
-                        principalTable: "LegalEntities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Interventions_Statuses_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "Statuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Interventions_AspNetUsers_ValidatorId",
-                        column: x => x.ValidatorId,
+                        name: "FK_Interventions_AspNetUsers_TrackingUserId1",
+                        column: x => x.TrackingUserId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
+                name: "Surveys",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ImportDownloadDate = table.Column<DateTime>(nullable: false),
+                    SurveySeverity = table.Column<string>(nullable: true),
+                    ValidatorAttribute = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
+                    SrepCluster = table.Column<string>(nullable: true),
+                    ScrepArea = table.Column<string>(nullable: true),
+                    LegalEntityId = table.Column<int>(nullable: false),
+                    ActionOwner = table.Column<string>(nullable: true),
+                    ActionDescription = table.Column<string>(nullable: true),
+                    StatusId = table.Column<int>(nullable: false),
+                    DueDateOriginal = table.Column<DateTime>(nullable: false),
+                    DueDateLocal = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Surveys", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Surveys_LegalEntities_LegalEntityId",
+                        column: x => x.LegalEntityId,
+                        principalTable: "LegalEntities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Surveys_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Notes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     FileId = table.Column<int>(nullable: true),
                     UserId = table.Column<int>(nullable: false),
                     UserId1 = table.Column<string>(nullable: true),
-                    InterventionId = table.Column<int>(nullable: false)
+                    SurveyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -301,9 +313,9 @@ namespace Tracking.Web.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Notes_Interventions_InterventionId",
-                        column: x => x.InterventionId,
-                        principalTable: "Interventions",
+                        name: "FK_Notes_Surveys_SurveyId",
+                        column: x => x.SurveyId,
+                        principalTable: "Surveys",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -354,24 +366,14 @@ namespace Tracking.Web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Interventions_CensusUserId",
+                name: "IX_Interventions_TrackingUserId",
                 table: "Interventions",
-                column: "CensusUserId");
+                column: "TrackingUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Interventions_LegalEntityId",
+                name: "IX_Interventions_TrackingUserId1",
                 table: "Interventions",
-                column: "LegalEntityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Interventions_StatusId",
-                table: "Interventions",
-                column: "StatusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Interventions_ValidatorId",
-                table: "Interventions",
-                column: "ValidatorId");
+                column: "TrackingUserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notes_FileId",
@@ -379,14 +381,24 @@ namespace Tracking.Web.Migrations
                 column: "FileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notes_InterventionId",
+                name: "IX_Notes_SurveyId",
                 table: "Notes",
-                column: "InterventionId");
+                column: "SurveyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notes_UserId1",
                 table: "Notes",
                 column: "UserId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Surveys_LegalEntityId",
+                table: "Surveys",
+                column: "LegalEntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Surveys_StatusId",
+                table: "Surveys",
+                column: "StatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -410,6 +422,9 @@ namespace Tracking.Web.Migrations
                 name: "Banks");
 
             migrationBuilder.DropTable(
+                name: "Interventions");
+
+            migrationBuilder.DropTable(
                 name: "Notes");
 
             migrationBuilder.DropTable(
@@ -425,7 +440,7 @@ namespace Tracking.Web.Migrations
                 name: "Files");
 
             migrationBuilder.DropTable(
-                name: "Interventions");
+                name: "Surveys");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

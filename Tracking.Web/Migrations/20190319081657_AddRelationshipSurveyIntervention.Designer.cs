@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tracking.Web.Data;
 
 namespace Tracking.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190319081657_AddRelationshipSurveyIntervention")]
+    partial class AddRelationshipSurveyIntervention
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,9 +141,13 @@ namespace Tracking.Web.Migrations
 
                     b.Property<string>("TrackingUserId");
 
+                    b.Property<string>("TrackingUserId1");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TrackingUserId");
+
+                    b.HasIndex("TrackingUserId1");
 
                     b.ToTable("Interventions");
                 });
@@ -237,8 +243,6 @@ namespace Tracking.Web.Migrations
 
                     b.Property<int>("LegalEntityId");
 
-                    b.Property<int>("RiskTypeId");
-
                     b.Property<string>("ScrepArea");
 
                     b.Property<string>("SrepCluster");
@@ -258,8 +262,6 @@ namespace Tracking.Web.Migrations
                     b.HasIndex("InterventionId");
 
                     b.HasIndex("LegalEntityId");
-
-                    b.HasIndex("RiskTypeId");
 
                     b.HasIndex("StatusId");
 
@@ -391,8 +393,12 @@ namespace Tracking.Web.Migrations
             modelBuilder.Entity("Tracking.Web.Models.Intervention", b =>
                 {
                     b.HasOne("Tracking.Web.Models.TrackingUser")
-                        .WithMany("UsersInterventions")
+                        .WithMany("Interventions")
                         .HasForeignKey("TrackingUserId");
+
+                    b.HasOne("Tracking.Web.Models.TrackingUser")
+                        .WithMany("UsersInterventions")
+                        .HasForeignKey("TrackingUserId1");
                 });
 
             modelBuilder.Entity("Tracking.Web.Models.Note", b =>
@@ -421,11 +427,6 @@ namespace Tracking.Web.Migrations
                     b.HasOne("Tracking.Web.Models.LegalEntity", "LegalEntity")
                         .WithMany()
                         .HasForeignKey("LegalEntityId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Tracking.Web.Models.RiskType", "RiskType")
-                        .WithMany("Surveys")
-                        .HasForeignKey("RiskTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Tracking.Web.Models.Status", "Status")

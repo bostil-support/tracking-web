@@ -138,38 +138,112 @@ namespace Tracking.DbInitialize.Providers
 
         public void SetInitializeBanks()
         {
-            // excel collumns
-            string bankName, bankABI;
-            int bankId = 0;
+            List<LegalEntity> legEntitiesList = new List<LegalEntity>();
+            
+            try
+            {
+                using (var package = new ExcelPackage(_fileInfo))
+                {
+                    var workSheet = package.Workbook.Worksheets["Interventions"];
+                    int totalRows = workSheet.Dimension.Rows;
 
+                    for (int i = 4; i <= totalRows; i++)
+                    {
+                        legEntitiesList.Add(new LegalEntity
+                        {
+                            Id = Int32.Parse(workSheet.Cells[i, 2].Value.ToString()),
+                            Name = workSheet.Cells[i, 4].Value.ToString(),
+                            Code = workSheet.Cells[i, 2].Value.ToString()
+                    });
+                    }
+                    var uniqueLegEntities = legEntitiesList.GroupBy(b => b.Id)
+                        .Select(b => b.First()).ToList();
+
+                    _db.LegalEntities.AddRange(uniqueLegEntities);
+                    _db.SaveChanges();
+                    Console.Write("Banks imported. Done!\r\n");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Import test Statuses(Stato)
+        /// </summary>
+        public void SetInitializeStatuses()
+        {
+            var statusList = new List<Status>();
+            string[] statuses = new string[6] {
+                "accettaccione rischio",
+                "da validare",
+                "in corso",
+                "in ritardo",
+                "proposta chiusura",
+                "annullamento"};
+            try
+            {
+                for (int i = 0; i < statuses.Length; i++)
+                {
+                    statusList.Add(new Status
+                    {
+                        Id = i,
+                        Name = statuses[i]
+                    });
+                }
+
+                _db.Statuses.AddRange(statusList);
+                _db.SaveChanges();
+                Console.Write("Statuses were imported. Done!\r\n");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// import interventions
+        /// </summary>
+        /// <returns></returns>
+        public void SetInitializeInterventions()
+        {
+            string title;
+            int idIntervention;
+            // excel collumns
             using (var package = new ExcelPackage(_fileInfo))
             {
                 var workSheet = package.Workbook.Worksheets["Interventions"];
                 int totalRows = workSheet.Dimension.Rows;
+                var tempInterventionList = new List<Intervention>();
+                List<Intervention> uniqueInterList;
 
-                List<Bank> bankList = new List<Bank>();
+                List<Intervention> usersList = new List<Intervention>();
 
                 try
                 {
+                    
                     for (int i = 4; i <= totalRows; i++)
                     {
-                        bankId = Int32.Parse(workSheet.Cells[i, 2].Value.ToString());
-                        bankName = workSheet.Cells[i, 4].Value.ToString();
-                        bankABI = workSheet.Cells[i, 3].Value.ToString();
+                        title = workSheet.Cells[i, 7].Value.ToString();
+                        idIntervention = Int32.Parse(workSheet.Cells[i, 6].Value.ToString());
                         
-                        bankList.Add(new Bank
+                                                    
+                        tempInterventionList.Add(new Intervention
                         {
-                            Id = bankId,
-                            Name = bankName,
-                            BankABI = bankABI
+                            Id = idIntervention,
+                            Title = title
                         });
+                        
                     }
-                    List<Bank> uniqueBanks = bankList.GroupBy(b => b.Id)
+                    uniqueInterList = tempInterventionList.GroupBy(b => b.Id)
                         .Select(b => b.First()).ToList();
-                    _db.Banks.AddRange(uniqueBanks);
-                    _db.SaveChanges();
+                    Console.Write("Interventions were imported. Done!\r\n");
 
-                    Console.Write("Banks imported. Done!\r\n");
+                    _db.Interventions.AddRange(uniqueInterList);
+                    _db.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -178,59 +252,92 @@ namespace Tracking.DbInitialize.Providers
             }
         }
 
-        public async Task SetInitializeInterventionsAsync()
+        /// <summary>
+        /// import interventions
+        /// </summary>
+        /// <returns></returns>
+        public void SetInitializeSurveys()
         {
-            // excel collumns
-            string roleId, roleName, userId, userEmail;
             using (var package = new ExcelPackage(_fileInfo))
             {
-                var workSheet = package.Workbook.Worksheets["Users"];
+                var workSheet = package.Workbook.Worksheets["Interventions"];
                 int totalRows = workSheet.Dimension.Rows;
-
-                List<TrackingUser> usersList = new List<TrackingUser>();
+                List<Survey>surveyList = new List<Survey>();
 
                 try
                 {
-                    using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
-                                                .GetRequiredService<IServiceScopeFactory>()
-                                                .CreateScope())
-                    {
-                        var _userManager = _serviceScope.ServiceProvider.GetRequiredService<UserManager<TrackingUser>>();
-                        for (int i = 4; i <= totalRows; i++)
-                        {
-                            roleId = workSheet.Cells[i, 7].Value.ToString();
-                            roleName = workSheet.Cells[i, 8].Value.ToString();
-                            userId = workSheet.Cells[i, 9].Value.ToString();
-                            userEmail = workSheet.Cells[i, 10].Value.ToString();
 
-                            if (await _userManager.FindByEmailAsync(userEmail) == null)
-                            {
-                                var user = new TrackingUser { Email = userEmail, UserName = userEmail, Id = userId };
-                                var result = await _userManager.CreateAsync(user, "Qwerty123!");
-                                if (result.Succeeded)
-                                {
-                                    await _userManager.AddToRoleAsync(user, roleName);
-                                }
-                            }
-                            /*                            
-                            usersList.Add(new TrackingUser
-                            {
-                                Id = userId,
-                                Email = userEmail,
-                            });
-                            */
-                        }
-                        Console.Write("Users imported. Done!\r\n");
+                    for (int i = 4; i <= totalRows; i++)
+                    {
+                        surveyList.Add(new Survey
+                        {
+                            Id = Int32.Parse(workSheet.Cells[i, 16].Value.ToString()),
+                            InterventionId = Int32.Parse(workSheet.Cells[i, 6].Value.ToString()),
+                            LegalEntityId = Int32.Parse(workSheet.Cells[i, 2].Value.ToString()),
+                            Title = workSheet.Cells[i, 17].Value.ToString(),
+                            Description = workSheet.Cells[i, 18].Value.ToString(),
+                            SurveySeverity = workSheet.Cells[i, 21].Value.ToString(),
+                            ValidatorAttribute = workSheet.Cells[i, 25].Value.ToString(),
+                            UserName = workSheet.Cells[i, 20].Value.ToString(),
+                            SrepCluster = workSheet.Cells[i, 11].Value.ToString(),
+                            ScrepArea = workSheet.Cells[i, 10].Value.ToString(),
+                            ActionOwner = workSheet.Cells[i, 22].Value.ToString(),
+                            ActionDescription = workSheet.Cells[i, 22].Value.ToString(),
+                            ImportDownloadDate = DateTime.Parse(workSheet.Cells[i, 1].Value.ToString()),
+                            DueDateOriginal = DateTime.Parse(workSheet.Cells[i, 23].Value.ToString()),
+                            StatusId = 1,
+                            RiskTypeId = 1
+                            
+                        });
                     }
+
+                    _db.Surveys.AddRange(surveyList);
+                    _db.SaveChanges();
+                    Console.Write("Surveys were imported. Done!\r\n");
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
+        }
 
+        /// <summary>
+        /// import risk types
+        /// </summary>
+        /// <returns></returns>
+        public void SetInitializeRiskTypes()
+        {
+            using (var package = new ExcelPackage(_fileInfo))
+            {
+                var workSheet = package.Workbook.Worksheets["Interventions"];
+                int totalRows = workSheet.Dimension.Rows;
+                List<RiskType> riskTypeList = new List<RiskType>();
 
-                // _db.Roles.AddRange(rolesList);
-                // _db.SaveChanges();
+                try
+                {
+
+                    for (int i = 4; i <= totalRows; i++)
+                    {
+                        riskTypeList.Add(new RiskType
+                        {
+                            Id = i - 3,
+                            Name = workSheet.Cells[i, 15].Value.ToString()
+                        });
+                    }
+
+                    var uniqueRisksList = riskTypeList.GroupBy(b => b.Name)
+                        .Select(b => b.First()).ToList();
+
+                    _db.RiskTypes.AddRange(uniqueRisksList);
+                    _db.SaveChanges();
+
+                    Console.Write("Risk types were imported. Done!\r\n");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 

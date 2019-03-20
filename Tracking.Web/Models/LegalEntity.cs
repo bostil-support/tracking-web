@@ -11,6 +11,6 @@ namespace Tracking.Web.Models
         // Cod. Legal Entity
         public string Code { get; set; }
         // has_many interventions
-        List<Intervention> Interventions { get; set; }
+        List<Survey> Surveys { get; set; }
     }
 }

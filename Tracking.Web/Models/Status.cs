@@ -9,6 +9,6 @@ namespace Tracking.Web.Models
     {
         public string Name { get; set; }
         // relationship with Intervantions
-        List<Intervention> Interventions { get; set; }
+        List<Survey> Surveys { get; set; }
     }
 }

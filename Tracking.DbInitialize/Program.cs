@@ -17,7 +17,7 @@ namespace Tracking.DbInitialize
             Display display = _db.SetCreateDatabase;
             display.Invoke();
 
-            display = _db.SetInitializeBanks;
+            display = _db.SetInitializeSurveys;
             display.Invoke();
 
             Console.WriteLine($"\r\n{new string('-', 80)}");
