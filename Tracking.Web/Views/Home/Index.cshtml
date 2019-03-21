@@ -1,4 +1,5 @@
-﻿
+﻿@model List<Tracking.Web.Models.Intervention>
+
 @{
     ViewData["Title"] = "AllSurveys";
 }
@@ -66,474 +67,66 @@
         </div>
     </div>
     <div class="main-content">
+    @foreach (var item in Model)
+    {
         <div class="day">
             <div>
                 <span class="date-text bold">
-                    Soggetti collegati e interessi degli amministratori
+                    @item.Title
                 </span>
                 <span class="date">
                     Data inserimento: 12-01-2019
                 </span>
             </div>
             <div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1044 | CR di Rovereto
-                            <div class="id-info">
-                                <img src="~/images/info.png" alt="?" />
-                                <div class="card-popover">
-                                    <div class="popover-body">
-                                        Aggiornamenti non visualizzati
+                @foreach (var surv in item.Surveys)
+                {
+                    <div class="card">
+                        <div class="card-item card-info">
+                            <div class="card-id bold">
+                                ID @surv.Id | bank_name
+                                <div class="id-info">
+                                    <img src="~/images/info.png" alt="?" />
+                                    <div class="card-popover">
+                                        <div class="popover-body">
+                                            Aggiornamenti non visualizzati
+                                        </div>
+                                        <div class="triangle"></div>
                                     </div>
-                                    <div class="triangle"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-title bold">
-                            Mancato o ritardato aggiornamento dei parametri tabellari dipendenti dal valore dei Fondi Propri
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Basso
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            L’aggiornamento del parametro e dei valori da questo dipendenti avviene in modo manuale e senza che sia prevista una specifica attribuzione dei ruoli e delle responsabilità per il relativo aggiornamento. Ciò ha causato alcuni ritardi nell’aggiornamento e nella valorizzazione (es. fido mass. conc. all’esponente socio). I valori sono stati comunque aggiornati e compilati con l’ultimo valore applicabile in corso di verifica.
-                            <span class="more">Riduci</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">12/02/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-items/list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1045 | CR di Rovereto
-                        </div>
-                        <div class="card-title bold">
-                            Mancato presidio dell’obbligo di revisione triennale delle Politiche
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Alto
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            In sede di adozione del Regolamento di Gruppo, provvedere ad integrare la normativa interna con la declinazione delle attività e delle responsabilità in materia di aggiornamento, verifica e presidio delle politiche.…
-                            <span class="more">Espandi</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">10/03/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1046 | CR di Rovereto
-                        </div>
-                        <div class="card-title bold">
-                            Mancata previsione di attività di monitoraggio sulle Politiche
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Alto
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            Formalizzare i controlli di adeguatezza e prevederne opportuna tracciatura e periodicità di rendicontazione nei confronti degli organi social.
-                            <span class="more">Espandi</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">12/02/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="day">
-            <div>
-                <span class="date-text bold">
-                    Soggetti collegati e interessi degli amministratori
-                </span>
-                <span class="date">
-                    Data inserimento: 12-01-2019
-                </span>
-            </div>
-            <div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1044 | CR di Rovereto
-                            <span class="id-info">
-                                <img src="~/images/info.png" alt="?" />
-                                <span class="card-popover">
-                                    <div class="popover-body">
-                                        Aggiornamenti non visualizzati
-                                    </div>
-                                    <div class="triangle"></div>
+                            <div class="card-title bold">
+                                @surv.Title
+                            </div>
+                            <div class="card-severity">
+                                Severità rilievo:
+                                <span class="severity-value bold">
+                                    @surv.SurveySeverity
                                 </span>
-                            </span>
+                            </div>
                         </div>
-                        <div class="card-title bold">
-                            Mancato o ritardato aggiornamento dei parametri tabellari dipendenti dal valore dei Fondi Propri
+                        <div class="card-item card-action">
+                            <div class="content">
+                                <span class="action-title bold">Azione di mitigazione: </span>
+                                @surv.ActionDescription
+                                <span class="more">Riduci</span>
+                            </div>
                         </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Basso
-                            </span>
+                        <div class="card-item card-status">
+                            <div>Scadenza rilievo:<span class="bold">@surv.DueDateLocal</span></div>
+                            <div>Stato rilievo:<span class="bold">Status</span></div>
                         </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            L’aggiornamento del parametro e dei valori da questo dipendenti avviene in modo manuale e senza che sia prevista una specifica attribuzione dei ruoli e delle responsabilità per il relativo aggiornamento. Ciò ha causato alcuni ritardi nell’aggiornamento e nella valorizzazione (es. fido mass. conc. all’esponente socio). I valori sono stati comunque aggiornati e compilati con l’ultimo valore applicabile in corso di verifica.
-                            <span class="more">Riduci</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">12/02/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1045 | CR di Rovereto
-                        </div>
-                        <div class="card-title bold">
-                            Mancato presidio dell’obbligo di revisione triennale delle Politiche
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Alto
-                            </span>
+                        <div class="card-button">
+                            <a class="card-button__link" href="list-items/list-item-1.html" target="_blank">
+                                <img src="~/images/arrow.png" alt="go" />
+                            </a>
                         </div>
                     </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            In sede di adozione del Regolamento di Gruppo, provvedere ad integrare la normativa interna con la declinazione delle attività e delle responsabilità in materia di aggiornamento, verifica e presidio delle politiche.…
-                            <span class="more">Espandi</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">10/03/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1046 | CR di Rovereto
-                        </div>
-                        <div class="card-title bold">
-                            Mancata previsione di attività di monitoraggio sulle Politiche
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Alto
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            Formalizzare i controlli di adeguatezza e prevederne opportuna tracciatura e periodicità di rendicontazione nei confronti degli organi social.
-                            <span class="more">Espandi</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">12/02/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
+                }
             </div>
         </div>
-        <div class="day">
-            <div>
-                <span class="date-text bold">
-                    Soggetti collegati e interessi degli amministratori
-                </span>
-                <span class="date">
-                    Data inserimento: 12-01-2019
-                </span>
-            </div>
-            <div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1044 | CR di Rovereto
-                            <span class="id-info">
-                                <img src="~/images/info.png" alt="?" />
-                                <span class="card-popover">
-                                    <div class="popover-body">
-                                        Aggiornamenti non visualizzati
-                                    </div>
-                                    <div class="triangle"></div>
-                                </span>
-                            </span>
-                        </div>
-                        <div class="card-title bold">
-                            Mancato o ritardato aggiornamento dei parametri tabellari dipendenti dal valore dei Fondi Propri
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Basso
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            L’aggiornamento del parametro e dei valori da questo dipendenti avviene in modo manuale e senza che sia prevista una specifica attribuzione dei ruoli e delle responsabilità per il relativo aggiornamento. Ciò ha causato alcuni ritardi nell’aggiornamento e nella valorizzazione (es. fido mass. conc. all’esponente socio). I valori sono stati comunque aggiornati e compilati con l’ultimo valore applicabile in corso di verifica.
-                            <span class="more">Riduci</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">12/02/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1045 | CR di Rovereto
-                        </div>
-                        <div class="card-title bold">
-                            Mancato presidio dell’obbligo di revisione triennale delle Politiche
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Alto
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            In sede di adozione del Regolamento di Gruppo, provvedere ad integrare la normativa interna con la declinazione delle attività e delle responsabilità in materia di aggiornamento, verifica e presidio delle politiche.…
-                            <span class="more">Espandi</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">10/03/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1046 | CR di Rovereto
-                        </div>
-                        <div class="card-title bold">
-                            Mancata previsione di attività di monitoraggio sulle Politiche
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Alto
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            Formalizzare i controlli di adeguatezza e prevederne opportuna tracciatura e periodicità di rendicontazione nei confronti degli organi social.
-                            <span class="more">Espandi</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">12/02/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="day">
-            <div>
-                <span class="date-text bold">
-                    Soggetti collegati e interessi degli amministratori
-                </span>
-                <span class="date">
-                    Data inserimento: 12-01-2019
-                </span>
-            </div>
-            <div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1044 | CR di Rovereto
-                            <span class="id-info">
-                                <img src="~/images/info.png" alt="?" />
-                                <span class="card-popover">
-                                    <div class="popover-body">
-                                        Aggiornamenti non visualizzati
-                                    </div>
-                                    <div class="triangle"></div>
-                                </span>
-                            </span>
-                        </div>
-                        <div class="card-title bold">
-                            Mancato o ritardato aggiornamento dei parametri tabellari dipendenti dal valore dei Fondi Propri
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Basso
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            L’aggiornamento del parametro e dei valori da questo dipendenti avviene in modo manuale e senza che sia prevista una specifica attribuzione dei ruoli e delle responsabilità per il relativo aggiornamento. Ciò ha causato alcuni ritardi nell’aggiornamento e nella valorizzazione (es. fido mass. conc. all’esponente socio). I valori sono stati comunque aggiornati e compilati con l’ultimo valore applicabile in corso di verifica.
-                            <span class="more">Riduci</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">12/02/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1045 | CR di Rovereto
-                        </div>
-                        <div class="card-title bold">
-                            Mancato presidio dell’obbligo di revisione triennale delle Politiche
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Alto
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            In sede di adozione del Regolamento di Gruppo, provvedere ad integrare la normativa interna con la declinazione delle attività e delle responsabilità in materia di aggiornamento, verifica e presidio delle politiche.…
-                            <span class="more">Espandi</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">10/03/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-item card-info">
-                        <div class="card-id bold">
-                            ID 1046 | CR di Rovereto
-                        </div>
-                        <div class="card-title bold">
-                            Mancata previsione di attività di monitoraggio sulle Politiche
-                        </div>
-                        <div class="card-severity">
-                            Severità rilievo:
-                            <span class="severity-value bold">
-                                Medio-Alto
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-item card-action">
-                        <div class="content">
-                            <span class="action-title bold">Azione di mitigazione: </span>
-                            Formalizzare i controlli di adeguatezza e prevederne opportuna tracciatura e periodicità di rendicontazione nei confronti degli organi social.
-                            <span class="more">Espandi</span>
-                        </div>
-                    </div>
-                    <div class="card-item card-status">
-                        <div>Scadenza rilievo:<span class="bold">12/02/2019</span></div>
-                        <div>Stato rilievo:<span class="bold">In corso</span></div>
-                    </div>
-                    <div class="card-button">
-                        <a class="card-button__link" href="list-item-1.html" target="_blank">
-                            <img src="~/images/arrow.png" alt="go" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    }       
     </div>
 </main>
 <script src="~/js/index.js"></script>
+<script src="~/js/Intervention.js"></script>

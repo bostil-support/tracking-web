@@ -13,5 +13,10 @@ namespace Tracking.Web.Models
         /// One intervention musst to include surveys 
         /// </summary>
         public List<Survey> Surveys { get; set; }
+
+        public Intervention()
+        {
+            Surveys = new List<Survey>();
+        }
     }
 }

@@ -12,10 +12,19 @@ namespace Tracking.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IInterventionRepository _repository;
+
+        public HomeController(IInterventionRepository repo)
+        {
+            _repository = repo;
+        }
+
         [Authorize]
         public IActionResult Index()
         {
-            return View();
+            var list = _repository.GetAll();
+            
+            return View(list);
         }
 
         public IActionResult Privacy()
@@ -23,6 +32,11 @@ namespace Tracking.Web.Controllers
             return View();
         }
 
+        public IActionResult Show(int id)
+        {
+            var survey = _repository.GetSurveyById(id);
+            return View(survey);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

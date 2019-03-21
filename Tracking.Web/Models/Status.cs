@@ -9,6 +9,6 @@ namespace Tracking.Web.Models
     {
         public string Name { get; set; }
         // relationship with Intervantions
-        List<Survey> Surveys { get; set; }
+        public List<Survey> Surveys { get; set; }
     }
 }

@@ -1,0 +1,12 @@
+﻿@model Survey
+
+@{
+    ViewData["Title"] = "Survey";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Survey</h1>
+<h4>@Model.Title</h4>
+<p>
+    @Html.DisplayFor(modelItem => Model.SurveySeverity)
+</p>

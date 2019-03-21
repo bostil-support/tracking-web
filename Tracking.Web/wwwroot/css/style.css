@@ -85,7 +85,7 @@ main {
     grid-template-columns: 3fr 3fr 250px 81px;
     border: 1px solid #C0C5C9;
     background: #FFFFFF;
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 .card-item {
