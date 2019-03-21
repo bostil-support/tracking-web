@@ -253,11 +253,13 @@ namespace Tracking.DbInitialize.Providers
         }
 
         /// <summary>
-        /// import interventions
+        /// import surveys
         /// </summary>
         /// <returns></returns>
         public void SetInitializeSurveys()
         {
+            // remove all rows in table
+            //_db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Surveys]");
             using (var package = new ExcelPackage(_fileInfo))
             {
                 var workSheet = package.Workbook.Worksheets["Interventions"];
@@ -266,7 +268,6 @@ namespace Tracking.DbInitialize.Providers
 
                 try
                 {
-
                     for (int i = 4; i <= totalRows; i++)
                     {
                         surveyList.Add(new Survey
@@ -274,6 +275,7 @@ namespace Tracking.DbInitialize.Providers
                             Id = Int32.Parse(workSheet.Cells[i, 16].Value.ToString()),
                             InterventionId = Int32.Parse(workSheet.Cells[i, 6].Value.ToString()),
                             LegalEntityId = Int32.Parse(workSheet.Cells[i, 2].Value.ToString()),
+                            LegalEntity = _db.LegalEntities.Find(Int32.Parse(workSheet.Cells[i, 2].Value.ToString())),
                             Title = workSheet.Cells[i, 17].Value.ToString(),
                             Description = workSheet.Cells[i, 18].Value.ToString(),
                             SurveySeverity = workSheet.Cells[i, 21].Value.ToString(),

@@ -1,0 +1,17 @@
+﻿@model Intervention
+
+<div class="day">
+    <div>
+        <span class="date-text bold">
+            @Model.Title
+        </span>
+        <span class="date">
+            Data inserimento: 12-01-2019
+        </span>
+    </div>
+    <div>
+        @foreach (var survey in Model.Surveys.Take(4))
+        {
+            @Html.Partial("_SurveySummary", survey)
+        }
+</div>

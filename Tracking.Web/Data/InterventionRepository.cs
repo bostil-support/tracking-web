@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,11 @@ namespace Tracking.Web.Data
         public InterventionRepository(ApplicationDbContext con)
         {
             _context = con;
+        }
+
+        public List<Intervention> GetInterventionsWithSurveys()
+        {
+            return _context.Interventions.Include(x => x.Surveys).ToList();
         }
 
         public Survey GetSurveyById(int id)

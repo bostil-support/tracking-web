@@ -21,7 +21,8 @@ namespace Tracking.Web.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return View();
+            var interventions = _rep.GetInterventionsWithSurveys();
+            return View(interventions);
         }
 
         public IActionResult About()

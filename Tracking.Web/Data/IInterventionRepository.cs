@@ -8,6 +8,7 @@ namespace Tracking.Web.Data
 {
     public interface IInterventionRepository
     {
+        List<Intervention> GetInterventionsWithSurveys();
         Survey GetSurveyById(int id);
     }
 }
