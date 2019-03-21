@@ -6,8 +6,8 @@ using Tracking.Web.Models;
 
 namespace Tracking.Web.Data
 {
-    public class IInterventionRepository
+    public interface IInterventionRepository
     {
-        IQueryable<Intervention> Interventions { get; }
+        Survey GetSurveyById(int id);
     }
 }
