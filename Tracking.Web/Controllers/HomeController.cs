@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
+using Tracking.Web.Models.ViewModel;
 
 namespace Tracking.Web.Controllers
 {
@@ -25,25 +26,6 @@ namespace Tracking.Web.Controllers
             return View(interventions);
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -53,7 +35,31 @@ namespace Tracking.Web.Controllers
         public IActionResult Show(int id)
         {
             var survey = _rep.GetSurveyById(id);
-            return View(survey);
+            var currentStatus = _rep.GetStatusById(survey.StatusId);
+            var allStatuses = _rep.GetStatusesAsSelectList();
+            var allRiskTypes = _rep.GetAllRiskTypes();
+            var currentTypeRisk = _rep.GetRiskById(survey.RiskTypeId);
+            var surveyNotes = _rep.GetNotesForSurvey(id);
+
+
+            var survyViewModel = new SurveyViewModel
+            {
+                Title = survey.Title,
+                Description = survey.Description,
+                Status = currentStatus.Name,
+                Statuses = allStatuses,
+                ImportDownloadDate = survey.ImportDownloadDate,
+                SurveySeverity = survey.SurveySeverity,
+                ValidatorAttribute = survey.ValidatorAttribute,
+                UserName = survey.UserName,
+                ScrepArea = survey.ScrepArea,
+                SrepCluster = survey.SrepCluster,
+                RiskType = currentTypeRisk,
+                RiskTypes = allRiskTypes,
+                Notes = surveyNotes
+            };
+            
+            return View(survyViewModel);
         }
     }
 }
