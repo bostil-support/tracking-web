@@ -3,11 +3,6 @@
     margin: 0;
     font-size: 14px;
     font-family: 'Lato';
-/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
-for details on configuring this project to bundle and minify static web assets. */
-body {
-    padding-top: 0px;
-    padding-bottom: 0px;
 }
 
 

@@ -1,33 +1,14 @@
 ﻿@model IEnumerable<Intervention>
 
-@model List<Tracking.Web.Models.Intervention>
-
 @{
-    ViewData["Title"] = "AllSurveys";
+    ViewData["Title"] = "Home Page";
 }
+
 <div class="big-label">
     <h2>Elenco rilievi/azioni di mitigazione</h2>
     <div class="filters">
         <div class="label">
             filtri
-
-<link rel="stylesheet" href="~/css/style.css">
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-<main class="page-main">
-    <div class="big-label">
-        <h2>
-            Elenco rilievi/azioni di mitigazione
-        </h2>
-        <div class="filters">
-            <div class="filters__label">
-                <div class="filters__exchange-icon">
-                    <svg width="15" height="15" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="exchange-alt" class="svg-inline--fa fa-exchange-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M0 168v-16c0-13.255 10.745-24 24-24h360V80c0-21.367 25.899-32.042 40.971-16.971l80 80c9.372 9.373 9.372 24.569 0 33.941l-80 80C409.956 271.982 384 261.456 384 240v-48H24c-13.255 0-24-10.745-24-24zm488 152H128v-48c0-21.314-25.862-32.08-40.971-16.971l-80 80c-9.372 9.373-9.372 24.569 0 33.941l80 80C102.057 463.997 128 453.437 128 432v-48h360c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24z"></path></svg>
-                </div>
-                <span class="filters__label-text">filtri</span>
-                <div class="filters__arrow-icon">
-                    <svg width="15" height="15" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
-                </div>
-            </div>
         </div>
         <div class="filters-popover">
             <fieldset>
@@ -70,110 +51,7 @@
                 <input id="relevance3" type="checkbox" />
                 <label for="relevance3">Medio-Basso</label><br>
             </fieldset>
-            <div class="filters__popover">
-                <fieldset>
-                    <legend class="legend">Legal entity</legend>
-                    <hr>
-                    <input class="filters-checkbox" id="legalEntry1" type="checkbox" />
-                    <label for="legalEntry1">CR di Rovereto</label><br>
-                    <input class="filters-checkbox" id="legalEntry2" type="checkbox" />
-                    <label for="legalEntry2">BCC dell’Alto Tirreno</label><br>
-                    <input class="filters-checkbox" id="legalEntry3" type="checkbox" />
-                    <label for="legalEntry3">Bene Banca</label><br>
-                </fieldset>
-                <fieldset>
-                    <legend class="legend">Owner azione correttiva</legend>
-                    <hr>
-                    <input class="filters-checkbox" id="correctiveAction1" type="checkbox" />
-                    <label for="correctiveAction1">Direzione generale</label><br>
-                    <input class="filters-checkbox" id="correctiveAction2" type="checkbox" />
-                    <label for="correctiveAction2">Segreteria Generale</label><br>
-                    <input class="filters-checkbox" id="correctiveAction3" type="checkbox" name="" />
-                    <label for="correctiveAction3">Ufficio Personale</label><br>
-                </fieldset>
-                <fieldset>
-                    <legend class="legend">Stato azione correttiva</legend>
-                    <hr>
-                    <input class="filters-checkbox" id="actionStatus1" type="checkbox" name="" />
-                    <label for="actionStatus1">In corso</label><br>
-                    <input class="filters-checkbox" id="actionStatus2" type="checkbox" name="" />
-                    <label for="actionStatus2">Chiusa</label><br>
-                    <input class="filters-checkbox" id="actionStatus3" type="checkbox" name="" />
-                    <label for="actionStatus3">Annullata</label><br>
-                </fieldset>
-                <fieldset>
-                    <legend class="legend">Severità rilievo</legend>
-                    <hr>
-                    <input class="filters-checkbox" id="relevance1" type="checkbox" />
-                    <label for="relevance1">Alto</label><br>
-                    <input class="filters-checkbox" id="relevance2" type="checkbox" />
-                    <label for="relevance2">Medio-Alto</label><br>
-                    <input class="filters-checkbox" id="relevance3" type="checkbox" />
-                    <label for="relevance3">Medio-Basso</label><br>
-                </fieldset>
-            </div>
         </div>
-    </div>
-    <div class="main-content">
-    @foreach (var item in Model)
-    {
-        <div class="day">
-            <div>
-                <span class="date-text bold">
-                    @item.Title
-                </span>
-                <span class="date">
-                    Data inserimento: 12-01-2019
-                </span>
-            </div>
-            <div>
-                @foreach (var surv in item.Surveys)
-                {
-                    <div class="card">
-                        <div class="card-item card-info">
-                            <div class="card-id bold">
-                                ID @surv.Id | bank_name
-                                <div class="id-info">
-                                    <img src="~/images/info.png" alt="?" />
-                                    <div class="card-popover">
-                                        <div class="popover-body">
-                                            Aggiornamenti non visualizzati
-                                        </div>
-                                        <div class="triangle"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-title bold">
-                                @surv.Title
-                            </div>
-                            <div class="card-severity">
-                                Severità rilievo:
-                                <span class="severity-value bold">
-                                    @surv.SurveySeverity
-                                </span>
-                            </div>
-                        </div>
-                        <div class="card-item card-action">
-                            <div class="content">
-                                <span class="action-title bold">Azione di mitigazione: </span>
-                                @surv.ActionDescription
-                                <span class="more">Riduci</span>
-                            </div>
-                        </div>
-                        <div class="card-item card-status">
-                            <div>Scadenza rilievo:<span class="bold">@surv.DueDateLocal</span></div>
-                            <div>Stato rilievo:<span class="bold">Status</span></div>
-                        </div>
-                        <div class="card-button">
-                            <a class="card-button__link" href="list-items/list-item-1.html" target="_blank">
-                                <img src="~/images/arrow.png" alt="go" />
-                            </a>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    }       
     </div>
 </div>
 <div class="main-content">
@@ -182,6 +60,3 @@
         @Html.Partial("_InterventionSummary", item)
     }
 </div>
-</main>
-<script src="~/js/index.js"></script>
-<script src="~/js/Intervention.js"></script>

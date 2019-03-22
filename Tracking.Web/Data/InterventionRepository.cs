@@ -102,10 +102,5 @@ namespace Tracking.Web.Data
             //return _context.Surveys.Include(x => x.Intervention).Include(x => x.Status).ToList();
             return _context.Interventions.Include(x => x.Surveys).ToList();
         }
-
-        public Survey GetSurveyById(int id)
-        {
-            return _context.Surveys.SingleOrDefault(p => p.Id == id);
-        }
     }
 }

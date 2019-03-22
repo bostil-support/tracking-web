@@ -14,7 +14,7 @@ namespace Tracking.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IInterventionRepository _rep; 
+        private IInterventionRepository _rep;
         public HomeController(IInterventionRepository repo)
         {
             _rep = repo;
@@ -22,28 +22,18 @@ namespace Tracking.Web.Controllers
 
         [Authorize]
         public IActionResult Index()
-        private IInterventionRepository _repository;
-
-        public HomeController(IInterventionRepository repo)
         {
             var interventions = _rep.GetInterventionsWithSurveys();
             return View(interventions);
-            _repository = repo;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
-        [Authorize]
-        public IActionResult Index()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-            var list = _repository.GetAll();
-            
-            return View(list);
         }
 
         public IActionResult Show(int id)
-        public IActionResult Privacy()
         {
             var survey = _rep.GetSurveyById(id);
             var currentStatus = _rep.GetStatusById(survey.StatusId);
@@ -71,20 +61,10 @@ namespace Tracking.Web.Controllers
                 Notes = surveyNotes,
                 LegalEntity = survey.LegalEntity,
                 ActionOwner = survey.ActionOwner,
-                ActionDescription = survey.ActionDescription              
+                ActionDescription = survey.ActionDescription
             };
-            
-            return View(survyViewModel);
-        public IActionResult Show(int id)
-        {
-            var survey = _repository.GetSurveyById(id);
-            return View(survey);
-        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(survyViewModel);
         }
     }
 }

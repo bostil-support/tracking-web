@@ -23,6 +23,5 @@ namespace Tracking.Web.Data
 
         List<Note> GetNotesForSurvey(int surveyId); 
         List<Intervention> GetAll();
-        Survey GetSurveyById(int id);
     }
 }
