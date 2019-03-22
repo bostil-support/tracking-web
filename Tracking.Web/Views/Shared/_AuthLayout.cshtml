@@ -9,13 +9,16 @@
         <link rel="stylesheet" href="~/css/auth.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/css/auth.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
-   <div class="auth-content">
-        @RenderBody()
-   </div>
+    <div class="app-name">Tracking App</div>
+    @RenderBody()
+
+    <div class="bottom-logo">
+        <img src="~/images/bottom-login-logo.png" />
+    </div>   
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
