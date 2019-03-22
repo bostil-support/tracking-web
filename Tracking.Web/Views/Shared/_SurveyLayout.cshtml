@@ -6,19 +6,32 @@
     <title>@ViewData["Title"] - Tracking.Web</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/css/auth.css" />
+        <link rel="stylesheet" href="~/css/detail-survey.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/detail-survey.css" asp-append-version="true" />
     </environment>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
-    <div class="app-name">Tracking App</div>
-    @RenderBody()
+    <header>
+        <div class="logo-container">
+            <img class="logo" src="~/images/logo.png" alt="">
+        </div>
+        <div class="header-container">
+            <p class="header">Tracking</p>
+            <p class="copyright">© The AvantGarde Group 2017 - Vers. 1.0.0.2</p>
+        </div>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
 
-    <div class="bottom-logo">
-        <img src="~/images/bottom-login-logo.png" />
-    </div>   
+    <footer>
+        <div class="footer">
+            <img class="bottom-logo" src="~/images/bottom-logo.png" alt="logo">
+        </div>
+    </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -33,12 +46,6 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
-    <script>
-        $(document).ready(function () {
-            openModalForm();
-        });
-    </script>
 
     @RenderSection("Scripts", required: false)
 </body>

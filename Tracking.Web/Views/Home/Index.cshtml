@@ -1,9 +1,16 @@
-﻿@model List<Tracking.Web.Models.Intervention>
+﻿@model IEnumerable<Intervention>
+
+@model List<Tracking.Web.Models.Intervention>
 
 @{
     ViewData["Title"] = "AllSurveys";
 }
 
+<div class="big-label">
+    <h2>Elenco rilievi/azioni di mitigazione</h2>
+    <div class="filters">
+        <div class="label">
+            filtri
 
 <link rel="stylesheet" href="~/css/style.css">
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -22,6 +29,48 @@
                     <svg width="15" height="15" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg>
                 </div>
             </div>
+        </div>
+        <div class="filters-popover">
+            <fieldset>
+                <legend class="legend">Legal entity</legend>
+                <hr>
+                <input id="legalEntry1" type="checkbox" />
+                <label for="legalEntry1">CR di Rovereto</label><br>
+                <input id="legalEntry2" type="checkbox" />
+                <label for="legalEntry2">BCC dell’Alto Tirreno</label><br>
+                <input id="legalEntry3" type="checkbox" />
+                <label for="legalEntry3">Bene Banca</label><br>
+            </fieldset>
+            <fieldset>
+                <legend class="legend">Owner azione correttiva</legend>
+                <hr>
+                <input id="correctiveAction1" type="checkbox" />
+                <label for="correctiveAction1">Direzione generale</label><br>
+                <input id="correctiveAction2" type="checkbox" />
+                <label for="correctiveAction2">Segreteria Generale</label><br>
+                <input id="correctiveAction3" type="checkbox" name="" />
+                <label for="correctiveAction3">Ufficio Personale</label><br>
+            </fieldset>
+            <fieldset>
+                <legend class="legend">Stato azione correttiva</legend>
+                <hr>
+                <input id="actionStatus1" type="checkbox" name="" />
+                <label for="actionStatus1">In corso</label><br>
+                <input id="actionStatus2" type="checkbox" name="" />
+                <label for="actionStatus2">Chiusa</label><br>
+                <input id="actionStatus3" type="checkbox" name="" />
+                <label for="actionStatus3">Annullata</label><br>
+            </fieldset>
+            <fieldset>
+                <legend class="legend">Severità rilievo</legend>
+                <hr>
+                <input id="relevance1" type="checkbox" />
+                <label for="relevance1">Alto</label><br>
+                <input id="relevance2" type="checkbox" />
+                <label for="relevance2">Medio-Alto</label><br>
+                <input id="relevance3" type="checkbox" />
+                <label for="relevance3">Medio-Basso</label><br>
+            </fieldset>
             <div class="filters__popover">
                 <fieldset>
                     <legend class="legend">Legal entity</legend>
@@ -127,6 +176,13 @@
         </div>
     }       
     </div>
+</div>
+<div class="main-content">
+    @foreach (var item in Model)
+    {
+        @Html.Partial("_InterventionSummary", item)    
+    }
+</div>
 </main>
 <script src="~/js/index.js"></script>
 <script src="~/js/Intervention.js"></script>

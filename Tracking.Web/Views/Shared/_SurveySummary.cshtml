@@ -1,0 +1,46 @@
+﻿@model Survey
+
+<div class="card">
+    <div class="card-item card-info">
+        <div class="card-id bold">
+            ID @Model.Id | CR di Rovereto
+            <div class="id-info">
+                <img src="~/images/info.png" alt="?" />
+                <div class="card-popover">
+                    <div class="popover-body">
+                        Aggiornamenti non visualizzati
+                    </div>
+                    <div class="triangle"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-title bold">
+            @Model.Title
+        </div>
+        <div class="card-severity">
+            Severità rilievo:
+            <span class="severity-value bold">
+                @Model.SurveySeverity
+            </span>
+        </div>
+    </div>
+    <div class="card-item card-action">
+        <div class="content">
+            <span class="action-title bold">Azione di mitigazione:</span>
+            @Model.Description
+            <span class="more">Riduci</span>
+        </div>
+    </div>
+    <div class="card-item card-status">
+        <div>
+            Scadenza rilievo:<span class="bold">@Model.DueDateOriginal</span>
+        </div>
+        <div>
+            Stato rilievo:<span class="bold">In corso</span>
+        </div>
+    </div>
+    <div class="card-button">
+        <img src="~/images/arrow.png" alt="go" />
+    </div>
+</div>
+

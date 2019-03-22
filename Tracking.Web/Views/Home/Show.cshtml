@@ -1,4 +1,138 @@
-﻿@model Survey
+﻿@model Tracking.Web.Models.ViewModel.SurveyViewModel
+
+@{
+    ViewData["Title"] = "Survey";
+    Layout = "~/Views/Shared/_SurveyLayout.cshtml";
+}
+
+<div class="big-label">
+    <h2>
+        Elenco rilievi/azioni di mitigazione
+    </h2>
+</div>
+
+<div class="main-content">
+        <div class="card">
+            <div class="card-header">Dati rilievo</div>
+            <div class="card-item">
+                <div>Severità</div>
+                <div class="bold">@Model.SurveySeverity</div>
+            </div>
+            <div class="card-item">
+                <div>Titolo</div>
+                <div class="bold">@Model.Title</div>
+                <div>ID</div>
+                <div class="bold">@Model.Id</div>
+            </div>
+            <div class="card-item">
+                <div>Utente Censimento</div>
+                <div class="bold">@Model.UserName</div>
+                <div>Validatore</div>
+                <div class="bold">@Model.ValidatorAttribute</div>
+            </div>
+            <div class="card-item description">
+                <div>Descrizione</div>
+                <div class="bold full-line">
+                    @Model.Description
+                </div>
+            </div>
+            <div class="edit-container">
+                <img src="~/images/edit.png" alt="edit">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Legal entity</div>
+            <div class="card-item">
+                <div>Denom. Legal Entity</div>
+                <div class="bold">@Model.LegalEntity.Name</div>
+                <div>Cod. Legal Entity</div>
+                <div class="bold">@Model.LegalEntity.Id</div>
+            </div>
+            <div class="edit-container">
+                <img src="~/images/edit.png" alt="edit">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Normativa</div>
+            <div class="card-item">
+                <div>Area Normativa</div>
+                <div class="bold">@Model.SrepCluster</div>
+                <div>Macro Requisito Normativo</div>
+                <div class="bold">@Model.ScrepArea</div>
+            </div>
+            <div class="edit-container">
+                <img src="~/images/edit.png" alt="edit">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Azione di mitigazione</div>
+            <div class="card-item">
+                <div>Owner</div>
+                <div class="bold">@Model.ActionOwner</div>
+            </div>
+            <div class="card-item description">
+                <div>Descrizione</div>
+                <div class="bold full-line">
+                    @Model.ActionDescription
+                </div>
+            </div>
+            <div class="edit-container">
+                <img src="~/images/edit.png" alt="edit">
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="bold">Stato</div>
+            <select asp-for="StatusId" asp-items="@Model.Statuses"></select>
+               
+            <div class="bold">Nuova Data Scadenza</div>
+            <input type="date">
+
+            <div class="bold align-top">Storico note</div>
+            <div class="notes full-line">
+                <div class="blue">Visualizza tutti<img class="plus" src="images/plus.png"></div>
+                <hr>
+
+                <div>
+                    <div class="bold">Business User</div>
+                    <div class="gray">10:13 AM 12/12/2019</div>
+                </div>
+                <div>
+                    La data di scadenza iniziale risulta troppo prossima e non permette di completare tutte le procedure necessarie per poter concludere entro la data. Chiedo approvazione a nuova di scadenza al 12/12/2019.
+                </div>
+
+                <div>
+                    <div class="bold">Operatore</div>
+                    <div class="gray">12:12 AM 12/12/2019</div>
+                </div>
+                <div>
+                    <div>Richiesta nuova data di scadenza approvata.</div>
+                    <div class="blue">
+                        <img class="clip" src="images/clip-blue.png">
+                        Nomefile.pdf
+                    </div>
+                </div>
+            </div>
+
+            <div class="bold align-top">Aggiungi nota</div>
+            <div class="textarea-container full-line">
+                <textarea placeholder="Note"></textarea>
+                <img class="clip" src="images/clip-black.png">
+                <input type="button" class="primary" value="INSERISCI NOTA">
+            </div>
+
+            <div class="button-container">
+                <input type="button" value="ANNULLA">
+                <input type="button" class="primary" value="SALVA">
+            </div>
+        </div>
+    </div>
+
+
+@model Survey
 
 @{
     ViewData["Title"] = "Survey";
