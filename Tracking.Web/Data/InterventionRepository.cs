@@ -32,7 +32,7 @@ namespace Tracking.Web.Data
         /// <returns></returns>
         public Survey GetSurveyById(int id)
         {
-            return _context.Surveys.SingleOrDefault(p => p.Id == id);
+            return _context.Surveys.Include(x=>x.LegalEntity).SingleOrDefault(p => p.Id == id);
         }
 
         /// <summary>

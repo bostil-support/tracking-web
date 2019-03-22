@@ -5,7 +5,6 @@
 @{
     ViewData["Title"] = "AllSurveys";
 }
-
 <div class="big-label">
     <h2>Elenco rilievi/azioni di mitigazione</h2>
     <div class="filters">
@@ -180,7 +179,7 @@
 <div class="main-content">
     @foreach (var item in Model)
     {
-        @Html.Partial("_InterventionSummary", item)    
+        @Html.Partial("_InterventionSummary", item)
     }
 </div>
 </main>

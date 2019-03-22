@@ -55,6 +55,7 @@ namespace Tracking.Web.Controllers
 
             var survyViewModel = new SurveyViewModel
             {
+                Id = survey.Id,
                 Title = survey.Title,
                 Description = survey.Description,
                 Status = currentStatus.Name,
@@ -67,7 +68,10 @@ namespace Tracking.Web.Controllers
                 SrepCluster = survey.SrepCluster,
                 RiskType = currentTypeRisk,
                 RiskTypes = allRiskTypes,
-                Notes = surveyNotes
+                Notes = surveyNotes,
+                LegalEntity = survey.LegalEntity,
+                ActionOwner = survey.ActionOwner,
+                ActionDescription = survey.ActionDescription              
             };
             
             return View(survyViewModel);

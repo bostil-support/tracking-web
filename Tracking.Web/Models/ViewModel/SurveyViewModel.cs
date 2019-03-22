@@ -25,6 +25,11 @@ namespace Tracking.Web.Models.ViewModel
         public List<SelectListItem> Statuses { get; set; }
 
         /// <summary>
+        /// status
+        /// </summary>
+        public string Status { get; set; }
+
+        /// <summary>
         /// Survey title
         /// </summary>
         public string Title { get; set; }
