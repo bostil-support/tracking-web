@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
-using Tracking.Web.Data;
+
 
 namespace Tracking.Web.Controllers
 {

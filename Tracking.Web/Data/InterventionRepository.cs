@@ -6,8 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
-using Tracking.Web.Models;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace Tracking.Web.Data
 {
