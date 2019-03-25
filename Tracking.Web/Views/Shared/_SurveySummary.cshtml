@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-item card-info">
         <div class="card-id bold">
-            ID @Model.Id | CR di Rovereto
+            ID @Model.Id | @Model.LegalEntity.Name
             <div class="id-info">
                 <img src="~/images/info.png" alt="?" />
                 <div class="card-popover">
@@ -33,10 +33,10 @@
     </div>
     <div class="card-item card-status">
         <div>
-            Scadenza rilievo:<span class="bold">@Model.DueDateOriginal</span>
+            Scadenza rilievo:<span class="bold">@Model.DueDateOriginal.ToShortDateString()</span>
         </div>
         <div>
-            Stato rilievo:<span class="bold">In corso</span>
+            Stato rilievo:<span class="bold">@Model.Status.Name</span>
         </div>
     </div>
     <div class="card-button">

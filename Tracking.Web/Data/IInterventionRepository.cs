@@ -7,7 +7,9 @@ namespace Tracking.Web.Data
 {
     public interface IInterventionRepository
     {
-        List<Intervention> GetInterventionsWithSurveys();
+        List<Intervention> GetAllInterventions();
+
+        List<Survey> GetAllSurveys();
 
         Survey GetSurveyById(int id);
 
@@ -22,6 +24,5 @@ namespace Tracking.Web.Data
         RiskType GetRiskById(int id);
 
         List<Note> GetNotesForSurvey(int surveyId); 
-        List<Intervention> GetAll();
     }
 }

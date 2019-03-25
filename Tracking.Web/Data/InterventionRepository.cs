@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
-using Tracking.Web.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Tracking.Web.Data
 {
@@ -20,9 +18,24 @@ namespace Tracking.Web.Data
             _context = con;
         }
 
-        public List<Intervention> GetInterventionsWithSurveys()
+        /// <summary>
+        /// Get interventions
+        /// </summary>
+        /// <returns></returns>
+        public List<Intervention> GetAllInterventions()
         {
+            var statues = GetAllStatuses();
+            var surv = GetAllSurveys();
             return _context.Interventions.Include(x => x.Surveys).ToList();
+        }
+
+        /// <summary>
+        /// get surveys
+        /// </summary>
+        /// <returns></returns>
+        public List<Survey> GetAllSurveys()
+        {
+            return _context.Surveys.Include(x => x.LegalEntity).ToList();
         }
 
         /// <summary>
@@ -45,7 +58,6 @@ namespace Tracking.Web.Data
             return _context.Statuses.Find(id);
         }
 
-
         /// <summary>
         /// Find Status by id
         /// </summary>
@@ -59,7 +71,7 @@ namespace Tracking.Web.Data
         }
 
         /// <summary>
-        /// Get Statuse
+        /// Get Statuses
         /// </summary>
         /// <returns></returns>
         public List<Status> GetAllStatuses()
@@ -94,13 +106,6 @@ namespace Tracking.Web.Data
         public List<Note> GetNotesForSurvey(int surveyId)
         {
             return _context.Notes.Where(p => p.SurveyId == surveyId).ToList();
-        }
-
-
-        public List<Intervention> GetAll()
-        {
-            //return _context.Surveys.Include(x => x.Intervention).Include(x => x.Status).ToList();
-            return _context.Interventions.Include(x => x.Surveys).ToList();
         }
     }
 }

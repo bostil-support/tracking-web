@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
-using Tracking.Web.Data;
 
 namespace Tracking.Web.Controllers
 {
@@ -23,7 +22,7 @@ namespace Tracking.Web.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            var interventions = _rep.GetInterventionsWithSurveys();
+            var interventions = _rep.GetAllInterventions();
             return View(interventions);
         }
 
