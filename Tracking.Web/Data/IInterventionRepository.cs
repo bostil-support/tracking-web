@@ -23,6 +23,18 @@ namespace Tracking.Web.Data
 
         RiskType GetRiskById(int id);
 
-        List<Note> GetNotesForSurvey(int surveyId); 
+        List<Note> GetNotesForSurvey(int surveyId);
+
+        void CreateNote(Note item);
+
+        void CreateFile(File item);
+
+        List<File> GetAllFiles();
+
+        File GetFileByPath(string path);
+
+        List<TrackingUser> GetAllUsers();
+
+        List<Intervention> GetInterventionsByFilterSurveys(string surveySeverit);
     }
 }

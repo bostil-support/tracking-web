@@ -1,0 +1,21 @@
+﻿@model Note
+
+<link rel="stylesheet" href="~/css/detail-survey.css" />
+<div class="bold align-top">Aggiungi nota</div>
+<div>
+    <form enctype="multipart/form-data" id="formNote" asp-controller="Home" asp-action="AddNote">
+        <div class="textarea-container full-line" id="area">
+            <textarea placeholder="Note" asp-for="Description"></textarea>
+            <input type="text" hidden="hidden" value="126" asp-for="UserId" />
+            <input type="text" hidden="hidden" value="1805" asp-for="SurveyId" />
+            <img class="clip" src="~/images/clip-black.png" onclick="document.getElementById('attachFile').click()">
+            <div>
+                <label>
+                    <span id="fileName"></span>
+                    <input type="file" hidden="hidden" name="file" id="attachFile" />
+                </label>
+            </div>
+            <input type="submit" class="primary" value="INSERISCI NOTA" />
+        </div>
+    </form>
+</div>

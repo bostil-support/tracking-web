@@ -110,6 +110,7 @@ main {
 
 .bold {
     font-weight: bold;
+    overflow:no-display;
 }
 
 .gray {
@@ -152,7 +153,7 @@ main {
 
 .notes {
     display: grid;
-    grid-template-columns: 140px 1fr;
+    grid-template-columns: minmax(140px, max-content) 1fr;
     grid-gap: 20px;
 }
 
@@ -172,14 +173,19 @@ main {
         height: 14px;
     }
 
-.textarea-container {
-    position: relative;
+form {
+    grid-column: 1/-1;
 }
 
-    .textarea-container textarea {
-        width: calc(100% - 6px);
-        height: 100px;
-    }
+.textarea-container {
+    position: relative;
+    
+}
+
+.textarea-container textarea {
+    width: calc(100% - 6px);
+    height: 100px;
+}
 
     .textarea-container img.clip {
         position: absolute;
@@ -202,11 +208,11 @@ main {
     grid-column: 1 / -1;
 }
 
-    .button-container input {
-        margin-left: 20px;
-    }
+.button-container input {
+    margin-left: 20px;
+}
 
-input[type=button] {
+input[type=button], input[type=submit] {
     background: white;
     border: 1px solid #C0C5C9;
     width: 150px;
@@ -216,7 +222,7 @@ input[type=button] {
     font-weight: bold;
 }
 
-    input[type=button].primary {
-        background: #3095BA;
-        color: #FFFFFF;
-    }
+input[type=submit].primary, input[type=button].primary {
+    background: #3095BA;
+    color: #FFFFFF;
+}

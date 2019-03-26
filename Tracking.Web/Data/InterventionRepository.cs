@@ -105,7 +105,43 @@ namespace Tracking.Web.Data
         /// <returns></returns>
         public List<Note> GetNotesForSurvey(int surveyId)
         {
-            return _context.Notes.Where(p => p.SurveyId == surveyId).ToList();
+            var files = GetAllFiles();
+            var users = GetAllUsers();
+            return _context.Notes.Include(x => x.User).Where(p => p.SurveyId == surveyId).ToList();
+        }
+
+        public void CreateNote(Note item)
+        {
+            _context.Notes.Add(item);
+            _context.SaveChanges();
+        }
+
+        public void CreateFile(File item)
+        {
+            _context.Files.Add(item);
+            _context.SaveChanges();           
+        }
+
+        public File GetFileByPath(string path)
+        {
+            return _context.Files.FirstOrDefault(x => x.FilePath == path);
+        }
+
+        public List<TrackingUser> GetAllUsers()
+        {
+            return _context.Users.ToList();
+        }
+
+        public List<File> GetAllFiles()
+        {
+            return _context.Files.ToList();
+        }
+
+        public List<Intervention> GetInterventionsByFilterSurveys(string surveySeverity)
+        {
+            var statues = GetAllStatuses();
+            var surv = _context.Surveys.Where(x => x.SurveySeverity == surveySeverity);
+            return _context.Interventions.Include(x => x.Surveys).ToList();
         }
     }
 }

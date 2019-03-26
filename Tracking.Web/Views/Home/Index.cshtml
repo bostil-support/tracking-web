@@ -60,3 +60,21 @@
         @Html.Partial("_InterventionSummary", item)
     }
 </div>
+
+@section scripts{ 
+    <script>
+        $('input[type=checkbox]').change(function () {
+            var id = $(this).attr('id');
+            var filt = $('label[for="' + id + '"]').text();
+            $.ajax({
+                url: "/Home/Filter?surveySeverity=Alto", 
+                type: "POST",
+                success: GetInterventionsSyccess
+            });
+        });
+
+        function GetInterventionsSyccess() {
+
+        }
+    </script>
+}

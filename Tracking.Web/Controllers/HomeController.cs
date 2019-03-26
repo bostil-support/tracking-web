@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tracking.Web.Data;
@@ -64,6 +66,35 @@ namespace Tracking.Web.Controllers
             };
 
             return View(survyViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddNote(NoteViewModel model)
+        {
+            if (model.file != null)
+            {
+                string filePath = "C:\\TrackingFiles\\" + model.file.FileName;
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.file.CopyTo(stream);
+                }
+
+                _rep.CreateFile(new Models.File(model.file.FileName, filePath));
+
+                var newFile = _rep.GetFileByPath(filePath);
+                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, newFile.Id));
+            }
+            else
+            {
+                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId));
+            }
+            return RedirectToAction("Show", new { id = model.SurveyId });
+        }
+
+        public IActionResult Filter(string surveySeverity)
+        {
+            var interventions = _rep.GetInterventionsByFilterSurveys(surveySeverity);
+            return View("Index", interventions);
         }
     }
 }

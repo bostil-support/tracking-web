@@ -19,6 +19,7 @@ namespace Tracking.Web.Models
         /// <summary>
         /// Attached file
         /// </summary>        
+        public int? FileId { get; set; }
         public File File { get; set; }
 
         /// <summary>
@@ -26,11 +27,20 @@ namespace Tracking.Web.Models
         /// </summary>
         public int UserId { get; set; }
         public TrackingUser User { get; set; }
-
         /// <summary>
         /// relationship with Survey
         /// </summary>
         public int SurveyId { get; set; }
         public Survey Survey { get; set; }
+
+        public Note() { }
+
+        public Note(string Description, int UserId, int SurveyId, int?FileId = null)
+        {
+            this.Description = Description;
+            this.FileId = FileId;
+            this.UserId = UserId;
+            this.SurveyId = SurveyId;
+        }
     }
 }
