@@ -28,12 +28,6 @@ namespace Tracking.Web.Controllers
             return View(interventions);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         public IActionResult Show(int id)
         {
             var survey = _rep.GetSurveyById(id);
@@ -68,33 +62,40 @@ namespace Tracking.Web.Controllers
             return View(survyViewModel);
         }
 
-        [HttpPost]
-        public IActionResult AddNote(NoteViewModel model)
+        [HttpPost] 
+        public void AddNote(NoteViewModel model)
         {
-            if (model.file != null)
+            if (model.File != null)
             {
-                string filePath = "C:\\TrackingFiles\\" + model.file.FileName;
+                string filePath = "C:\\TrackingFiles\\" + model.File.FileName;
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    model.file.CopyTo(stream);
+                    model.File.CopyTo(stream);
                 }
 
-                _rep.CreateFile(new Models.File(model.file.FileName, filePath));
+                _rep.CreateFile(new Models.File(model.File.FileName, filePath));
 
                 var newFile = _rep.GetFileByPath(filePath);
-                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, newFile.Id));
+                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, model.Date, newFile.Id));
             }
             else
             {
-                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId));
+                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, model.Date));
             }
-            return RedirectToAction("Show", new { id = model.SurveyId });
         }
 
-        public IActionResult Filter(string surveySeverity)
+        [HttpGet]
+        public IActionResult Notes(int id)
         {
-            var interventions = _rep.GetInterventionsByFilterSurveys(surveySeverity);
-            return View("Index", interventions);
+            List<Note> list = new List<Note>();
+            list = _rep.GetNotesForSurvey(id);
+            return PartialView(list);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

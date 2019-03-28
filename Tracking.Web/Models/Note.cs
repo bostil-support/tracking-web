@@ -16,6 +16,7 @@ namespace Tracking.Web.Models
         /// </summary>
         [Display(Name = "Aggiungi nota")]
         public string Description { get; set; }
+
         /// <summary>
         /// Attached file
         /// </summary>        
@@ -25,22 +26,29 @@ namespace Tracking.Web.Models
         /// <summary>
         /// User of new note
         /// </summary>
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public TrackingUser User { get; set; }
+
         /// <summary>
         /// relationship with Survey
         /// </summary>
         public int SurveyId { get; set; }
         public Survey Survey { get; set; }
+        
+        /// <summary>
+        /// Date of notice
+        /// </summary>
+        public DateTime Date { get; set; }
 
         public Note() { }
 
-        public Note(string Description, int UserId, int SurveyId, int?FileId = null)
+        public Note(string Description, string UserId, int SurveyId, DateTime Date, int?FileId = null)
         {
             this.Description = Description;
             this.FileId = FileId;
             this.UserId = UserId;
             this.SurveyId = SurveyId;
+            this.Date = Date;
         }
     }
 }

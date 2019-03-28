@@ -16,7 +16,7 @@ namespace Tracking.Web.Models.ViewModel
         /// <summary>
         /// User of new note
         /// </summary>
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// relationship with Survey
@@ -26,6 +26,11 @@ namespace Tracking.Web.Models.ViewModel
         /// <summary>
         /// Attached file
         /// </summary>        
-        public IFormFile file { get; set; }
+        public IFormFile File { get; set; }
+
+        /// <summary>
+        /// Note date
+        /// </summary>
+        public DateTime Date { get; set; }
     }
 }

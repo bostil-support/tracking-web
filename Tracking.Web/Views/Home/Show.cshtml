@@ -89,49 +89,12 @@
         <select asp-for="StatusId" asp-items="@Model.Statuses"></select>
 
         <div class="bold">Nuova Data Scadenza</div>
-        <input type="date">
+        <input type="date" id="dueDateLocal" asp-for="DueDateLocal">
 
         <div class="bold align-top">Storico note</div>
         <div class="notes full-line">
-            <div class="blue">Visualizza tutti<img class="plus" src="~/images/plus.png"></div>
-            <hr>
-
-            <div>
-                <div class="bold">Business User</div>
-                <div class="gray">10:13 AM 12/12/2019</div>
-            </div>
-            <div>
-                La data di scadenza iniziale risulta troppo prossima e non permette di completare tutte le procedure necessarie per poter concludere entro la data. Chiedo approvazione a nuova di scadenza al 12/12/2019.
-            </div>
-
-            <div>
-                <div class="bold">Operatore</div>
-                <div class="gray">12:12 AM 12/12/2019</div>
-            </div>
-            <div>
-                <div>Richiesta nuova data di scadenza approvata.</div>
-                <div class="blue">
-                    <img class="clip" src="~/images/clip-blue.png">
-                    Nomefile.pdf
-                </div>
-            </div>
-            @foreach (var item in Model.Notes)
-            {
-                <div>
-                    <div class="bold">@item.User.UserName</div>
-                    <div class="gray">@Model.DueDateOriginal.ToShortDateString()</div>
-                </div>
-                <div>
-                    @item.Description
-                    @if (item.File != null)
-                    {
-                        <div class="blue">
-                            <img class="clip" src="~/images/clip-blue.png">
-                            @item.File.Title
-                        </div>
-                    }
-                </div>
-            }
+            <div id="notesList"></div>
+            @*@Html.Partial("Notes", Model.Notes)*@
             @Html.Partial("AddNotePartial", Model.Note)
         </div>
         <div class="button-container">
@@ -140,20 +103,19 @@
         </div>
     </div>
 </div>
-
 @section scripts{
     <script>
         window.onload = function () {
             $('#fileName').children().remove();
             $('textarea').val('');
             $('textarea').attr("placeholder", "Note").val('');
+
+            GetNotes();
+
+            $('#surveyId').val(@Model.Id);
         }
 
-        function GetFormSuccess(data) {
-            $('#partialFormNota').html(data);
-        }
-
-        $('#attachFile').change(function (e) {
+        $('#attachfile').change(function (e) {
             var fileName = e.target.files[0].name;
             $('#fileName').append('<div class="blue"> ' + fileName + '</div>');
         });
@@ -168,5 +130,38 @@
 
 
         });
+
+        var dueDateOriginal;
+        $('#dueDateLocal').change(function () {
+             dueDateOriginal = document.getElementById('dueDateLocal').value;
+             console.log(dueDateOriginal);
+        });
+
+        function CreateNote() {
+            var form = $(this);
+            var url = form.attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: GetNotes
+            })
+        }
+
+        function GetNotes() {
+            $.ajax({
+                url: "/Home/Notes?id=" + @Model.Id,
+                type: "Get",
+                success: GetAllNotesSuccess
+            })
+        }
+
+        function GetAllNotesSuccess(data) {
+            $('#notesList').html(data);
+            $('#fileName').children().remove();
+            $('textarea').val('');
+            $('textarea').attr("placeholder", "Note").val('');
+        }
     </script>
 }

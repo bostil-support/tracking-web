@@ -125,6 +125,10 @@ main {
     grid-column: 2 / -1;
 }
 
+#notesList {
+    grid-column: 2 / -1;
+}
+
 .edit-container {
     display: flex;
     flex-direction: row-reverse;
@@ -173,9 +177,9 @@ main {
         height: 14px;
     }
 
-form {
+/*form {
     grid-column: 1/-1;
-}
+}*/
 
 .textarea-container {
     position: relative;
@@ -225,4 +229,9 @@ input[type=button], input[type=submit] {
 input[type=submit].primary, input[type=button].primary {
     background: #3095BA;
     color: #FFFFFF;
+}
+
+#notesList {
+    overflow-y: auto;
+    max-height: 300px;
 }
