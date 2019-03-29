@@ -10,12 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
+using System.Security.Claims;
 
 namespace Tracking.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IInterventionRepository _rep;
+        private readonly IInterventionRepository _rep;
         private readonly IWorkContext _workContext;
 
         public HomeController(IInterventionRepository repo, IWorkContext workContext)
@@ -68,6 +69,8 @@ namespace Tracking.Web.Controllers
         [HttpPost] 
         public void AddNote(NoteViewModel model)
         {
+            var currentUser = _workContext.GetCurrentUserAsync().Result;
+            
             if (model.File != null)
             {
                 string filePath = "C:\\TrackingFiles\\" + model.File.FileName;
@@ -80,8 +83,7 @@ namespace Tracking.Web.Controllers
 
                 var newFile = _rep.GetFileByPath(filePath);
 
-                var note = new Note
-                {
+                var note = new Note {
                     Description = model.Description,
                     UserId = currentUser.Id,
                     SurveyId = model.SurveyId,
@@ -89,7 +91,7 @@ namespace Tracking.Web.Controllers
                     FileId = newFile.Id
                 };
 
-                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, model.Date, newFile.Id));
+                _rep.CreateNote(note);
             }
             else
             {

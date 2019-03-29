@@ -3,7 +3,7 @@ using Tracking.Web.Models;
 
 namespace Tracking.Web.Data
 {
-    interface IWorkContext
+    public interface IWorkContext
     {
         /// <summary>
         /// Gets the current customer
