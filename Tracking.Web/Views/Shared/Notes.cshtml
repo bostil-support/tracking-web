@@ -1,0 +1,21 @@
+﻿@model List<Note>
+<div class="blue">Visualizza tutti<img class="plus" src="~/images/plus.png"></div>
+<hr>
+
+@foreach (var item in Model)
+{
+    <div>
+        <div class="bold">@item.User.UserName</div>
+        <div class="gray">@item.Date</div>
+    </div>
+    <div>
+        @item.Description
+        @if (item.File != null)
+        {
+            <div class="blue">
+                <img class="clip" src="~/images/clip-blue.png">
+                @item.File.Title
+            </div>
+        }
+    </div>
+}

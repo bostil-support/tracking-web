@@ -1,36 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
-
+using System.Security.Claims;
 
 namespace Tracking.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IInterventionRepository _rep;
-        public HomeController(IInterventionRepository repo)
+        private readonly IInterventionRepository _rep;
+        private readonly IWorkContext _workContext;
+
+        public HomeController(IInterventionRepository repo, IWorkContext workContext)
         {
             _rep = repo;
+            _workContext = workContext;
         }
 
         [Authorize]
         public IActionResult Index()
         {
-            var interventions = _rep.GetInterventionsWithSurveys();
+            var interventions = _rep.GetAllInterventions();
             return View(interventions);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         public IActionResult Show(int id)
@@ -65,6 +64,53 @@ namespace Tracking.Web.Controllers
             };
 
             return View(survyViewModel);
+        }
+
+        [HttpPost] 
+        public void AddNote(NoteViewModel model)
+        {
+            var currentUser = _workContext.GetCurrentUserAsync().Result;
+            
+            if (model.File != null)
+            {
+                string filePath = "C:\\TrackingFiles\\" + model.File.FileName;
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.File.CopyTo(stream);
+                }
+
+                _rep.CreateFile(new Models.File(model.File.FileName, filePath));
+
+                var newFile = _rep.GetFileByPath(filePath);
+
+                var note = new Note {
+                    Description = model.Description,
+                    UserId = currentUser.Id,
+                    SurveyId = model.SurveyId,
+                    Date = model.Date,
+                    FileId = newFile.Id
+                };
+
+                _rep.CreateNote(note);
+            }
+            else
+            {
+                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, model.Date));
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Notes(int id)
+        {
+            List<Note> list = new List<Note>();
+            list = _rep.GetNotesForSurvey(id);
+            return PartialView(list);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

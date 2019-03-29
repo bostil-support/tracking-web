@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
-
 
 namespace Tracking.Web.Data
 {
@@ -19,9 +18,24 @@ namespace Tracking.Web.Data
             _context = con;
         }
 
-        public List<Intervention> GetInterventionsWithSurveys()
+        /// <summary>
+        /// Get interventions
+        /// </summary>
+        /// <returns></returns>
+        public List<Intervention> GetAllInterventions()
         {
+            var statues = GetAllStatuses();
+            var surv = GetAllSurveys();
             return _context.Interventions.Include(x => x.Surveys).ToList();
+        }
+
+        /// <summary>
+        /// get surveys
+        /// </summary>
+        /// <returns></returns>
+        public List<Survey> GetAllSurveys()
+        {
+            return _context.Surveys.Include(x => x.LegalEntity).ToList();
         }
 
         /// <summary>
@@ -44,7 +58,6 @@ namespace Tracking.Web.Data
             return _context.Statuses.Find(id);
         }
 
-
         /// <summary>
         /// Find Status by id
         /// </summary>
@@ -58,7 +71,7 @@ namespace Tracking.Web.Data
         }
 
         /// <summary>
-        /// Get Statuse
+        /// Get Statuses
         /// </summary>
         /// <returns></returns>
         public List<Status> GetAllStatuses()
@@ -92,13 +105,42 @@ namespace Tracking.Web.Data
         /// <returns></returns>
         public List<Note> GetNotesForSurvey(int surveyId)
         {
-            return _context.Notes.Where(p => p.SurveyId == surveyId).ToList();
+            var files = GetAllFiles();
+            var users = GetAllUsers();
+            return _context.Notes.Include(x => x.User).Where(p => p.SurveyId == surveyId).ToList();
         }
 
-
-        public List<Intervention> GetAll()
+        public void CreateNote(Note item)
         {
-            //return _context.Surveys.Include(x => x.Intervention).Include(x => x.Status).ToList();
+            _context.Notes.Add(item);
+            _context.SaveChanges();
+        }
+
+        public void CreateFile(File item)
+        {
+            _context.Files.Add(item);
+            _context.SaveChanges();           
+        }
+
+        public File GetFileByPath(string path)
+        {
+            return _context.Files.FirstOrDefault(x => x.FilePath == path);
+        }
+
+        public List<TrackingUser> GetAllUsers()
+        {
+            return _context.Users.ToList();
+        }
+
+        public List<File> GetAllFiles()
+        {
+            return _context.Files.ToList();
+        }
+
+        public List<Intervention> GetInterventionsByFilterSurveys(string surveySeverity)
+        {
+            var statues = GetAllStatuses();
+            var surv = _context.Surveys.Where(x => x.SurveySeverity == surveySeverity);
             return _context.Interventions.Include(x => x.Surveys).ToList();
         }
     }

@@ -47,7 +47,8 @@ namespace Tracking.Web
             services.AddScoped<SignInManager<TrackingUser>, SignInManager<TrackingUser>>();
             services.AddScoped<UserManager<TrackingUser>, UserManager<TrackingUser>>();
             services.AddTransient<IInterventionRepository, InterventionRepository>();
-
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IWorkContext, WorkContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
