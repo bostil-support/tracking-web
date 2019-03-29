@@ -66,37 +66,38 @@ namespace Tracking.Web.Controllers
             return View(survyViewModel);
         }
 
-        [HttpPost] 
+        [HttpPost]
         public void AddNote(NoteViewModel model)
         {
             var currentUser = _workContext.GetCurrentUserAsync().Result;
-            
-            if (model.File != null)
-            {
-                string filePath = "C:\\TrackingFiles\\" + model.File.FileName;
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.File.CopyTo(stream);
-                }
+            DateTime currentDate = DateTime.Now;
 
-                _rep.CreateFile(new Models.File(model.File.FileName, filePath));
+            //if (model.File != null)
+            //{
+            //    string filePath = "C:\\TrackingFiles\\" + model.File.FileName;
+            //    using (var stream = new FileStream(filePath, FileMode.Create))
+            //    {
+            //        model.File.CopyTo(stream);
+            //    }
 
-                var newFile = _rep.GetFileByPath(filePath);
+            //    _rep.CreateFile(new Models.File(model.File.FileName, filePath));
 
-                var note = new Note {
-                    Description = model.Description,
-                    UserId = currentUser.Id,
-                    SurveyId = model.SurveyId,
-                    Date = model.Date,
-                    FileId = newFile.Id
-                };
+            //    var newFile = _rep.GetFileByPath(filePath);
 
-                _rep.CreateNote(note);
-            }
-            else
-            {
-                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, model.Date));
-            }
+            //    var note = new Note {
+            //        Description = model.Description,
+            //        UserId = currentUser.Id,
+            //        SurveyId = model.SurveyId,
+            //        Date = currentDate,
+            //        FileId = newFile.Id
+            //    };
+
+            //    _rep.CreateNote(note);
+            //}
+            //else
+            //{
+            //    _rep.CreateNote(new Note(model.Description, currentUser.Id, model.SurveyId, currentDate));
+            //}
         }
 
         [HttpGet]

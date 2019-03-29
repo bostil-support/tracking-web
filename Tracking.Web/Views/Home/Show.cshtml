@@ -139,22 +139,26 @@
 
         function CreateNote() {
             var form = $("#formNote");
-            var file = new FormData();
-            file.append('file', $('#attachfile')[0].files[0]);
-           
+            var formData = new FormData();
+            formData.append('file', $('#attachfile')[0].files[0]);
+
+            var objArr = [];
+            objArr.push({ "Description": $('textarea').val(), "SurveyId": @Model.Id });
+            formData.append('objArr', JSON.stringify(objArr));
+
             $.ajax({
                 type: "POST",
                 url: "/Home/AddNote",
                 //data: file,  
-                data: JSON.stringify({
-                    Description: $('textarea').val(),
-                    UserId: $('#userId').val(),
-                    SurveyId: $('#surveyId').val(),
-                    Date: $('#dateNote').val(),
+                //contentType: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+                    @*{
+                    Description: objArr[0]['Description'],
+                    SurveyId: @Model.Id,
                     File: file
-                }),
-                //processData: false,
-                //contentType: 'json',
+               },*@
                 success: GetNotes
             })
         }
