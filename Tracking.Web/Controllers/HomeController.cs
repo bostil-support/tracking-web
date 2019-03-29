@@ -65,23 +65,24 @@ namespace Tracking.Web.Controllers
         [HttpPost] 
         public void AddNote(NoteViewModel model)
         {
-            if (model.File != null)
-            {
-                string filePath = "C:\\TrackingFiles\\" + model.File.FileName;
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.File.CopyTo(stream);
-                }
+            //if (model.File != null)
+            //{
+            //    string filePath = "C:\\TrackingFiles\\" + model.File.FileName;
+            //    using (var stream = new FileStream(filePath, FileMode.Create))
+            //    {
+            //        model.File.CopyTo(stream);
+            //    }
 
-                _rep.CreateFile(new Models.File(model.File.FileName, filePath));
+            //    _rep.CreateFile(new Models.File(model.File.FileName, filePath));
 
-                var newFile = _rep.GetFileByPath(filePath);
-                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, model.Date, newFile.Id));
-            }
-            else
-            {
-                _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, model.Date));
-            }
+            //    var newFile = _rep.GetFileByPath(filePath);
+            //    _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, model.Date, newFile.Id));
+            //}
+            //else
+            //{
+            //    _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, model.Date));
+            //}
+            Notes(model.SurveyId);
         }
 
         [HttpGet]

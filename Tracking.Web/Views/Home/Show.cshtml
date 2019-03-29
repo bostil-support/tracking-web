@@ -92,11 +92,11 @@
         <input type="date" id="dueDateLocal" asp-for="DueDateLocal">
 
         <div class="bold align-top">Storico note</div>
-        <div class="notes full-line">
-            <div id="notesList"></div>
+      
+            <div class="notes full-line" id="notesList"></div>
             @*@Html.Partial("Notes", Model.Notes)*@
             @Html.Partial("AddNotePartial", Model.Note)
-        </div>
+     
         <div class="button-container">
             <input type="button" value="ANNULLA" id="annulla">
             <input type="button" class="primary" value="SALVA" id="salva">
@@ -138,13 +138,23 @@
         });
 
         function CreateNote() {
-            var form = $(this);
-            var url = form.attr('action');
-
+            var form = $("#formNote");
+            var file = new FormData();
+            file.append('file', $('#attachfile')[0].files[0]);
+           
             $.ajax({
                 type: "POST",
-                url: url,
-                data: form.serialize(),
+                url: "/Home/AddNote",
+                //data: file,  
+                data: JSON.stringify({
+                    Description: $('textarea').val(),
+                    UserId: $('#userId').val(),
+                    SurveyId: $('#surveyId').val(),
+                    Date: $('#dateNote').val(),
+                    File: file
+                }),
+                //processData: false,
+                //contentType: 'json',
                 success: GetNotes
             })
         }

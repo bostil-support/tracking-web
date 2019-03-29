@@ -3,23 +3,19 @@
 
 <link rel="stylesheet" href="~/css/detail-survey.css" />
 <div class="bold align-top">Aggiungi nota</div>
-<div>
-    <div class="textarea-container full-line" id="area">
-        <form asp-controller="Home" asp-action="AddNote" method="post" enctype="multipart/form-data">
-
-            <textarea placeholder="Note" asp-for="Description"></textarea>
-            <input type="text" hidden="hidden" value="@User.Identity.GetUserId()" asp-for="UserId" />
-            <input type="text" hidden="hidden" asp-for="SurveyId" id="surveyId" />
-            <input type="date" hidden="hidden" asp-for="Date" value="@DateTime.Now" />
-            <img class="clip" src="~/images/clip-black.png" onclick="document.getElementById('attachfile').click()">
-            <div>
-                <label>
-                    <span id="fileName"></span>
-                    <input type="file" hidden="hidden" name="file" id="attachfile"/>
-                </label>
-            </div>
-            <input type="submit" class="primary" value="INSERISCI NOTA" onsubmit="CreateNote()"/>
-
-        </form>
-    </div>
+<div class="textarea-container full-line" id="area">
+    <form asp-controller="Home" asp-action="AddNote" enctype="multipart/form-data" id="formNote">
+        <textarea placeholder="Note"></textarea>
+        <input type="text" hidden="hidden" value="@User.Identity.GetUserId()" id="userId" asp-for="UserId"/>
+        <input type="text" hidden="hidden"  id="surveyId" asp-for="SurveyId"/>
+        <input type="date" hidden="hidden" value="@DateTime.Now" id="dateNote"/>
+        <img class="clip" src="~/images/clip-black.png" onclick="document.getElementById('attachfile').click()">
+        <div>
+            <label>
+                <span id="fileName"></span>
+                <input type="file" hidden="hidden" name="file" id="attachfile" asp-for="File"/>
+            </label>
+        </div>
+        <input type="button" class="primary" value="INSERISCI NOTA" onclick="CreateNote()"/>
+    </form>
 </div>

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,6 +14,7 @@
     </environment>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <script src=" https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+    <script src="~/jquery/dist/jquery.js"></script>
 </head>
 <body>
     <header>
@@ -26,7 +29,7 @@
     <main>
         @RenderBody()
     </main>
-      
+
     <footer>
         <div class="footer">
             <img class="bottom-logo" src="~/images/bottom-logo.png" alt="logo">
@@ -38,15 +41,13 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+        <script asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"
                 crossorigin="anonymous"
                 integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>

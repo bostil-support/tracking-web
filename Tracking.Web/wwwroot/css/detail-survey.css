@@ -177,10 +177,6 @@ main {
         height: 14px;
     }
 
-/*form {
-    grid-column: 1/-1;
-}*/
-
 .textarea-container {
     position: relative;
     
