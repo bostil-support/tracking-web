@@ -16,9 +16,12 @@ namespace Tracking.Web.Controllers
     public class HomeController : Controller
     {
         private IInterventionRepository _rep;
-        public HomeController(IInterventionRepository repo)
+        private readonly IWorkContext _workContext;
+
+        public HomeController(IInterventionRepository repo, IWorkContext workContext)
         {
             _rep = repo;
+            _workContext = workContext;
         }
 
         [Authorize]
@@ -76,6 +79,16 @@ namespace Tracking.Web.Controllers
                 _rep.CreateFile(new Models.File(model.File.FileName, filePath));
 
                 var newFile = _rep.GetFileByPath(filePath);
+
+                var note = new Note
+                {
+                    Description = model.Description,
+                    UserId = currentUser.Id,
+                    SurveyId = model.SurveyId,
+                    Date = model.Date,
+                    FileId = newFile.Id
+                };
+
                 _rep.CreateNote(new Note(model.Description, model.UserId, model.SurveyId, model.Date, newFile.Id));
             }
             else
