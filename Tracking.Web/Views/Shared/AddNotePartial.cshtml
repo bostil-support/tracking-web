@@ -1,12 +1,11 @@
 ﻿@model Note
-@using Microsoft.AspNet.Identity;
+
 
 <link rel="stylesheet" href="~/css/detail-survey.css" />
 <div class="bold align-top">Aggiungi nota</div>
 <div class="textarea-container full-line" id="area">
     <form enctype="multipart/form-data" id="formNote">
         <textarea placeholder="Note"></textarea>
-        <input type="text" hidden="hidden" value="@User.Identity.GetUserId()" id="userId"/>
         <input type="text" hidden="hidden"  id="surveyId" />
         <input type="date" hidden="hidden" value="@DateTime.Now" id="dateNote"/>
         <img class="clip" src="~/images/clip-black.png" onclick="document.getElementById('attachfile').click()">
