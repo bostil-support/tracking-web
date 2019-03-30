@@ -140,25 +140,16 @@
         function CreateNote() {
             var form = $("#formNote");
             var formData = new FormData();
-            formData.append('file', $('#attachfile')[0].files[0]);
-
-            var objArr = [];
-            objArr.push({ "Description": $('textarea').val(), "SurveyId": @Model.Id });
-            formData.append('objArr', JSON.stringify(objArr));
+            formData.append('Description', $('textarea').val());
+            formData.append('File', $('#attachfile')[0].files[0]);
+            formData.append('SurveyId', @Model.Id);
 
             $.ajax({
                 type: "POST",
                 url: "/Home/AddNote",
-                //data: file,  
-                //contentType: false,
                 processData: false,
                 contentType: false,
                 data: formData,
-                    @*{
-                    Description: objArr[0]['Description'],
-                    SurveyId: @Model.Id,
-                    File: file
-               },*@
                 success: GetNotes
             })
         }

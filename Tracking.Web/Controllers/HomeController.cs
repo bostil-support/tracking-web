@@ -72,32 +72,33 @@ namespace Tracking.Web.Controllers
             var currentUser = _workContext.GetCurrentUserAsync().Result;
             DateTime currentDate = DateTime.Now;
 
-            //if (model.File != null)
-            //{
-            //    string filePath = "C:\\TrackingFiles\\" + model.File.FileName;
-            //    using (var stream = new FileStream(filePath, FileMode.Create))
-            //    {
-            //        model.File.CopyTo(stream);
-            //    }
+            if (model.File != null)
+            {
+                string filePath = "C:\\TrackingFiles\\" + model.File.FileName;
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.File.CopyTo(stream);
+                }
 
-            //    _rep.CreateFile(new Models.File(model.File.FileName, filePath));
+                _rep.CreateFile(new Models.File(model.File.FileName, filePath));
 
-            //    var newFile = _rep.GetFileByPath(filePath);
+                var newFile = _rep.GetFileByPath(filePath);
 
-            //    var note = new Note {
-            //        Description = model.Description,
-            //        UserId = currentUser.Id,
-            //        SurveyId = model.SurveyId,
-            //        Date = currentDate,
-            //        FileId = newFile.Id
-            //    };
+                var note = new Note
+                {
+                    Description = model.Description,
+                    UserId = currentUser.Id,
+                    SurveyId = model.SurveyId,
+                    Date = currentDate,
+                    FileId = newFile.Id
+                };
 
-            //    _rep.CreateNote(note);
-            //}
-            //else
-            //{
-            //    _rep.CreateNote(new Note(model.Description, currentUser.Id, model.SurveyId, currentDate));
-            //}
+                _rep.CreateNote(note);
+            }
+            else
+            {
+                _rep.CreateNote(new Note(model.Description, currentUser.Id, model.SurveyId, currentDate));
+            }
         }
 
         [HttpGet]
