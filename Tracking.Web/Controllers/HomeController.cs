@@ -67,37 +67,49 @@ namespace Tracking.Web.Controllers
         }
 
         [HttpPost]
-        public void AddNote(NoteViewModel model)
+        public async Task<IActionResult> AddNote(NoteViewModel model)
         {
             var currentUser = _workContext.GetCurrentUserAsync().Result;
-            DateTime currentDate = DateTime.Now;
 
-            //if (model.File != null)
-            //{
-            //    string filePath = "C:\\TrackingFiles\\" + model.File.FileName;
-            //    using (var stream = new FileStream(filePath, FileMode.Create))
-            //    {
-            //        model.File.CopyTo(stream);
-            //    }
+            if (model.File != null)
+            {
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot",
+                    model.File.FileName);
 
-            //    _rep.CreateFile(new Models.File(model.File.FileName, filePath));
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await model.File.CopyToAsync(stream);
+                }
 
-            //    var newFile = _rep.GetFileByPath(filePath);
+                var file = new Tracking.Web.Models.File(model.File.FileName, path);
+                _rep.CreateFile(file);
 
-            //    var note = new Note {
-            //        Description = model.Description,
-            //        UserId = currentUser.Id,
-            //        SurveyId = model.SurveyId,
-            //        Date = currentDate,
-            //        FileId = newFile.Id
-            //    };
+                var note = new Note
+                {
+                    Description = model.Description,
+                    UserId = currentUser.Id,
+                    SurveyId = model.SurveyId,
+                    Date = DateTime.Now,
+                    FileId = file.Id
+                };
 
-            //    _rep.CreateNote(note);
-            //}
-            //else
-            //{
-            //    _rep.CreateNote(new Note(model.Description, currentUser.Id, model.SurveyId, currentDate));
-            //}
+                _rep.CreateNote(note);
+                return Content("file was downloaded");
+            }
+            else
+            {
+                var note = new Note
+                {
+                    Description = model.Description,
+                    UserId = currentUser.Id,
+                    SurveyId = model.SurveyId,
+                    Date = DateTime.Now,
+                };
+
+                _rep.CreateNote(note);
+                return Content("file not selected");
+            }
         }
 
         [HttpGet]

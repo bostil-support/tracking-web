@@ -13,6 +13,8 @@ using Tracking.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tracking.Web.Models;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Tracking.Web
 {
@@ -49,6 +51,9 @@ namespace Tracking.Web
             services.AddTransient<IInterventionRepository, InterventionRepository>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IWorkContext, WorkContext>();
+            services.AddSingleton<IFileProvider>(
+                new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

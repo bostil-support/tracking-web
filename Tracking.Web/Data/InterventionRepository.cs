@@ -118,12 +118,13 @@ namespace Tracking.Web.Data
 
         public void CreateFile(File item)
         {
-            _context.Files.Add(item);
-            _context.SaveChanges();           
+            var file = _context.Files.Add(item);
+            _context.SaveChanges();
         }
 
         public File GetFileByPath(string path)
         {
+            var files = _context.Files.ToList();
             return _context.Files.FirstOrDefault(x => x.FilePath == path);
         }
 

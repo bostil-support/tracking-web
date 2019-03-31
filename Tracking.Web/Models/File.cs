@@ -9,10 +9,10 @@ namespace Tracking.Web.Models
     {
         public File() { }
 
-        public File(string Title, string FilePath)
+        public File(string title, string filePath)
         {
-            this.Title = Title;
-            this.FilePath = FilePath;
+            Title = title;
+            FilePath = filePath;
         }
 
         public string Title { get; set; }
