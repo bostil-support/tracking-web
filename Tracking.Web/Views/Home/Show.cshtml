@@ -143,6 +143,8 @@
             formData.append('Description', $('textarea').val());
             formData.append('File', $('#attachfile')[0].files[0]);
             formData.append('SurveyId', @Model.Id);
+            formData.append('Description', $('textarea').val());
+            formData.append('SurveyId', @Model.Id);
 
             $.ajax({
                 type: "POST",
