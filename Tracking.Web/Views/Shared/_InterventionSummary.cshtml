@@ -1,17 +1,21 @@
-﻿@model Intervention
+﻿@model IEnumerable<Intervention>
 
-<div class="day">
-    <div>
-        <span class="date-text bold">
-            @Model.Title
-        </span>
-        <span class="date">
-            Data inserimento: 12-01-2019
-        </span>
+@foreach (var item in Model)
+{
+    <div class="day">
+        <div>
+            <span class="date-text bold">
+                @item.Title 
+            </span>
+            <span class="date">
+                Data inserimento: 12-01-2019
+            </span>
+        </div>
+        <div>
+            @foreach (var survey in item.Surveys.Take(4))
+            {
+                @Html.Partial("_SurveySummary", survey)
+            }
+        </div>
     </div>
-    <div>
-        @foreach (var survey in Model.Surveys.Take(4))
-        {
-            @Html.Partial("_SurveySummary", survey)
-        }
-</div>
+}

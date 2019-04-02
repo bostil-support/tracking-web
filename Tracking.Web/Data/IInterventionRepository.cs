@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Tracking.Web.Models;
+using Tracking.Web.Models.ViewModel;
 
 namespace Tracking.Web.Data
 {
@@ -35,6 +36,6 @@ namespace Tracking.Web.Data
 
         List<TrackingUser> GetAllUsers();
 
-        List<Intervention> GetInterventionsByFilterSurveys(string surveySeverit);
+        List<Intervention> Filter(FilterViewModel model);
     }
 }

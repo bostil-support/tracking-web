@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
     public class Survey : BaseEntity
-    {
+    {   
         public string Title { get; set; }
 
         /// <summary>

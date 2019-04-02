@@ -28,8 +28,23 @@ namespace Tracking.Web.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            //var interventions = _rep.GetAllInterventions();
+            //return View(interventions);
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetInterventions()
+        {
             var interventions = _rep.GetAllInterventions();
-            return View(interventions);
+            return PartialView("_InterventionSummary", interventions);
+        }
+
+        [HttpGet]
+        public IActionResult Filter(FilterViewModel model)
+        {
+            var interventions = _rep.Filter(model);
+            return PartialView("_InterventionSummary", interventions);
         }
 
         public IActionResult Show(int id)
