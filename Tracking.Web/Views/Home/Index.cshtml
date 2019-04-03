@@ -10,16 +10,16 @@
         <div class="label">
             filtri
         </div>
-        <div class="filters-popover">
+        <div class="filters-popover" div="#filterDiv">
             <fieldset>
                 <legend class="legend">Legal entity</legend>
                 <hr>
                 <input id="legalEntry1" type="checkbox"/>
                 <label for="legalEntry1">Nome Banca example1</label><br>
                 <input id="legalEntry2" type="checkbox" />
-                <label for="legalEntry2">Noma Banca example16</label><br>
+                <label for="legalEntry2">Noma Banca example10</label><br>
                 <input id="legalEntry3" type="checkbox" />
-                <label for="legalEntry3">Nome Banca example10</label><br>
+                <label for="legalEntry3">Nome Banca example16</label><br>
                 <input id="legalEntry4" type="checkbox" />
                 <label for="legalEntry4">Nome Banca example21</label><br>
                 <input id="legalEntry5" type="checkbox" />
@@ -67,10 +67,10 @@
 
 @section scripts{ 
     <script>
-        var name;
-        var owner;
-        var status;
-        var severity;
+        var names = [];
+        var owners = [];
+        var statuses = [];
+        var severities = [];
         var filter;
 
         window.onload = function () {
@@ -80,37 +80,72 @@
                 success: GetInterventionsSuccess
             });
         }
+
+        $('#filterDiv').click(function () {
+            $(this).show();
+        });
       
         $('input[type=checkbox]').change(function () {
             var id = $(this).attr('id');
-            if ($(this).is(':checked'))
-                filter = $('label[for="' + id + '"]').text();
-            else
-                filter = "";
-
+            filter = $('label[for="' + id + '"]').text();
             var property = $($(this).parent()).children('.legend').text();
 
-            if (property == "Legal entity")
-                name = filter;
-            if (property == "Owner azione correttiva")
-                owner = filter;
-            if (property == "Stato azione correttiva")
-                status = filter;
-            if (property == "Severità rilievo")
-                severity = filter;
+            if ($(this).is(':checked'))
+            {
+                if (property == "Legal entity") {
+                        names.push(filter);
+                }
+
+                if (property == "Owner azione correttiva") {
+                        owners.push(filter);
+                }
+
+                if (property == "Stato azione correttiva") {
+                        statuses.push(filter);
+                }
+
+                if (property == "Severità rilievo") {
+                        severities.push(filter);
+                }
+            }
+
+            else
+            {
+                if (property == "Legal entity") {
+                    remove(names, filter);
+                }
+
+                if (property == "Owner azione correttiva") {
+                    remove(owners, filter);
+                }
+
+                if (property == "Stato azione correttiva") {
+                    remove(statuses, filter);
+                }
+
+                if (property == "Severità rilievo") {
+                    remove(severities, filter);
+                }
+            }
 
             $.ajax({
                 url: "/Home/Filter",
-                type: "GET",
+                type: "POST",
+                traditional:true,
                 data: {
-                    Name: name,
-                    Owner: owner,
-                    Status: status,
-                    Severity: severity
+                    LegalEntities: names,
+                    Owners: owners,
+                    Statuses: statuses,
+                    Severities: severities
                 },
                 success: GetInterventionsSuccess
             });
         });
+
+        function remove(array, element) {
+            var index = array.indexOf(element);
+            array.splice(index, 1);
+        }
         
         function GetInterventionsSuccess(data) {
             $('#main-content').html(data);

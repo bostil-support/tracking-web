@@ -146,14 +146,14 @@ namespace Tracking.Web.Data
 
             if (model != null)
             {
-                if (!string.IsNullOrEmpty(model.Name))
-                    result = result.Where(x => x.LegalEntity.Name == model.Name).ToList();
-                if (!string.IsNullOrEmpty(model.Owner))
-                    result = result.Where(x => x.ActionOwner == model.Owner).ToList();
-                if (!string.IsNullOrEmpty(model.Status))
-                    result = result.Where(x => x.Status.Name == model.Status).ToList();
-                if (!string.IsNullOrEmpty(model.Severity))
-                    result = result.Where(x => x.SurveySeverity == model.Severity).ToList();
+                if (model.LegalEntities!= null)
+                    result = result.Where(x => model.LegalEntities.Contains(x.LegalEntity.Name)).ToList();
+                if (model.Owners != null)
+                    result = result.Where(x => model.Owners.Contains(x.ActionOwner)).ToList();
+                if (model.Statuses != null)
+                    result = result.Where(x => model.Statuses.Contains(x.Status.Name)).ToList();
+                if (model.Severities != null)
+                    result = result.Where(x => model.Severities.Contains(x.SurveySeverity)).ToList();
             }
 
             var interventions = _context.Interventions.ToList();

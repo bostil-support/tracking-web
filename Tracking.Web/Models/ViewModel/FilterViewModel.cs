@@ -7,11 +7,9 @@ namespace Tracking.Web.Models.ViewModel
 {
     public class FilterViewModel
     {
-        public string Name { get; set; }
-        public string Owner { get; set; }
-        public string Status { get; set; }
-        public string Severity { get; set; }
-        //List<LegalEntity> LegalEntities { get; set; }
-        //List<Status> Statuses { get; set; }
+        public List<string> LegalEntities { get; set; }
+        public List<string> Owners { get; set; }
+        public List<string> Statuses { get; set; }
+        public List<string> Severities { get; set; }
     }
 }

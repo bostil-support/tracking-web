@@ -40,7 +40,7 @@ namespace Tracking.Web.Controllers
             return PartialView("_InterventionSummary", interventions);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Filter(FilterViewModel model)
         {
             var interventions = _rep.Filter(model);
