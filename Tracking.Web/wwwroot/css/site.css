@@ -182,10 +182,6 @@ main {
     z-index: 10;
 }
 
-.filters:hover .filters-popover {
-    display: block;
-}
-
 fieldset {
     left: 0;
     border: none;
@@ -217,10 +213,6 @@ input {
     align-self: flex-end;
 }
 
-    .filters .label {
-        color: #3095BA;
-    }
-
 .big-label {
     display: flex;
     flex-direction: column;
@@ -228,4 +220,11 @@ input {
 
 .day {
     margin-bottom: 20px;
+}
+
+#buttonFiltri {
+    background: none;
+    color: #3095BA;
+    border: none;
+    outline: none;
 }

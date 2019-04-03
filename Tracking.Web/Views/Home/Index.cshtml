@@ -4,13 +4,13 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="big-label">
+ <div class="big-label">
     <h2>Elenco rilievi/azioni di mitigazione</h2>
     <div class="filters">
         <div class="label">
-            filtri
+            <button id="buttonFiltri">filtri</button>
         </div>
-        <div class="filters-popover" div="#filterDiv">
+        <div class="filters-popover" id="filterDiv">
             <fieldset>
                 <legend class="legend">Legal entity</legend>
                 <hr>
@@ -64,91 +64,4 @@
         @Html.Partial("_InterventionSummary", item)
     }*@
 </div>
-
-@section scripts{ 
-    <script>
-        var names = [];
-        var owners = [];
-        var statuses = [];
-        var severities = [];
-        var filter;
-
-        window.onload = function () {
-            $.ajax({
-                url: "/Home/GetInterventions",
-                type: "GET",
-                success: GetInterventionsSuccess
-            });
-        }
-
-        $('#filterDiv').click(function () {
-            $(this).show();
-        });
-      
-        $('input[type=checkbox]').change(function () {
-            var id = $(this).attr('id');
-            filter = $('label[for="' + id + '"]').text();
-            var property = $($(this).parent()).children('.legend').text();
-
-            if ($(this).is(':checked'))
-            {
-                if (property == "Legal entity") {
-                        names.push(filter);
-                }
-
-                if (property == "Owner azione correttiva") {
-                        owners.push(filter);
-                }
-
-                if (property == "Stato azione correttiva") {
-                        statuses.push(filter);
-                }
-
-                if (property == "Severità rilievo") {
-                        severities.push(filter);
-                }
-            }
-
-            else
-            {
-                if (property == "Legal entity") {
-                    remove(names, filter);
-                }
-
-                if (property == "Owner azione correttiva") {
-                    remove(owners, filter);
-                }
-
-                if (property == "Stato azione correttiva") {
-                    remove(statuses, filter);
-                }
-
-                if (property == "Severità rilievo") {
-                    remove(severities, filter);
-                }
-            }
-
-            $.ajax({
-                url: "/Home/Filter",
-                type: "POST",
-                traditional:true,
-                data: {
-                    LegalEntities: names,
-                    Owners: owners,
-                    Statuses: statuses,
-                    Severities: severities
-                },
-                success: GetInterventionsSuccess
-            });
-        });
-
-        function remove(array, element) {
-            var index = array.indexOf(element);
-            array.splice(index, 1);
-        }
-        
-        function GetInterventionsSuccess(data) {
-            $('#main-content').html(data);
-        }
-    </script>
-}
+<script src="~/js/Index.js"></script>
