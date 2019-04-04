@@ -10,34 +10,35 @@
         Elenco rilievi/azioni di mitigazione
     </h2>
 </div>
-
-<div class="main-content">
+<form asp-controller="Home" asp-action="Edit" method="post" class="main-content" id="editSurveyForm">
     <div class="card">
         <div class="card-header">Dati rilievo</div>
         <div class="card-item">
             <div>Severità</div>
-            <div class="bold">@Model.SurveySeverity</div>
+            <div class="bold edit dati-rilievo" id="SurveySeverity">@Model.SurveySeverity</div>
         </div>
         <div class="card-item">
             <div>Titolo</div>
-            <div class="bold">@Model.Title</div>
+            <div class="bold edit dati-rilievo" id="Title">@Model.Title</div>
             <div>ID</div>
-            <div class="bold">@Model.Id</div>
+            <div class="bold edit dati-rilievo" id="Id">@Model.Id</div>
         </div>
         <div class="card-item">
             <div>Utente Censimento</div>
-            <div class="bold">@Model.UserName</div>
+            <div class="bold edit dati-rilievo" id="UserName">@Model.UserName</div>
             <div>Validatore</div>
-            <div class="bold">@Model.ValidatorAttribute</div>
+            <div class="bold edit dati-rilievo" id="ValidatorAttribute">@Model.ValidatorAttribute</div>
         </div>
         <div class="card-item description">
             <div>Descrizione</div>
-            <div class="bold full-line">
+            <div class="bold edit dati-rilievo full-line" id="Description">
                 @Model.Description
             </div>
         </div>
         <div class="edit-container">
-            <img src="~/images/edit.png" alt="edit">
+            <a href="#" id="description-edit" class="edit-all-dati-rilievo-btn" onclick="$('.dati-rilievo').trigger('custom_event');">
+                <img src="~/images/edit.png" alt="edit">
+            </a>
         </div>
     </div>
 
@@ -92,19 +93,18 @@
         <input type="date" id="dueDateLocal" asp-for="DueDateLocal">
 
         <div class="bold align-top">Storico note</div>
-      
-            <div class="notes full-line" id="notesList"></div>
-            @*@Html.Partial("Notes", Model.Notes)*@
-            @Html.Partial("AddNotePartial", Model.Note)
-     
+
+        <div class="notes full-line" id="notesList"></div>
+        @Html.Partial("AddNotePartial", Model.Note)
+
         <div class="button-container">
             <input type="button" value="ANNULLA" id="annulla">
             <input type="button" class="primary" value="SALVA" id="salva">
         </div>
     </div>
-</div>
-@section scripts{
-    <script>
+    </form>
+    @section scripts{
+        <script>
         window.onload = function () {
             $('#fileName').children().remove();
             $('textarea').val('');
@@ -170,5 +170,5 @@
             $('textarea').val('');
             $('textarea').attr("placeholder", "Note").val('');
         }
-    </script>
-}
+        </script>
+    }
