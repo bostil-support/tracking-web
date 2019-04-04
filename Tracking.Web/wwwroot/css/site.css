@@ -92,6 +92,10 @@ main {
     margin: 20px 30px;
 }
 
+.content{
+    max-width:358px;
+}
+
 .card-button {
     background: #F1F3F4;
     border-left: 1px solid #C0C5C9;

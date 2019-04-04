@@ -6,7 +6,6 @@ var filter;
 
 window.onload = function () {
     $('#filterDiv').hide();
-
     $.ajax({
         url: "/Home/GetInterventions",
         type: "GET",

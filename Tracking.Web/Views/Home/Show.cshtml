@@ -96,7 +96,13 @@
         <input type="date" id="dueDateLocal" asp-for="DueDateLocal">
 
         <div class="bold align-top">Storico note</div>
-
+        <div class="notes full-line">
+            <div class="blue">
+                <span id="vizualizi">Riduci visualizzati</span>
+                <img class="vizual" src="~/images/minus.png">
+            </div>
+            <hr>
+        </div>
         <div class="notes full-line" id="notesList"></div>
         @*@Html.Partial("Notes", Model.Notes)*@
         @Html.Partial("AddNotePartial", Model.Note)
@@ -106,12 +112,6 @@
             <input type="button" class="primary" value="SALVA" id="salva">
         </div>
     </div>
-    @*<div class="input-group date">
-        <input type="text" class="form-control" id="secondDate" value="@DateTime.Today.ToString("dd.MM.yyyy")" />
-        <span class="input-group-addon">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
-        </span>
-    </div*@>
 </div>
 @section scripts{
     <script>
@@ -183,8 +183,17 @@
             $('textarea').attr("placeholder", "Note").val('');
         }
 
-        $('img[class="plus"]').click(function () {
-
+        $('img[class="vizual"]').click(function () {
+            if (!($('#notesList').css('display') == 'none')) {
+                $('#notesList').hide();
+                $(this).attr('src', "/images/plus.png");
+                $('#vizualizi').text('Visualizza tutti');
+            }
+            else {
+                $('#notesList').show();
+                $(this).attr('src', "/images/minus.png");
+                $('#vizualizi').text('Riduci visualizzati');
+            }
         });
     </script>
 }
