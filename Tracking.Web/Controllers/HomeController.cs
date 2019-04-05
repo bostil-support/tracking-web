@@ -66,6 +66,11 @@ namespace Tracking.Web.Controllers
             return View(survyViewModel);
         }
 
+        /// <summary>
+        /// Add new note on page Survey
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> AddNote(NoteViewModel model)
         {
@@ -112,6 +117,11 @@ namespace Tracking.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Display all notes of survey
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Notes(int id)
         {
@@ -124,6 +134,24 @@ namespace Tracking.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSurvey(SurveyViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var survey = _rep.GetSurveyById(model.Id);
+                survey.Title = model.SurveySeverity;
+                survey.Title = model.Title;
+                survey.UserName = model.UserName;
+                survey.ValidatorAttribute = model.ValidatorAttribute;
+                survey.Description = model.Description;
+
+                _rep.UpdateSurveyAsync(survey);
+                return RedirectToAction(nameof(Index));
+            }
+            return View("Show"); 
         }
     }
 }

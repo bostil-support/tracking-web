@@ -10,7 +10,7 @@
         Elenco rilievi/azioni di mitigazione
     </h2>
 </div>
-<form asp-controller="Home" asp-action="Edit" method="post" class="main-content" id="editSurveyForm">
+
     <div class="card">
         <div class="card-header">Dati rilievo</div>
         <div class="card-item">
@@ -21,7 +21,7 @@
             <div>Titolo</div>
             <div class="bold edit dati-rilievo" id="Title">@Model.Title</div>
             <div>ID</div>
-            <div class="bold edit dati-rilievo" id="Id">@Model.Id</div>
+            <div class="bold" id="Id">@Model.Id</div>
         </div>
         <div class="card-item">
             <div>Utente Censimento</div>
@@ -102,7 +102,7 @@
             <input type="button" class="primary" value="SALVA" id="salva">
         </div>
     </div>
-    </form>
+    
     @section scripts{
         <script>
         window.onload = function () {

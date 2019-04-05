@@ -8,7 +8,8 @@ function openModalForm() {
     modal.style.display = "block";
 };
 
-$(".dati-rilievo").editable($.updateEmployee, {
+$(".dati-rilievo").editable($.updateSurvey, {
+    type: 'textarea',
     submit: 'Salva',
     tooltip: "Click to edit...",
     style: 'display: inline',
@@ -17,6 +18,7 @@ $(".dati-rilievo").editable($.updateEmployee, {
 });
 
 $.updateSurvey = function (value, settings) {
+    console.log($(this).attr('id'));
     //Based on the current element, we update the corresponding property of survey
     switch ($(this).attr('id')) {
         case 'Title':
@@ -36,6 +38,24 @@ $.updateSurvey = function (value, settings) {
             break;
         case 'Description':
             window.Survey.Description = value;
+            break;
+        case 'LegalEntityName':
+            window.Survey.LegalEntityName = value;
+            break;
+        case 'LegalEntityId':
+            window.Survey.LegalEntityId = value;
+            break;
+        case 'SrepCluster':
+            window.Survey.SrepCluster = value;
+            break;
+        case 'ScrepArea':
+            window.Survey.ScrepArea = value;
+            break;
+        case 'ActionOwner':
+            window.Survey.ActionOwner = value;
+            break;
+        case 'ActionDescription':
+            window.Survey.ActionDescription = value;
             break;
     }
     //We have to return string, it will be put into element for displaying
@@ -59,6 +79,16 @@ $.updateSurvey = function (value, settings) {
             ActionDescription: '<%: @Model.ActionDescription %>'
         };
     })(jQuery);
+
+$('#salva').click(function () {
+    $.ajax({
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        url: '<%=Url.Action("Edit", "Survey") %>',
+        dataType: 'json',
+        data: $.toJSON(window.Survey)
+    });
+});
 
 /*
 $('.edit-all-dati-rilievo-btn').click(function () {

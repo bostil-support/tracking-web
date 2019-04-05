@@ -36,5 +36,7 @@ namespace Tracking.Web.Data
         List<TrackingUser> GetAllUsers();
 
         List<Intervention> GetInterventionsByFilterSurveys(string surveySeverit);
+
+        void UpdateSurveyAsync(Survey survey);
     }
 }

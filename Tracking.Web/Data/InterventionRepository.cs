@@ -144,5 +144,18 @@ namespace Tracking.Web.Data
             var surv = _context.Surveys.Where(x => x.SurveySeverity == surveySeverity);
             return _context.Interventions.Include(x => x.Surveys).ToList();
         }
+
+        public async void UpdateSurveyAsync(Survey survey)
+        {
+            try
+            {
+                _context.Update(survey);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+        }
     }
 }
