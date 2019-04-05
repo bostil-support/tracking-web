@@ -141,15 +141,21 @@ namespace Tracking.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var survey = _rep.GetSurveyById(model.Id);
-                survey.Title = model.SurveySeverity;
+                var survey = _rep.GetSurveyById(model.Id); 
                 survey.Title = model.Title;
+                survey.SurveySeverity = model.SurveySeverity;
                 survey.UserName = model.UserName;
                 survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
+                survey.LegalEntity.Name = model.LegalEntity.Name;
+                survey.LegalEntity.Id = model.LegalEntity.Id;
+                survey.SrepCluster = model.SrepCluster;
+                survey.ScrepArea = model.ScrepArea;
+                survey.ActionDescription = model.ActionDescription;
+                survey.ActionOwner = model.ActionOwner;
 
                 _rep.UpdateSurveyAsync(survey);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Show", new { id = model.Id});
             }
             return View("Show"); 
         }

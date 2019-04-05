@@ -149,7 +149,7 @@ namespace Tracking.Web.Data
         {
             try
             {
-                _context.Update(survey);
+                _context.Surveys.Update(survey);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

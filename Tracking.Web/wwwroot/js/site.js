@@ -3,20 +3,28 @@
 
 // Write your JavaScript code.
 
-function openModalForm() {
-    var modal = document.getElementById('modal-login');
-    modal.style.display = "block";
-};
-
-$(".dati-rilievo").editable($.updateSurvey, {
+var arguments = {
     submit: 'Salva',
     tooltip: "Click to edit...",
     style: 'display: inline',
     onblur: "ignore",
     event: 'custom_event'
-});
+};
 
-$.updateSurvey = function (value, settings) {
+function openModalForm() {
+    var modal = document.getElementById('modal-login');
+    modal.style.display = "block";
+};
+
+$('.dati-rilievo').editable(Edit, arguments);
+
+$('.legal-entity').editable(Edit, arguments);
+
+$('.normativa').editable(Edit, arguments);
+
+$('.azione').editable(Edit, arguments);
+
+function Edit(value, settings) {
     //Based on the current element, we update the corresponding property of survey
     switch ($(this).attr('id')) {
         case 'Title':
@@ -38,10 +46,10 @@ $.updateSurvey = function (value, settings) {
             window.Survey.Description = value;
             break;
         case 'LegalEntityName':
-            window.Survey.LegalEntityName = value;
+            window.Survey.LegalEntity.Name = value;
             break;
         case 'LegalEntityId':
-            window.Survey.LegalEntityId = value;
+            window.Survey.LegalEntity.Id = value;
             break;
         case 'SrepCluster':
             window.Survey.SrepCluster = value;
@@ -62,29 +70,30 @@ $.updateSurvey = function (value, settings) {
 
     (function ($) {
         window.Survey = {
-            Title: '<%: Model.SurveySeverity %>',
-            SurveySeverity: '<%: Model.SurveySeverity %>',
-            Id: '<%: Model.UserName %>',
-            UserName: '<%: Model.UserName %>',
-            ValidatorAttribute: '<%: Model.ValidatorAttribute %>',
-            Country: '<%: Model.Country %>',
-            Description: '<%: Model.Description %>',
-            LegalEntityName: '<%: Model.LegalEntity.Name %>',
-            LegalEntityId: '<%: Model.LegalEntity.Id %>',
-            SrepCluster: '<%: @Model.SrepCluster %>',
-            ScrepArea: '<%: @Model.ScrepArea %>',
-            ActionOwner: '<%: @Model.ActionOwner %>',
-            ActionDescription: '<%: @Model.ActionDescription %>'
+            Title: document.getElementById('Title').textContent,
+            SurveySeverity: document.getElementById('SurveySeverity').textContent,
+            Id: document.getElementById('Id').textContent,
+            UserName: document.getElementById('UserName').textContent,
+            ValidatorAttribute: document.getElementById('ValidatorAttribute').textContent,
+            Description: document.getElementById('Description').textContent,
+            LegalEntity: {
+                Name: document.getElementById('LegalEntityName').textContent,
+                Id: document.getElementById('LegalEntityId').textContent,
+            },
+            SrepCluster: document.getElementById('SrepCluster').textContent,
+            ScrepArea: document.getElementById('ScrepArea').textContent,
+            ActionOwner: document.getElementById('ActionOwner').textContent,
+            ActionDescription: document.getElementById('ActionDescription').textContent
         };
     })(jQuery);
 
 $('#salva').click(function () {
+  
     $.ajax({
         type: 'POST',
-        contentType: 'application/json; charset=utf-8',
-        url: '<%=Url.Action("Edit", "Survey") %>',
+        url: '/Home/EditSurvey',
         dataType: 'json',
-        data: $.toJSON(window.Survey)
+        data: window.Survey
     });
 });
 
