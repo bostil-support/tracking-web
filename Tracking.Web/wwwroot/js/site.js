@@ -9,7 +9,6 @@ function openModalForm() {
 };
 
 $(".dati-rilievo").editable($.updateSurvey, {
-    type: 'textarea',
     submit: 'Salva',
     tooltip: "Click to edit...",
     style: 'display: inline',
@@ -18,7 +17,6 @@ $(".dati-rilievo").editable($.updateSurvey, {
 });
 
 $.updateSurvey = function (value, settings) {
-    console.log($(this).attr('id'));
     //Based on the current element, we update the corresponding property of survey
     switch ($(this).attr('id')) {
         case 'Title':
