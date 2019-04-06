@@ -96,28 +96,3 @@ $('#salva').click(function () {
         data: window.Survey
     });
 });
-
-/*
-$('.edit-all-dati-rilievo-btn').click(function () {
-    console.log("edit-all-dati-rilievo-btn");
-    $(this).parent().find('.edit').dblclick();
-});
-*/
-// edit survey fields
-/*
-$('#description-edit').click(function (e) {
-    e.preventDefault();
-    var txt = $("#description-text").text().trim();
-    $("#description-text").replaceWith("<input id='input-description' value='" + txt + "' />");
-    $('#description-edit').html("<a onclick='SaveEditSurveyField();return false;' href='#'>Salva</a>");
-});
-
-function SaveEditSurveyField() {
-    var txt = $("#description-text").text();
-    console.log(txt);
-    //var txt = $("#input-description").value;
-    $("Description").value = txt;
-    $("#description-text").replaceWith(txt);
-    $('#description-content').html("<a href='#' id='description-edit'><img src='~/images/edit.png' alt='edit'></a>");
-}
-*/
