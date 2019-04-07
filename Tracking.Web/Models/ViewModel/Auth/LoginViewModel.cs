@@ -8,14 +8,14 @@ namespace Tracking.Web.Models.ViewModel.Auth
 {
     public class LoginViewModel
     {
-        [Required]
+        //[Required]
         [Display(Name = "Email Address")]
         public string Email { get; set; }
         
-        [Required]
+        //[Required]
         [Display(Name = "Password")]
         public string Password { get; set; }
-
+        public string Token { get; set; }
         [Display(Name = "Remember?")]
         public bool RememberMe { get; set; }
 
