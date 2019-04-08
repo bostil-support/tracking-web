@@ -1,6 +1,4 @@
 ﻿@model List<Note>
-<div class="blue">Visualizza tutti<img class="plus" src="~/images/plus.png"></div>
-<hr>
 
 @foreach (var item in Model)
 {
@@ -15,7 +13,7 @@
             <div class="blue">
                 <img class="clip" src="~/images/clip-blue.png">
                 <a asp-controller="File" asp-action="Download" asp-route-fileName="@item.File.Title">@item.File.Title</a>
-           </div>
+            </div>
         }
     </div>
 }

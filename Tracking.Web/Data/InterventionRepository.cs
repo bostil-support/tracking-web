@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
+using Tracking.Web.Models.ViewModel;
 
 namespace Tracking.Web.Data
 {
@@ -24,7 +25,6 @@ namespace Tracking.Web.Data
         /// <returns></returns>
         public List<Intervention> GetAllInterventions()
         {
-            var statues = GetAllStatuses();
             var surv = GetAllSurveys();
             return _context.Interventions.Include(x => x.Surveys).ToList();
         }
@@ -35,6 +35,7 @@ namespace Tracking.Web.Data
         /// <returns></returns>
         public List<Survey> GetAllSurveys()
         {
+            var statues = GetAllStatuses();
             return _context.Surveys.Include(x => x.LegalEntity).ToList();
         }
 
@@ -138,11 +139,30 @@ namespace Tracking.Web.Data
             return _context.Files.ToList();
         }
 
-        public List<Intervention> GetInterventionsByFilterSurveys(string surveySeverity)
+        public List<Intervention> Filter(FilterViewModel model)
         {
             var statues = GetAllStatuses();
-            var surv = _context.Surveys.Where(x => x.SurveySeverity == surveySeverity);
-            return _context.Interventions.Include(x => x.Surveys).ToList();
+            var result = _context.Surveys.Include(x => x.LegalEntity).ToList();
+
+            if (model != null)
+            {
+                if (model.LegalEntities!= null)
+                    result = result.Where(x => model.LegalEntities.Contains(x.LegalEntity.Name)).ToList();
+                if (model.Owners != null)
+                    result = result.Where(x => model.Owners.Contains(x.ActionOwner)).ToList();
+                if (model.Statuses != null)
+                    result = result.Where(x => model.Statuses.Contains(x.Status.Name)).ToList();
+                if (model.Severities != null)
+                    result = result.Where(x => model.Severities.Contains(x.SurveySeverity)).ToList();
+            }
+
+            var interventions = _context.Interventions.ToList();
+            foreach(var item in interventions)
+            {
+                item.Surveys = item.Surveys.Intersect(result).ToList();
+            }
+
+            return interventions.Where(x=>x.Surveys.Count > 0).ToList();
         }
 
         public async void UpdateSurveyAsync(Survey survey)

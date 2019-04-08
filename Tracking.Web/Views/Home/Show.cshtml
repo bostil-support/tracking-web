@@ -4,8 +4,7 @@
     ViewData["Title"] = "Survey";
     Layout = "~/Views/Shared/_SurveyLayout.cshtml";
 }
-<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
-<script src="https://www.appelsiini.net/download/jquery.jeditable.mini.js"></script>
+
 <div class="big-label">
     <h2>
         Elenco rilievi/azioni di mitigazione
@@ -101,6 +100,7 @@
 
         <div class="bold align-top">Storico note</div>
 
+
         <div class="notes full-line" id="notesList"></div>
         @Html.Partial("AddNotePartial", Model.Note)
 
@@ -121,7 +121,9 @@
 
             $('#surveyId').val(@Model.Id);
         }
-
+        $(function () {
+            $('.date').datetimepicker({ locale: 'ru', debug: false, format: 'DD.MM.YYYY' });
+        });
         $('#attachfile').change(function (e) {
             var fileName = e.target.files[0].name;
             $('#fileName').append('<div class="blue"> ' + fileName + '</div>');
@@ -177,5 +179,18 @@
             $('textarea').val('');
             $('textarea').attr("placeholder", "Note").val('');
         }
+
+        $('img[class="vizual"]').click(function () {
+            if (!($('#notesList').css('display') == 'none')) {
+                $('#notesList').hide();
+                $(this).attr('src', "/images/plus.png");
+                $('#vizualizi').text('Visualizza tutti');
+            }
+            else {
+                $('#notesList').show();
+                $(this).attr('src', "/images/minus.png");
+                $('#vizualizi').text('Riduci visualizzati');
+            }
+        });
     </script>
 }

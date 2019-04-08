@@ -161,9 +161,10 @@ main {
     grid-gap: 20px;
 }
 
-    .notes img.plus {
+    .notes img.vizual {
         width: 13px;
         height: 13px;
+        margin-left:5px;
     }
 
     .notes hr {
