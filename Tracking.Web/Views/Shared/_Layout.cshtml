@@ -10,8 +10,9 @@
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     </environment>
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    
 </head>
 <body>
     <header>
@@ -36,16 +37,12 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/js/index.js"></script>
+        <script src="~/js/index.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-        <script src="~/js/index.js"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/index.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("Scripts", required: false)
 </body>
