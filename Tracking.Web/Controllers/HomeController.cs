@@ -156,7 +156,7 @@ namespace Tracking.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var survey = _rep.GetSurveyById(model.Id); 
+                var survey = _rep.GetSurveyById(model.Id);
                 survey.Title = model.Title;
                 survey.SurveySeverity = model.SurveySeverity;
                 survey.UserName = model.UserName;
@@ -164,6 +164,7 @@ namespace Tracking.Web.Controllers
                 survey.Description = model.Description;
                 survey.LegalEntity.Name = model.LegalEntity.Name;
                 survey.LegalEntity.Id = model.LegalEntity.Id;
+                survey.LegalEntityId = model.LegalEntity.Id;
                 survey.SrepCluster = model.SrepCluster;
                 survey.ScrepArea = model.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
