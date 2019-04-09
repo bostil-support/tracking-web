@@ -97,7 +97,6 @@ $('#conferma').click(function () {
     $.ajax({
         type: 'POST',
         url: '/Home/EditSurvey',
-        dataType: 'json',
         data: window.Survey,
         success: function () {
             window.location.href = '/Home/Index'
