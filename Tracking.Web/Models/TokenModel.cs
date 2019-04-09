@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
-    [DataContract]
+   
     public class TokenModel
-    {
-        [DataMember]
+    {      
         public string userName { get; set; }
-        [DataMember]
-        public string App { get; set; }
-        [DataMember]
-        public string valueTenant { get; set; }
-        [DataMember]
+        public string App { get; set; } 
         public string redirectUrl { get; set; }
     }
 }
