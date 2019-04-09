@@ -162,13 +162,7 @@ namespace Tracking.Web.Controllers
                 survey.UserName = model.UserName;
                 survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
-<<<<<<< HEAD
-                survey.LegalEntity.Name = model.LegalEntity.Name;
-                survey.LegalEntity.Id = model.LegalEntity.Id;
-                survey.LegalEntityId = model.LegalEntity.Id;
-=======
                 survey.LegalEntity = model.LegalEntity;
->>>>>>> RSamuseu
                 survey.SrepCluster = model.SrepCluster;
                 survey.ScrepArea = model.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
