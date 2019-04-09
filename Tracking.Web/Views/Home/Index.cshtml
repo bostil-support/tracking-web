@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
- <div class="big-label">
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+<div class="big-label">
     <h2>Elenco rilievi/azioni di mitigazione</h2>
     <div class="filters">
         <div class="label">
@@ -14,7 +14,7 @@
             <fieldset>
                 <legend class="legend">Legal entity</legend>
                 <hr>
-                <input id="legalEntry1" type="checkbox"/>
+                <input id="legalEntry1" type="checkbox" />
                 <label for="legalEntry1">Nome Banca example1</label><br>
                 <input id="legalEntry2" type="checkbox" />
                 <label for="legalEntry2">Noma Banca example10</label><br>
@@ -32,7 +32,7 @@
             <fieldset>
                 <legend class="legend">Owner azione correttiva</legend>
                 <hr>
-                <input id="correctiveAction1" type="checkbox"/>
+                <input id="correctiveAction1" type="checkbox" />
                 <label for="correctiveAction1">Owner Azione mitigazione example_1805</label><br>
                 <input id="correctiveAction2" type="checkbox" />
                 <label for="correctiveAction2">Owner Azione mitigazione example_1812</label><br>
@@ -59,8 +59,4 @@
     </div>
 </div>
 <div class="main-content" id="main-content">
-    @*@foreach (var item in Model)
-    {
-        @Html.Partial("_InterventionSummary", item)
-    }*@
 </div>

@@ -162,18 +162,29 @@ namespace Tracking.Web.Controllers
                 survey.UserName = model.UserName;
                 survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
+<<<<<<< HEAD
                 survey.LegalEntity.Name = model.LegalEntity.Name;
                 survey.LegalEntity.Id = model.LegalEntity.Id;
                 survey.LegalEntityId = model.LegalEntity.Id;
+=======
+                survey.LegalEntity = model.LegalEntity;
+>>>>>>> RSamuseu
                 survey.SrepCluster = model.SrepCluster;
                 survey.ScrepArea = model.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
 
                 _rep.UpdateSurveyAsync(survey);
-                return RedirectToAction("Show", new { id = model.Id});
             }
-            return View("Show"); 
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<List<string>> GetEntityNames()
+        {
+            var legalEntites = await _rep.GetEntityNames();
+            return legalEntites;
         }
     }
 }

@@ -4,7 +4,8 @@
     ViewData["Title"] = "Survey";
     Layout = "~/Views/Shared/_SurveyLayout.cshtml";
 }
-
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+<script src="https://www.appelsiini.net/download/jquery.jeditable.mini.js"></script>
 <div class="big-label">
     <h2>
         Elenco rilievi/azioni di mitigazione
@@ -31,9 +32,7 @@
         </div>
         <div class="card-item description">
             <div>Descrizione</div>
-            <div class="bold dati-rilievo full-line" id="Description">
-                @Model.Description
-            </div>
+            <div class="bold dati-rilievo" id="Description">@Model.Description</div>
         </div>
         <div class="edit-container">
             <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.dati-rilievo').trigger('custom_event');">
@@ -48,7 +47,7 @@
             <div>Denom. Legal Entity</div>
             <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntity.Name</div>
             <div>Cod. Legal Entity</div>
-            <div class="bold legal-entity" id="LegalEntityId">@Model.LegalEntity.Id</div>
+            <div class="bold" id="LegalEntityId">@Model.LegalEntity.Id</div>
         </div>
         <div class="edit-container">
             <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.legal-entity').trigger('custom_event');">
@@ -99,7 +98,13 @@
         <input type="date" id="dueDateLocal" asp-for="DueDateLocal">
 
         <div class="bold align-top">Storico note</div>
-
+        <div class="notes full-line">
+            <div class="blue">
+                <span id="vizualizi">Riduci visualizzati</span>
+                <img class="vizual" src="~/images/minus.png">
+            </div>
+            <hr>
+        </div>
 
         <div class="notes full-line" id="notesList"></div>
         @Html.Partial("AddNotePartial", Model.Note)
@@ -110,6 +115,8 @@
         </div>
     </div>
 </div>
+@Html.Partial("_ConfirmWindow")
+
 @section scripts{
     <script>
         window.onload = function () {
@@ -118,12 +125,14 @@
             $('textarea').attr("placeholder", "Note").val('');
 
             GetNotes();
-
+            
             $('#surveyId').val(@Model.Id);
         }
+
         $(function () {
             $('.date').datetimepicker({ locale: 'ru', debug: false, format: 'DD.MM.YYYY' });
         });
+
         $('#attachfile').change(function (e) {
             var fileName = e.target.files[0].name;
             $('#fileName').append('<div class="blue"> ' + fileName + '</div>');
@@ -133,11 +142,6 @@
             $('#fileName').children().remove();
             $('textarea').val('');
             $('textarea').attr("placeholder", "Note").val('');
-        });
-
-        $('#salva').click(function () {
-
-
         });
 
         var dueDateOriginal;

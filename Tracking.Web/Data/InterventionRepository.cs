@@ -172,10 +172,15 @@ namespace Tracking.Web.Data
                 _context.Surveys.Update(survey);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateException)
             {
                 throw;
             }
+        }
+
+        public Task<List<string>> GetEntityNames()
+        {
+            return _context.LegalEntities.Where(x => x.Code != null).Select(x => x.Name).ToListAsync();
         }
     }
 }

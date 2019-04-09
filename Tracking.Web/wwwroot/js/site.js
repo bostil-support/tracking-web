@@ -1,9 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-var arguments = {
+﻿var arguments = {
     submit: 'Salva',
     tooltip: "Click to edit...",
     style: 'display: inline',
@@ -18,7 +13,16 @@ function openModalForm() {
 
 $('.dati-rilievo').editable(Edit, arguments);
 
-$('.legal-entity').editable(Edit, arguments);
+$('.legal-entity').editable(Edit,
+    {
+        type: 'select',
+        submit: 'Salva',
+        tooltip: "Click to edit...",
+        style: 'display: inline',
+        onblur: "ignore",
+        event: 'custom_event',
+        loadurl: '/Home/GetEntityNames'
+    });
 
 $('.normativa').editable(Edit, arguments);
 
@@ -46,10 +50,9 @@ function Edit(value, settings) {
             window.Survey.Description = value;
             break;
         case 'LegalEntityName':
-            window.Survey.LegalEntity.Name = value;
-            break;
-        case 'LegalEntityId':
-            window.Survey.LegalEntity.Id = value;
+            var name = $('select[name="value"] option[value=' + value + ']').text()
+            window.Survey.LegalEntity.Name = name;
+            //$('#LegalEntityId').text(value);
             break;
         case 'SrepCluster':
             window.Survey.SrepCluster = value;
@@ -64,8 +67,11 @@ function Edit(value, settings) {
             window.Survey.ActionDescription = value;
             break;
     }
-    //We have to return string, it will be put into element for displaying
-    return (value);
+
+    if ($(this).attr('id') == 'LegalEntityName')
+        return name;
+    else
+        return value;
 }
 
     (function ($) {
@@ -77,8 +83,8 @@ function Edit(value, settings) {
             ValidatorAttribute: document.getElementById('ValidatorAttribute').textContent,
             Description: document.getElementById('Description').textContent,
             LegalEntity: {
-                Name: document.getElementById('LegalEntityName').textContent,
                 Id: document.getElementById('LegalEntityId').textContent,
+                Name: document.getElementById('LegalEntityName').textContent,
             },
             SrepCluster: document.getElementById('SrepCluster').textContent,
             ScrepArea: document.getElementById('ScrepArea').textContent,
@@ -87,12 +93,28 @@ function Edit(value, settings) {
         };
     })(jQuery);
 
-$('#salva').click(function () {
-  
+$('#conferma').click(function () {
     $.ajax({
         type: 'POST',
         url: '/Home/EditSurvey',
         dataType: 'json',
-        data: window.Survey
+        data: window.Survey,
+        success: function () {
+            window.location.href = '/Home/Index'
+        }
     });
 });
+
+$('#salva').click(function () {
+    $('#modalWindow').css('display', 'block');
+});
+
+$('#annullaPopup').click(function () {
+    $('#modalWindow').css('display', 'none');
+})
+
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function () {
+    $('#modalWindow').css('display', 'none');
+}
