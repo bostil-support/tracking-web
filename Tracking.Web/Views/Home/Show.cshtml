@@ -47,7 +47,7 @@
             <div>Denom. Legal Entity</div>
             <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntity.Name</div>
             <div>Cod. Legal Entity</div>
-            <div class="bold" id="LegalEntityId">@Model.LegalEntity.Id</div>
+            <div class="bold" id="LegalEntityCode">@Model.LegalEntity.Code</div>
         </div>
         <div class="edit-container">
             <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.legal-entity').trigger('custom_event');">
@@ -79,9 +79,7 @@
         </div>
         <div class="card-item description">
             <div>Descrizione</div>
-            <div class="bold full-line azione" id="ActionDescription">
-                @Model.ActionDescription
-            </div>
+            <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
         </div>
         <div class="edit-container">
             <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">
@@ -92,7 +90,7 @@
 
     <div class="controls">
         <div class="bold">Stato</div>
-        <select asp-for="StatusId" asp-items="@Model.Statuses"></select>
+        <select asp-for="StatusId" asp-items="@Model.Statuses" onchange="GetStatus(this.options[this.selectedIndex].value)"></select>
 
         <div class="bold">Nuova Data Scadenza</div>
         <input type="date" id="dueDateLocal" asp-for="DueDateLocal">
@@ -127,6 +125,7 @@
             GetNotes();
             
             $('#surveyId').val(@Model.Id);
+          //  $('#StatusId selected').val(@Model.StatusId);
         }
 
         $(function () {

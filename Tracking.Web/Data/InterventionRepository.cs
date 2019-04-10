@@ -165,12 +165,12 @@ namespace Tracking.Web.Data
             return interventions.Where(x=>x.Surveys.Count > 0).ToList();
         }
 
-        public async void UpdateSurveyAsync(Survey survey)
+        public void UpdateSurveyAsync(Survey survey)
         {
             try
             {
                 _context.Surveys.Update(survey);
-                await _context.SaveChangesAsync();
+                _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
