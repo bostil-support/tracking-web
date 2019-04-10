@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Tracking.Web.Models;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Tracking.Web.Repositories;
 
 namespace Tracking.Web
 {
@@ -51,6 +52,8 @@ namespace Tracking.Web
             services.AddTransient<IInterventionRepository, InterventionRepository>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IWorkContext, WorkContext>();
+            services.AddTransient<ITokenRepository,TokenRepository>();
+            
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
@@ -81,7 +84,7 @@ namespace Tracking.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Login}/{token?}");
             });
         }
     }

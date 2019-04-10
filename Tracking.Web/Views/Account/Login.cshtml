@@ -25,20 +25,26 @@
         <img src="~/images/translate.png" />
     </div>
     <div class="content">
-        <form method="post" asp-controller="Account" asp-action="Login"
+        <form method="get" asp-controller="Account" asp-action="Login"
               asp-route-returnUrl="@Model.ReturnUrl">
             <div asp-validation-summary="ModelOnly"></div>
             <div>Sign in with your existing account</div>
             <div class="line">
-                <label asp-for="Email"></label><br>
-                <input id="email" placeholder="Enter Email" type="email" asp-for="Email" />
-                <span asp-validation-for="Email"></span>
+                <label asp-for="Token"></label><br>
+                <input id="email" placeholder="Enter token" 
+                       asp-for="Token" />
+                <span asp-validation-for="Token"></span>
             </div>
-            <div class="line">
-                <label asp-for="Password"></label><br>
-                <input id="password" placeholder="Enter password" type="password" asp-for="Password" />
-                <span asp-validation-for="Password"></span>
-            </div>
+            @*<div class="line">
+            <label asp-for="Email"></label><br>
+            <input id="email" placeholder="Enter Email" type="email" asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="line">
+            <label asp-for="Password"></label><br>
+            <input id="password" placeholder="Enter password" type="password" asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>*@
             <div class="line">
                 <input type="submit" class="btn" value="Sign In" />
             </div>
