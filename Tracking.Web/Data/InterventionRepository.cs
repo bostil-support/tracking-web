@@ -170,7 +170,7 @@ namespace Tracking.Web.Data
             try
             {
                 _context.Surveys.Update(survey);
-                 _context.SaveChangesAsync();
+                _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

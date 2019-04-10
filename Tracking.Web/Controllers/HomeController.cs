@@ -64,6 +64,7 @@ namespace Tracking.Web.Controllers
                 Description = survey.Description,
                 Status = currentStatus.Name,
                 Statuses = allStatuses,
+                StatusId = survey.StatusId,
                 ImportDownloadDate = survey.ImportDownloadDate,
                 SurveySeverity = survey.SurveySeverity,
                 ValidatorAttribute = survey.ValidatorAttribute,
@@ -162,12 +163,12 @@ namespace Tracking.Web.Controllers
                 survey.UserName = model.UserName;
                 survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
-                survey.LegalEntity.Name = model.LegalEntity.Name;
                 survey.LegalEntity.Id = model.LegalEntity.Id;
                 survey.SrepCluster = model.SrepCluster;
                 survey.ScrepArea = model.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
+                survey.StatusId = model.StatusId;
 
                 _rep.UpdateSurveyAsync(survey);
             }

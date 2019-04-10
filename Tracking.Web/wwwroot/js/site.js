@@ -28,6 +28,8 @@ $('.normativa').editable(Edit, arguments);
 
 $('.azione').editable(Edit, arguments);
 
+$('#StatusId').select();
+
 function Edit(value, settings) {
     //Based on the current element, we update the corresponding property of survey
     switch ($(this).attr('id')) {
@@ -52,7 +54,8 @@ function Edit(value, settings) {
         case 'LegalEntityName':
             var name = $('select[name="value"] option[value=' + value + ']').text()
             window.Survey.LegalEntity.Name = name;
-            //$('#LegalEntityId').text(value);
+            window.Survey.LegalEntity.Id = value;
+            $('#LegalEntityCode').text(value);
             break;
         case 'SrepCluster':
             window.Survey.SrepCluster = value;
@@ -83,13 +86,14 @@ function Edit(value, settings) {
             ValidatorAttribute: document.getElementById('ValidatorAttribute').textContent,
             Description: document.getElementById('Description').textContent,
             LegalEntity: {
-                Id: document.getElementById('LegalEntityId').textContent,
+                Code: document.getElementById('LegalEntityCode').textContent,
                 Name: document.getElementById('LegalEntityName').textContent,
             },
             SrepCluster: document.getElementById('SrepCluster').textContent,
             ScrepArea: document.getElementById('ScrepArea').textContent,
             ActionOwner: document.getElementById('ActionOwner').textContent,
-            ActionDescription: document.getElementById('ActionDescription').textContent
+            ActionDescription: document.getElementById('ActionDescription').textContent,
+            StatusId: $('#StatusId :selected').val()
         };
     })(jQuery);
 
@@ -116,4 +120,8 @@ var span = document.getElementsByClassName("close")[0];
 
 span.onclick = function () {
     $('#modalWindow').css('display', 'none');
+}
+
+function GetStatus(value) {
+    window.Survey.StatusId = value;
 }
