@@ -41,6 +41,6 @@ namespace Tracking.Web.Data
 
         void UpdateSurveyAsync(Survey survey);
 
-        Task<List<string>> GetEntityNames();
+        Task<Dictionary<int, string>> GetEntityNames();
     }
 }

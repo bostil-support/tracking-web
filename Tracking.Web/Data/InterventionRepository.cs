@@ -170,7 +170,8 @@ namespace Tracking.Web.Data
             try
             {
                 _context.Surveys.Update(survey);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
+                _context.Dispose();
             }
             catch (DbUpdateException)
             {
@@ -178,9 +179,10 @@ namespace Tracking.Web.Data
             }
         }
 
-        public Task<List<string>> GetEntityNames()
+        public Task<Dictionary<int, string>> GetEntityNames()
         {
-            return _context.LegalEntities.Where(x => x.Code != null).Select(x => x.Name).ToListAsync();
+            // return _context.LegalEntities.Where(x => x.Code != null).Select(x => x.Name).ToListAsync();
+            return _context.LegalEntities.Where(x => x.Code != null).ToDictionaryAsync(x => x.Id, x => x.Name);
         }
     }
 }

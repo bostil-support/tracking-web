@@ -177,7 +177,7 @@ namespace Tracking.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<List<string>> GetEntityNames()
+        public async Task<Dictionary<int, string>> GetEntityNames()
         {
             var legalEntites = await _rep.GetEntityNames();
             return legalEntites;
