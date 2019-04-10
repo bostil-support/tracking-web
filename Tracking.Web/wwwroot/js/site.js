@@ -86,7 +86,7 @@ function Edit(value, settings) {
             ValidatorAttribute: document.getElementById('ValidatorAttribute').textContent,
             Description: document.getElementById('Description').textContent,
             LegalEntity: {
-                Code: document.getElementById('LegalEntityCode').textContent,
+                Id: document.getElementById('LegalEntityCode').textContent,
                 Name: document.getElementById('LegalEntityName').textContent,
             },
             SrepCluster: document.getElementById('SrepCluster').textContent,
