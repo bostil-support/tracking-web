@@ -163,7 +163,7 @@ namespace Tracking.Web.Controllers
                 survey.UserName = model.UserName;
                 survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
-                survey.LegalEntity.Id = model.LegalEntity.Id;
+                survey.LegalEntityId = model.LegalEntity.Id;
                 survey.SrepCluster = model.SrepCluster;
                 survey.ScrepArea = model.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
