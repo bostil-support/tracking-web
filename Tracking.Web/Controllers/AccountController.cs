@@ -42,7 +42,7 @@ namespace Tracking.Web.Controllers
             var json = JsonConvert.DeserializeObject<TokenModel>(tokenString);
             var email = json.userName.ToString();
 
-            var result = await _signInManager.PasswordSignInAsync(email, "Den_10101994", true, false);
+            var result = await _signInManager.PasswordSignInAsync(email, "Qwerty123!", true, false);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", "Home");
@@ -51,7 +51,7 @@ namespace Tracking.Web.Controllers
             else
             {
                 TrackingUser user = new TrackingUser { Email = email.ToString(), UserName = email.ToString() };
-                IdentityResult res = await _userManager.CreateAsync(user, "Den_10101994");
+                IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
                 if (res.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
