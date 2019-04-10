@@ -64,6 +64,7 @@ namespace Tracking.Web.Controllers
                 Description = survey.Description,
                 Status = currentStatus.Name,
                 Statuses = allStatuses,
+                StatusId = survey.StatusId,
                 ImportDownloadDate = survey.ImportDownloadDate,
                 SurveySeverity = survey.SurveySeverity,
                 ValidatorAttribute = survey.ValidatorAttribute,
@@ -156,23 +157,30 @@ namespace Tracking.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var survey = _rep.GetSurveyById(model.Id); 
+                var survey = _rep.GetSurveyById(model.Id);
                 survey.Title = model.Title;
                 survey.SurveySeverity = model.SurveySeverity;
                 survey.UserName = model.UserName;
                 survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
-                survey.LegalEntity.Name = model.LegalEntity.Name;
-                survey.LegalEntity.Id = model.LegalEntity.Id;
+                survey.LegalEntityId = model.LegalEntity.Id;
                 survey.SrepCluster = model.SrepCluster;
                 survey.ScrepArea = model.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
+                survey.StatusId = model.StatusId;
 
                 _rep.UpdateSurveyAsync(survey);
-                return RedirectToAction("Show", new { id = model.Id});
             }
-            return View("Show"); 
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<List<string>> GetEntityNames()
+        {
+            var legalEntites = await _rep.GetEntityNames();
+            return legalEntites;
         }
     }
 }

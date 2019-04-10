@@ -165,17 +165,22 @@ namespace Tracking.Web.Data
             return interventions.Where(x=>x.Surveys.Count > 0).ToList();
         }
 
-        public async void UpdateSurveyAsync(Survey survey)
+        public  void UpdateSurveyAsync(Survey survey)
         {
             try
             {
                 _context.Surveys.Update(survey);
-                await _context.SaveChangesAsync();
+                _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateException)
             {
                 throw;
             }
+        }
+
+        public Task<List<string>> GetEntityNames()
+        {
+            return _context.LegalEntities.Where(x => x.Code != null).Select(x => x.Name).ToListAsync();
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
 
@@ -39,5 +40,7 @@ namespace Tracking.Web.Data
         List<Intervention> Filter(FilterViewModel model);
 
         void UpdateSurveyAsync(Survey survey);
+
+        Task<List<string>> GetEntityNames();
     }
 }
