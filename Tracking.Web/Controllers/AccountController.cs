@@ -4,6 +4,7 @@ using Tracking.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Tracking.Web.Repositories;
 using Newtonsoft.Json;
+using System;
 
 namespace Tracking.Web.Controllers
 {
@@ -30,6 +31,18 @@ namespace Tracking.Web.Controllers
         }
         
         /// <summary>
+        /// Start Page
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Index()
+        {
+            ViewData["Message"] = "Please Enter your Token to the URL";
+            return View();
+        }
+
+
+        /// <summary>
         /// Method for Authorize and Register logic
         /// </summary>
         /// <param name="token"></param>
@@ -37,30 +50,45 @@ namespace Tracking.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Authorize(string token)
         {
-            token = token.Replace(" ", "+");
-            string tokenString = _manager.Decrypt(token.ToString());
-            var json = JsonConvert.DeserializeObject<TokenModel>(tokenString);
-            var email = json.userName.ToString();
-
-            var result = await _signInManager.PasswordSignInAsync(email, "Qwerty123!", true, false);
-            if (result.Succeeded)
+            try
             {
-                return RedirectToAction("Index", "Home");
-            }
+                token = token.Replace(" ", "+");
+                string tokenString = _manager.Decrypt(token.ToString());
+                var json = JsonConvert.DeserializeObject<TokenModel>(tokenString);
+                var email = json.userName.ToString();
 
-            else
-            {
-                TrackingUser user = new TrackingUser { Email = email.ToString(), UserName = email.ToString() };
-                IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
-                if (res.Succeeded)
+                var result = await _signInManager.PasswordSignInAsync(email, "Qwerty123!", true, false);
+                if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
-            }
 
-            return Ok();            
-        }      
+                else
+                {
+                    TrackingUser user = new TrackingUser { Email = email.ToString(), UserName = email.ToString() };
+                    IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
+                    if (res.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Error", "Account");
+                    }
+                }
+            }
+            catch(Exception)
+            {
+                return RedirectToAction("Error", "Account");
+            }                      
+        }
+        
+        public IActionResult Error()
+        {
+            ViewData["Message"] = "Your Token is WRONG please check it";
+            return View();
+        }
     }
 }
 
