@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tracking.Web.Repositories
+namespace Tracking.Web.Managers
 {
     /// <summary>
     /// Manager For Token Decrypt

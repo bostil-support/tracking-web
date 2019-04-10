@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Tracking.Web.Models;
 using Microsoft.AspNetCore.Identity;
-using Tracking.Web.Repositories;
+using Tracking.Web.Managers;
 using Newtonsoft.Json;
 
 namespace Tracking.Web.Controllers
