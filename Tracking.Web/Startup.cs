@@ -84,7 +84,7 @@ namespace Tracking.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=Authorize}/{token?}");
+                    template: "{controller=Home}/{action=Index}");
             });
         }
     }
