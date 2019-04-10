@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace Tracking.Web.Repositories
 {
-    public class TokenRepository : ITokenRepository
+    /// <summary>
+    /// Manager For Token Decrypt
+    /// </summary>
+    public class TokenManager 
     {
+        /// <summary>
+        /// Method which return decode token values
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public string Decrypt(string data)
         {
             string token = null;
@@ -70,7 +78,7 @@ namespace Tracking.Web.Repositories
                 byte[] cipherText = Convert.FromBase64String(cipherTextString);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

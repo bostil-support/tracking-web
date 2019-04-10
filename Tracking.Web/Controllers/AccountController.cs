@@ -1,43 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Tracking.Web.Models;
-using Tracking.Web.Models.ViewModel.Auth;
 using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json.Linq;
-using System.Runtime.Serialization.Json;
-using System.IO;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Cryptography;
-using System.Text;
 using Tracking.Web.Repositories;
 using Newtonsoft.Json;
 
 namespace Tracking.Web.Controllers
 {
+    /// <summary>
+    /// Controller for Authorize and Registration functional
+    /// </summary>
     public class AccountController : Controller
     {
         private readonly UserManager<TrackingUser> _userManager;
         private readonly SignInManager<TrackingUser> _signInManager;
-        private ITokenRepository _repository;      
+        private readonly TokenManager _manager;      
         
-
+        /// <summary>
+        /// User Constructor for Init managers
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="signInManager"></param>
         public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _repository = new TokenRepository();           
+            _manager = new TokenManager();         
             
         }
-
         
+        /// <summary>
+        /// Method for Authorize and Register logic
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Login(string token)
+        public async Task<IActionResult> Authorize(string token)
         {
             token = token.Replace(" ", "+");
-            string tokenString = _repository.Decrypt(token.ToString());
+            string tokenString = _manager.Decrypt(token.ToString());
             var json = JsonConvert.DeserializeObject<TokenModel>(tokenString);
             var email = json.userName.ToString();
 

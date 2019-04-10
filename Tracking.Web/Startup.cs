@@ -52,7 +52,7 @@ namespace Tracking.Web
             services.AddTransient<IInterventionRepository, InterventionRepository>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IWorkContext, WorkContext>();
-            services.AddTransient<ITokenRepository,TokenRepository>();
+           
             
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(
@@ -84,7 +84,7 @@ namespace Tracking.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=Login}/{token?}");
+                    template: "{controller=Account}/{action=Authorize}/{token?}");
             });
         }
     }

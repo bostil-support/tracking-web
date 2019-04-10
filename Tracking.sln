@@ -10,8 +10,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tracking.DbInitialize", "Tr
 		{A7453CDD-4857-4372-BDF1-FDC2B6AAEA95} = {A7453CDD-4857-4372-BDF1-FDC2B6AAEA95}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{998229DA-4C56-43F7-86B4-EF9147720EFE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,10 +24,6 @@ Global
 		{DB1DD078-16BB-480B-AE94-083B68FF3E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB1DD078-16BB-480B-AE94-083B68FF3E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB1DD078-16BB-480B-AE94-083B68FF3E98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{998229DA-4C56-43F7-86B4-EF9147720EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{998229DA-4C56-43F7-86B4-EF9147720EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{998229DA-4C56-43F7-86B4-EF9147720EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{998229DA-4C56-43F7-86B4-EF9147720EFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
