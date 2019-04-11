@@ -4,8 +4,7 @@
     ViewData["Title"] = "Survey";
     Layout = "~/Views/Shared/_SurveyLayout.cshtml";
 }
-<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
-<script src="https://www.appelsiini.net/download/jquery.jeditable.mini.js"></script>
+
 <div class="big-label">
     <h2>
         Elenco rilievi/azioni di mitigazione
@@ -57,11 +56,11 @@
     </div>
 
     <div class="card">
-        <div class="card-header">Normativa</div>
+        <div class="card-header">Attributi</div>
         <div class="card-item">
             <div>Area Normativa</div>
             <div class="bold normativa" id="SrepCluster">@Model.SrepCluster</div>
-            <div>Macro Requisito Normativo</div>
+            <div>MRN</div>
             <div class="bold normativa" id="ScrepArea">@Model.ScrepArea</div>
         </div>
         <div class="edit-container">
@@ -90,11 +89,16 @@
 
     <div class="controls">
         <div class="bold">Stato</div>
-        <select asp-for="StatusId" asp-items="@Model.Statuses" onchange="GetStatus(this.options[this.selectedIndex].value)"></select>
-
-        <div class="bold">Nuova Data Scadenza</div>
-        <input type="date" id="dueDateLocal" asp-for="DueDateLocal">
-
+        <select asp-for="StatusId" asp-items="@Model.Statuses" class="form-control" onchange="GetStatus(this.options[this.selectedIndex].value)"></select>
+        <div class="bold" id="nuova">Nuova Data Scadenza</div>
+        <div class="form-group">
+            <div id="dueDateLocal" class='input-group date'>
+                <input type="text" asp-for="@Model.DueDateLocal" class="form-control" id="dueDateLocal1">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                </span>
+            </div>
+        </div>
         <div class="bold align-top">Storico note</div>
         <div class="notes full-line">
             <div class="blue">
@@ -110,6 +114,7 @@
         <div class="button-container">
             <input type="button" value="ANNULLA" id="annulla">
             <input type="button" class="primary" value="SALVA" id="salva">
+            <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi">
         </div>
     </div>
 </div>
@@ -125,28 +130,10 @@
             GetNotes();
             
             $('#surveyId').val(@Model.Id);
-          //  $('#StatusId selected').val(@Model.StatusId);
         }
 
         $(function () {
-            $('.date').datetimepicker({ locale: 'ru', debug: false, format: 'DD.MM.YYYY' });
-        });
-
-        $('#attachfile').change(function (e) {
-            var fileName = e.target.files[0].name;
-            $('#fileName').append('<div class="blue"> ' + fileName + '</div>');
-        });
-
-        $('#annulla').click(function () {
-            $('#fileName').children().remove();
-            $('textarea').val('');
-            $('textarea').attr("placeholder", "Note").val('');
-        });
-
-        var dueDateOriginal;
-        $('#dueDateLocal').change(function () {
-             dueDateOriginal = document.getElementById('dueDateLocal').value;
-             console.log(dueDateOriginal);
+            $('#dueDateLocal').datetimepicker({ locale: 'ru', debug: false, format: 'DD.MM.YYYY' });
         });
 
         function CreateNote() {
@@ -182,18 +169,5 @@
             $('textarea').val('');
             $('textarea').attr("placeholder", "Note").val('');
         }
-
-        $('img[class="vizual"]').click(function () {
-            if (!($('#notesList').css('display') == 'none')) {
-                $('#notesList').hide();
-                $(this).attr('src', "/images/plus.png");
-                $('#vizualizi').text('Visualizza tutti');
-            }
-            else {
-                $('#notesList').show();
-                $(this).attr('src', "/images/minus.png");
-                $('#vizualizi').text('Riduci visualizzati');
-            }
-        });
     </script>
 }

@@ -76,7 +76,8 @@ namespace Tracking.Web.Controllers
                 Notes = surveyNotes,
                 LegalEntity = survey.LegalEntity,
                 ActionOwner = survey.ActionOwner,
-                ActionDescription = survey.ActionDescription
+                ActionDescription = survey.ActionDescription,
+                DueDateLocal = survey.DueDateLocal            
             };
 
             return View(survyViewModel);
@@ -169,6 +170,7 @@ namespace Tracking.Web.Controllers
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
                 survey.StatusId = model.StatusId;
+                survey.DueDateLocal = model.DueDateLocal;
 
                 _rep.UpdateSurveyAsync(survey);
             }

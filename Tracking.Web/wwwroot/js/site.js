@@ -1,4 +1,28 @@
-﻿var arguments = {
+﻿$('#attachfile').change(function (e) {
+    var fileName = e.target.files[0].name;
+    $('#fileName').append('<div class="blue"> ' + fileName + '</div>');
+});
+
+$('#annulla').click(function () {
+    $('#fileName').children().remove();
+    $('textarea').val('');
+    $('textarea').attr("placeholder", "Note").val('');
+});
+
+$('img[class="vizual"]').click(function () {
+    if (!($('#notesList').css('display') == 'none')) {
+        $('#notesList').hide();
+        $(this).attr('src', "/images/plus.png");
+        $('#vizualizi').text('Visualizza tutti');
+    }
+    else {
+        $('#notesList').show();
+        $(this).attr('src', "/images/minus.png");
+        $('#vizualizi').text('Riduci visualizzati');
+    }
+});
+
+var arguments = {
     submit: 'Salva',
     tooltip: "Click to edit...",
     style: 'display: inline',
@@ -31,7 +55,6 @@ $('.azione').editable(Edit, arguments);
 $('#StatusId').select();
 
 function Edit(value, settings) {
-    //Based on the current element, we update the corresponding property of survey
     switch ($(this).attr('id')) {
         case 'Title':
             window.Survey.Title = value;
@@ -93,7 +116,8 @@ function Edit(value, settings) {
             ScrepArea: document.getElementById('ScrepArea').textContent,
             ActionOwner: document.getElementById('ActionOwner').textContent,
             ActionDescription: document.getElementById('ActionDescription').textContent,
-            StatusId: $('#StatusId :selected').val()
+            StatusId: $('#StatusId :selected').val(),
+            DueDateLocal: $('#dueDateLocal1').val()
         };
     })(jQuery);
 
@@ -125,3 +149,7 @@ span.onclick = function () {
 function GetStatus(value) {
     window.Survey.StatusId = value;
 }
+
+$("#dueDateLocal").on("dp.change", function () {
+    window.Survey.DueDateLocal = $('#dueDateLocal1').val();
+});
