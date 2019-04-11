@@ -1,4 +1,6 @@
 ﻿@model Tracking.Web.Models.ViewModel.SurveyViewModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Tracking.Web.Models.TrackingUser> UserManager
 
 @{
     ViewData["Title"] = "Survey";
@@ -55,20 +57,39 @@
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-header">Attributi</div>
-        <div class="card-item">
-            <div>Area Normativa</div>
-            <div class="bold normativa" id="SrepCluster">@Model.SrepCluster</div>
-            <div>MRN</div>
-            <div class="bold normativa" id="ScrepArea">@Model.ScrepArea</div>
+    @if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Auditor"))
+    {
+        <div class="card">
+            <div class="card-header">Mappatura Rischio</div>
+            <div class="card-item">
+                <div>Titolo</div>
+                <div class="bold normativa" id="Risk">@Model.RiskType.Name</div>
+                <div>Area SREP</div>
+                <div class="bold normativa" id="ScrepArea">@Model.ScrepArea</div>
+            </div>
+            <div class="edit-container">
+                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.normativa').trigger('custom_event');">
+                    <img src="~/images/edit.png" alt="edit">
+                </a>
+            </div>
         </div>
-        <div class="edit-container">
-            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.normativa').trigger('custom_event');">
-                <img src="~/images/edit.png" alt="edit">
-            </a>
+
+    }
+
+        <div class="card">
+            <div class="card-header">Attributi</div>
+            <div class="card-item">
+                <div>Area Normativa</div>
+                <div class="bold normativa" id="SrepCluster">@Model.SrepCluster</div>
+                <div>MRN</div>
+                <div class="bold normativa" id="ScrepArea">@Model.ScrepArea</div>
+            </div>
+            <div class="edit-container">
+                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.normativa').trigger('custom_event');">
+                    <img src="~/images/edit.png" alt="edit">
+                </a>
+            </div>
         </div>
-    </div>
 
     <div class="card">
         <div class="card-header">Azione di mitigazione</div>
@@ -128,7 +149,7 @@
             $('textarea').attr("placeholder", "Note").val('');
 
             GetNotes();
-            
+
             $('#surveyId').val(@Model.Id);
         }
 
