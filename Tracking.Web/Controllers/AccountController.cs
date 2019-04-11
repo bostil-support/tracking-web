@@ -74,7 +74,7 @@ namespace Tracking.Web.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Error", "Account");
+                        return RedirectToAction("Error", "Account", json.redirectUrl.ToString());
                     }
                 }
             }
@@ -84,10 +84,13 @@ namespace Tracking.Web.Controllers
             }                      
         }
         
-        public IActionResult Error()
+        public IActionResult Error(string json)
         {
+            TokenModel model = new TokenModel();
+            model.redirectUrl = json;
+
             ViewData["Message"] = "Your Token is WRONG please check it";
-            return View();
+            return View(model);
         }
     }
 }
