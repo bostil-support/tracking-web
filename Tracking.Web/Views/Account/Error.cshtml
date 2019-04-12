@@ -1,9 +1,11 @@
-﻿
+﻿@model Tracking.Web.Models.TokenModel
+
 @{
     ViewData["Title"] = "Error";
+
 }
 
 <h3>@ViewData["Message"]</h3>
 
-<a href="https://redirect.url">Click here</a>
+<a href="@Model.redirectUrl">ritorno</a>
 
