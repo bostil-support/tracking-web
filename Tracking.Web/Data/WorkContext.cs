@@ -31,5 +31,10 @@ namespace Tracking.Web.Data
             return user;
         }
 
+        public string GetCurrentUserRole()
+        {
+            return _httpContextAccessor.HttpContext.User
+                .FindFirst(ClaimTypes.Role).Value;
+        }
     }
 }

@@ -9,5 +9,10 @@ namespace Tracking.Web.Data
         /// Gets the current customer
         /// </summary>
         Task<TrackingUser> GetCurrentUserAsync();
+
+        /// <summary>
+        /// Gets the current user role
+        /// </summary>
+        string GetCurrentUserRole();
     }
 }

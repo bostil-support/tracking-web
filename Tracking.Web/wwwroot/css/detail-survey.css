@@ -311,3 +311,9 @@ input[type=submit].primary, input[type=button].primary {
     width: 50%;
     margin: 0 auto;
 }
+
+#editSpan{
+    font-weight:normal;
+    font-size:12.5px;
+    padding-left:5px;
+}

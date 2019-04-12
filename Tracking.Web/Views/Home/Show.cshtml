@@ -1,6 +1,4 @@
 ﻿@model Tracking.Web.Models.ViewModel.SurveyViewModel
-@using Microsoft.AspNetCore.Identity
-@inject UserManager<Tracking.Web.Models.TrackingUser> UserManager
 
 @{
     ViewData["Title"] = "Survey";
@@ -35,11 +33,14 @@
             <div>Descrizione</div>
             <div class="bold dati-rilievo" id="Description">@Model.Description</div>
         </div>
-        <div class="edit-container">
-            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.dati-rilievo').trigger('custom_event');">
-                <img src="~/images/edit.png" alt="edit">
-            </a>
-        </div>
+        @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+        {
+            <div class="edit-container">
+                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.dati-rilievo').trigger('custom_event');">
+                    <img src="~/images/edit.png" alt="edit">
+                </a>
+            </div>
+        }
     </div>
 
     <div class="card">
@@ -50,67 +51,68 @@
             <div>Cod. Legal Entity</div>
             <div class="bold" id="LegalEntityCode">@Model.LegalEntity.Code</div>
         </div>
+        @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+        {
+            <div class="edit-container">
+                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.legal-entity').trigger('custom_event');">
+                    <img src="~/images/edit.png" alt="edit">
+                </a>
+            </div>
+        }
+    </div>
+
+    @if (@Model.Role == "Compliance")
+    {
+        @Html.Partial("_Normativa", Model)
+    }
+
+    @if (@Model.Role == "Audit")
+    {
+        @Html.Partial("_Mappatura", Model)
+    }
+
+    @*<div class="card">
+        <div class="card-header">Attributi</div>
+        <div class="card-item">
+            <div>Area Normativa</div>
+            <div class="bold" id="SrepCluster">@Model.SrepCluster</div>
+            <div>MRN</div>
+            <div class="bold" id="ScrepArea">@Model.ScrepArea</div>
+        </div>
         <div class="edit-container">
-            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.legal-entity').trigger('custom_event');">
+            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.attributti').trigger('custom_event');">
                 <img src="~/images/edit.png" alt="edit">
             </a>
         </div>
-    </div>
-
-    @if (await UserManager.IsInRoleAsync(await UserManager.FindByNameAsync(User.Identity.Name), "Auditor"))
-    {
-        <div class="card">
-            <div class="card-header">Mappatura Rischio</div>
-            <div class="card-item">
-                <div>Titolo</div>
-                <div class="bold normativa" id="Risk">@Model.RiskType.Name</div>
-                <div>Area SREP</div>
-                <div class="bold normativa" id="ScrepArea">@Model.ScrepArea</div>
-            </div>
-            <div class="edit-container">
-                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.normativa').trigger('custom_event');">
-                    <img src="~/images/edit.png" alt="edit">
-                </a>
-            </div>
-        </div>
-
-    }
-
-        <div class="card">
-            <div class="card-header">Attributi</div>
-            <div class="card-item">
-                <div>Area Normativa</div>
-                <div class="bold normativa" id="SrepCluster">@Model.SrepCluster</div>
-                <div>MRN</div>
-                <div class="bold normativa" id="ScrepArea">@Model.ScrepArea</div>
-            </div>
-            <div class="edit-container">
-                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.normativa').trigger('custom_event');">
-                    <img src="~/images/edit.png" alt="edit">
-                </a>
-            </div>
-        </div>
-
+    </div>*@
     <div class="card">
         <div class="card-header">Azione di mitigazione</div>
         <div class="card-item">
             <div>Owner</div>
-            <div class="bold azione" id="ActionOwner">@Model.ActionOwner</div>
+            <div class="bold">
+                <span class="azione"  id="ActionOwner">@Model.ActionOwner</span>
+                @if (@Model.Role == "Audit business")
+                {
+                    @*<span id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>*@
+                }
+            </div>
         </div>
         <div class="card-item description">
             <div>Descrizione</div>
             <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
         </div>
-        <div class="edit-container">
-            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">
-                <img src="~/images/edit.png" alt="edit">
-            </a>
-        </div>
+        @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+        {
+            <div class="edit-container">
+                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">
+                    <img src="~/images/edit.png" alt="edit">
+                </a>
+            </div>
+        }
     </div>
-
     <div class="controls">
         <div class="bold">Stato</div>
-        <select asp-for="StatusId" asp-items="@Model.Statuses" class="form-control" onchange="GetStatus(this.options[this.selectedIndex].value)"></select>
+        <select asp-for="StatusId" asp-items="@Model.Statuses" class="form-control" id="StatusId" onchange="GetStatus(this.options[this.selectedIndex].value)"></select>
         <div class="bold" id="nuova">Nuova Data Scadenza</div>
         <div class="form-group">
             <div id="dueDateLocal" class='input-group date'>
@@ -155,7 +157,7 @@
 
         $(function () {
             $('#dueDateLocal').datetimepicker({ locale: 'ru', debug: false, format: 'DD.MM.YYYY' });
-        });
+          });
 
         function CreateNote() {
             var form = $("#formNote");
@@ -190,5 +192,45 @@
             $('textarea').val('');
             $('textarea').attr("placeholder", "Note").val('');
         }
+
+        //function GetRole() {
+        //    $.ajax({
+        //        type: "Get",
+        //        url: "/Home/GerUserRole",
+        //        success: RolesContraint
+        //    });
+        //}
+
+        //function RolesContraint(role) {
+        //    switch (role)
+        //    { 
+        //        case 'Auditor':
+        //            ShowEditContainer();
+        //            $('#EditOwner').hide();
+        //            break;
+        //        case 'Compliance':
+        //            $('.edit-container').show();
+        //            $('#EditOwner').hide();
+        //            break;
+        //        case 'Audit business':
+        //            $('.edit-container').hide();
+        //            $('#EditOwner').show();
+        //            break;
+        //        case 'Compliance business':
+        //            $('.edit-container').hide();
+        //            $('#EditOwner').hide();
+        //            break;
+        //    }
+        //}
+
+        //function ShowEditContainer() {
+        //    $.ajax({
+        //        type: "Get",
+        //        url: "/Home/GetEditContainer",
+        //        success: function (data) {
+        //            $('.card').prepend(data);
+        //        }
+        //    });
+        //}
     </script>
 }

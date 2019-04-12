@@ -50,6 +50,8 @@ $('.legal-entity').editable(Edit,
 
 $('.normativa').editable(Edit, arguments);
 
+$('.mappatura').editable(Edit, arguments);
+
 $('.azione').editable(Edit, arguments);
 
 $('#StatusId').select();
@@ -80,11 +82,11 @@ function Edit(value, settings) {
             window.Survey.LegalEntity.Id = value;
             $('#LegalEntityCode').text(value);
             break;
-        case 'SrepCluster':
-            window.Survey.SrepCluster = value;
-            break;
         case 'ScrepArea':
             window.Survey.ScrepArea = value;
+            break;
+        case 'RiskType':
+            window.Survey.RiskType.Name = value;
             break;
         case 'ActionOwner':
             window.Survey.ActionOwner = value;
@@ -112,12 +114,16 @@ function Edit(value, settings) {
                 Id: document.getElementById('LegalEntityCode').textContent,
                 Name: document.getElementById('LegalEntityName').textContent,
             },
-            SrepCluster: document.getElementById('SrepCluster').textContent,
             ScrepArea: document.getElementById('ScrepArea').textContent,
             ActionOwner: document.getElementById('ActionOwner').textContent,
             ActionDescription: document.getElementById('ActionDescription').textContent,
             StatusId: $('#StatusId :selected').val(),
-            DueDateLocal: $('#dueDateLocal1').val()
+            DueDateLocal: $('#dueDateLocal1').val(),
+            RiskType: {
+                Name: document.getElementById('Risk').textContent
+            },
+            //MRN: document.getElementById('mrn').textContent,
+            //Regulatory_Area: document.getElementById('regulatory_area').textContent,
         };
     })(jQuery);
 

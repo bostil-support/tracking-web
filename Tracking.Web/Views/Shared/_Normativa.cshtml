@@ -1,0 +1,19 @@
+﻿@model Tracking.Web.Models.ViewModel.SurveyViewModel
+
+<div class="card">
+    <div class="card-header">Normativa</div>
+    <div class="card-item">
+        <div>Titolo</div>
+        <div class="bold normativa" id="mrn">MRN(not yet available)</div>
+        <div>Area normativa</div>
+        <div class="bold normativa" id="regulatory_area">Area_Normativa(not yet available)</div>
+    </div>
+    @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+    {
+        <div class="edit-container">
+            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.normativa').trigger('custom_event');">
+                <img src="~/images/edit.png" alt="edit">
+            </a>
+        </div>
+    }
+</div>
