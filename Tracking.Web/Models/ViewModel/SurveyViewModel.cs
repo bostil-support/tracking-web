@@ -121,5 +121,10 @@ namespace Tracking.Web.Models.ViewModel
         /// List all risks. It will be used for select tag
         /// </summary>
         public List<RiskType> RiskTypes { get; set; }
+
+        /// <summary>
+        /// User role
+        /// </summary>
+        public string Role { get; set; }
     }
 }

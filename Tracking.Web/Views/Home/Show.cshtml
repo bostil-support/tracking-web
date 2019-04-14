@@ -4,8 +4,7 @@
     ViewData["Title"] = "Survey";
     Layout = "~/Views/Shared/_SurveyLayout.cshtml";
 }
-<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
-<script src="https://www.appelsiini.net/download/jquery.jeditable.mini.js"></script>
+
 <div class="big-label">
     <h2>
         Elenco rilievi/azioni di mitigazione
@@ -34,11 +33,14 @@
             <div>Descrizione</div>
             <div class="bold dati-rilievo" id="Description">@Model.Description</div>
         </div>
-        <div class="edit-container">
-            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.dati-rilievo').trigger('custom_event');">
-                <img src="~/images/edit.png" alt="edit">
-            </a>
-        </div>
+        @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+        {
+            <div class="edit-container">
+                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.dati-rilievo').trigger('custom_event');">
+                    <img src="~/images/edit.png" alt="edit">
+                </a>
+            </div>
+        }
     </div>
 
     <div class="card">
@@ -49,52 +51,77 @@
             <div>Cod. Legal Entity</div>
             <div class="bold" id="LegalEntityCode">@Model.LegalEntity.Code</div>
         </div>
-        <div class="edit-container">
-            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.legal-entity').trigger('custom_event');">
-                <img src="~/images/edit.png" alt="edit">
-            </a>
-        </div>
+        @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+        {
+            <div class="edit-container">
+                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.legal-entity').trigger('custom_event');">
+                    <img src="~/images/edit.png" alt="edit">
+                </a>
+            </div>
+        }
     </div>
 
-    <div class="card">
-        <div class="card-header">Normativa</div>
+    @if (@Model.Role == "Compliance")
+    {
+        @Html.Partial("_Normativa", Model)
+    }
+
+    @if (@Model.Role == "Audit")
+    {
+        @Html.Partial("_Mappatura", Model)
+    }
+
+    @*<div class="card">
+        <div class="card-header">Attributi</div>
         <div class="card-item">
             <div>Area Normativa</div>
-            <div class="bold normativa" id="SrepCluster">@Model.SrepCluster</div>
-            <div>Macro Requisito Normativo</div>
-            <div class="bold normativa" id="ScrepArea">@Model.ScrepArea</div>
+            <div class="bold" id="SrepCluster">@Model.SrepCluster</div>
+            <div>MRN</div>
+            <div class="bold" id="ScrepArea">@Model.ScrepArea</div>
         </div>
         <div class="edit-container">
-            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.normativa').trigger('custom_event');">
+            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.attributti').trigger('custom_event');">
                 <img src="~/images/edit.png" alt="edit">
             </a>
         </div>
-    </div>
-
+    </div>*@
     <div class="card">
         <div class="card-header">Azione di mitigazione</div>
         <div class="card-item">
             <div>Owner</div>
-            <div class="bold azione" id="ActionOwner">@Model.ActionOwner</div>
+            <div class="bold">
+                <span class="azione"  id="ActionOwner">@Model.ActionOwner</span>
+                @if (@Model.Role == "Audit business")
+                {
+                    @*<span id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>*@
+                }
+            </div>
         </div>
         <div class="card-item description">
             <div>Descrizione</div>
             <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
         </div>
-        <div class="edit-container">
-            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">
-                <img src="~/images/edit.png" alt="edit">
-            </a>
-        </div>
+        @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+        {
+            <div class="edit-container">
+                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">
+                    <img src="~/images/edit.png" alt="edit">
+                </a>
+            </div>
+        }
     </div>
-
     <div class="controls">
         <div class="bold">Stato</div>
-        <select asp-for="StatusId" asp-items="@Model.Statuses" onchange="GetStatus(this.options[this.selectedIndex].value)"></select>
-
-        <div class="bold">Nuova Data Scadenza</div>
-        <input type="date" id="dueDateLocal" asp-for="DueDateLocal">
-
+        <select asp-for="StatusId" asp-items="@Model.Statuses" class="form-control" id="StatusId" onchange="GetStatus(this.options[this.selectedIndex].value)"></select>
+        <div class="bold" id="nuova">Nuova Data Scadenza</div>
+        <div class="form-group">
+            <div id="dueDateLocal" class='input-group date'>
+                <input type="text" asp-for="@Model.DueDateLocal" class="form-control" id="dueDateLocal1">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                </span>
+            </div>
+        </div>
         <div class="bold align-top">Storico note</div>
         <div class="notes full-line">
             <div class="blue">
@@ -110,6 +137,7 @@
         <div class="button-container">
             <input type="button" value="ANNULLA" id="annulla">
             <input type="button" class="primary" value="SALVA" id="salva">
+            <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi">
         </div>
     </div>
 </div>
@@ -123,31 +151,13 @@
             $('textarea').attr("placeholder", "Note").val('');
 
             GetNotes();
-            
+
             $('#surveyId').val(@Model.Id);
-          //  $('#StatusId selected').val(@Model.StatusId);
         }
 
         $(function () {
-            $('.date').datetimepicker({ locale: 'ru', debug: false, format: 'DD.MM.YYYY' });
-        });
-
-        $('#attachfile').change(function (e) {
-            var fileName = e.target.files[0].name;
-            $('#fileName').append('<div class="blue"> ' + fileName + '</div>');
-        });
-
-        $('#annulla').click(function () {
-            $('#fileName').children().remove();
-            $('textarea').val('');
-            $('textarea').attr("placeholder", "Note").val('');
-        });
-
-        var dueDateOriginal;
-        $('#dueDateLocal').change(function () {
-             dueDateOriginal = document.getElementById('dueDateLocal').value;
-             console.log(dueDateOriginal);
-        });
+            $('#dueDateLocal').datetimepicker({ locale: 'ru', debug: false, format: 'DD.MM.YYYY' });
+          });
 
         function CreateNote() {
             var form = $("#formNote");
@@ -183,17 +193,44 @@
             $('textarea').attr("placeholder", "Note").val('');
         }
 
-        $('img[class="vizual"]').click(function () {
-            if (!($('#notesList').css('display') == 'none')) {
-                $('#notesList').hide();
-                $(this).attr('src', "/images/plus.png");
-                $('#vizualizi').text('Visualizza tutti');
-            }
-            else {
-                $('#notesList').show();
-                $(this).attr('src', "/images/minus.png");
-                $('#vizualizi').text('Riduci visualizzati');
-            }
-        });
+        //function GetRole() {
+        //    $.ajax({
+        //        type: "Get",
+        //        url: "/Home/GerUserRole",
+        //        success: RolesContraint
+        //    });
+        //}
+
+        //function RolesContraint(role) {
+        //    switch (role)
+        //    { 
+        //        case 'Auditor':
+        //            ShowEditContainer();
+        //            $('#EditOwner').hide();
+        //            break;
+        //        case 'Compliance':
+        //            $('.edit-container').show();
+        //            $('#EditOwner').hide();
+        //            break;
+        //        case 'Audit business':
+        //            $('.edit-container').hide();
+        //            $('#EditOwner').show();
+        //            break;
+        //        case 'Compliance business':
+        //            $('.edit-container').hide();
+        //            $('#EditOwner').hide();
+        //            break;
+        //    }
+        //}
+
+        //function ShowEditContainer() {
+        //    $.ajax({
+        //        type: "Get",
+        //        url: "/Home/GetEditContainer",
+        //        success: function (data) {
+        //            $('.card').prepend(data);
+        //        }
+        //    });
+        //}
     </script>
 }

@@ -37,7 +37,7 @@ namespace Tracking.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewData["Message"] = "Please Enter your Token to the URL";
+            ViewData["Message"] = "Per favore inserisci il tuo token nell'URL";
             return View();
         }
 

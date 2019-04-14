@@ -11,6 +11,8 @@ using Tracking.Web.Data;
 using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 namespace Tracking.Web.Controllers
 {
@@ -28,8 +30,6 @@ namespace Tracking.Web.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            //var interventions = _rep.GetAllInterventions();
-            //return View(interventions);
             return View();
         }
 
@@ -55,7 +55,7 @@ namespace Tracking.Web.Controllers
             var allRiskTypes = _rep.GetAllRiskTypes();
             var currentTypeRisk = _rep.GetRiskById(survey.RiskTypeId);
             var surveyNotes = _rep.GetNotesForSurvey(id);
-
+            var currentUserRole = _workContext.GetCurrentUserRole();
 
             var survyViewModel = new SurveyViewModel
             {
@@ -76,7 +76,10 @@ namespace Tracking.Web.Controllers
                 Notes = surveyNotes,
                 LegalEntity = survey.LegalEntity,
                 ActionOwner = survey.ActionOwner,
-                ActionDescription = survey.ActionDescription
+                ActionDescription = survey.ActionDescription,
+                // DueDateLocal = survey.DueDateLocal.ToString("dd/mm/yyyy"),
+                DueDateLocal = survey.DueDateLocal,
+                Role = "Audit"
             };
 
             return View(survyViewModel);
@@ -169,7 +172,8 @@ namespace Tracking.Web.Controllers
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
                 survey.StatusId = model.StatusId;
-
+                survey.DueDateLocal = model.DueDateLocal;
+               // survey.DueDateLocal = DateTime.ParseExact(model.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 _rep.UpdateSurveyAsync(survey);
             }
 
@@ -181,6 +185,19 @@ namespace Tracking.Web.Controllers
         {
             var legalEntites = await _rep.GetEntityNames();
             return legalEntites;
+        }
+
+        [HttpGet]
+        public string GerUserRole()
+        {
+            var currentUserRole = _workContext.GetCurrentUserRole();
+            return currentUserRole;
+        }
+
+        [HttpGet]
+        public IActionResult GetEditContainer()
+        {
+            return PartialView("_EditContainer");
         }
     }
 }
