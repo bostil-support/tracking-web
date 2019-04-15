@@ -133,14 +133,14 @@ function Edit(value, settings) {
                 Id: document.getElementById('LegalEntityCode').textContent,
                 Name: document.getElementById('LegalEntityName').textContent,
             },
-            ScrepArea: document.getElementById('ScrepArea').textContent,
-            ActionOwner: document.getElementById('ActionOwner').textContent,
+            ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent: '',
             ActionDescription: document.getElementById('ActionDescription').textContent,
             StatusId: $('#StatusId :selected').val(),
             DueDateLocal: $('#dueDateLocal1').val(),
+            ScrepArea: document.getElementById('ScrepArea') ? document.getElementById('ScrepArea').textContent: '',
             RiskType: {
                 Id: $('#RiskTypeId').attr('value'),
-                Name: document.getElementById('RiskType').textContent
+                Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent: ''
             },
             //MRN: document.getElementById('mrn').textContent,
             //Regulatory_Area: document.getElementById('regulatory_area').textContent,

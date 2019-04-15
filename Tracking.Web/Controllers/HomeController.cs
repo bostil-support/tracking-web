@@ -75,8 +75,7 @@ namespace Tracking.Web.Controllers
                 LegalEntity = survey.LegalEntity,
                 ActionOwner = survey.ActionOwner,
                 ActionDescription = survey.ActionDescription,
-                // DueDateLocal = survey.DueDateLocal.ToString("dd/mm/yyyy"),
-                DueDateLocal = survey.DueDateLocal,
+                DueDateLocal = survey.DueDateLocal.ToString("dd.MM.yyyy"),
                 Role = currentUserRole
             };
 
@@ -166,13 +165,12 @@ namespace Tracking.Web.Controllers
                 survey.Description = model.Description;
                 survey.LegalEntityId = model.LegalEntity.Id;
                 survey.SrepCluster = model.SrepCluster;
-                survey.ScrepArea = model.ScrepArea;
+                survey.ScrepArea = model.ScrepArea != null ? model.ScrepArea : survey.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
                 survey.StatusId = model.StatusId;
-                survey.RiskTypeId = model.RiskType.Id;
-                survey.DueDateLocal = model.DueDateLocal;
-               // survey.DueDateLocal = DateTime.ParseExact(model.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                survey.RiskTypeId = model.RiskType.Id != 0 ? model.RiskType.Id : survey.RiskTypeId;
+                survey.DueDateLocal = DateTime.ParseExact(model.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 _rep.UpdateSurveyAsync(survey);
             }
 
