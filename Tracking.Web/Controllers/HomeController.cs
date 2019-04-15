@@ -52,7 +52,6 @@ namespace Tracking.Web.Controllers
             var survey = _rep.GetSurveyById(id);
             var currentStatus = _rep.GetStatusById(survey.StatusId);
             var allStatuses = _rep.GetStatusesAsSelectList();
-            var allRiskTypes = _rep.GetAllRiskTypes();
             var currentTypeRisk = _rep.GetRiskById(survey.RiskTypeId);
             var surveyNotes = _rep.GetNotesForSurvey(id);
             var currentUserRole = _workContext.GetCurrentUserRole();
@@ -72,14 +71,13 @@ namespace Tracking.Web.Controllers
                 ScrepArea = survey.ScrepArea,
                 SrepCluster = survey.SrepCluster,
                 RiskType = currentTypeRisk,
-                RiskTypes = allRiskTypes,
                 Notes = surveyNotes,
                 LegalEntity = survey.LegalEntity,
                 ActionOwner = survey.ActionOwner,
                 ActionDescription = survey.ActionDescription,
                 // DueDateLocal = survey.DueDateLocal.ToString("dd/mm/yyyy"),
                 DueDateLocal = survey.DueDateLocal,
-                Role = "Audit"
+                Role = currentUserRole
             };
 
             return View(survyViewModel);
@@ -172,6 +170,7 @@ namespace Tracking.Web.Controllers
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
                 survey.StatusId = model.StatusId;
+                survey.RiskTypeId = model.RiskType.Id;
                 survey.DueDateLocal = model.DueDateLocal;
                // survey.DueDateLocal = DateTime.ParseExact(model.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 _rep.UpdateSurveyAsync(survey);
@@ -198,6 +197,13 @@ namespace Tracking.Web.Controllers
         public IActionResult GetEditContainer()
         {
             return PartialView("_EditContainer");
+        }
+
+        [HttpGet]
+        public async Task<Dictionary<int, string>> GetRisks()
+        {
+            var risks = await _rep.GetRisks();
+            return risks;
         }
     }
 }
