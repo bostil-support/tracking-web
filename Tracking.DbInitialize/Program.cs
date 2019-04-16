@@ -14,11 +14,12 @@ namespace Tracking.DbInitialize
         }
         static void Main(string[] args)
         {
-            Display display = _db.SetCreateDatabase;
-            display.Invoke();
+            //Display display = _db.SetCreateDatabase;
+            //display.Invoke();
 
-            display = _db.SetInitializeRolesAsync().Wait;
-            display.Invoke();
+            //Display display = _db.ImportSurveysAudit;
+            //display.Invoke();
+            _db.ImportSurveysAudit();
 
             Console.WriteLine($"\r\n{new string('-', 80)}");
             Console.WriteLine("For continue press any button...");
