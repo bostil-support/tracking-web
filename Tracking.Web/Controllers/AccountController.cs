@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Tracking.Web.Repositories;
 using Newtonsoft.Json;
 using System;
+using Tracking.Web.Managers;
 
 namespace Tracking.Web.Controllers
 {
@@ -16,20 +17,21 @@ namespace Tracking.Web.Controllers
         private readonly UserManager<TrackingUser> _userManager;
         private readonly RoleManager<TrackingRole> _roleManager;
         private readonly SignInManager<TrackingUser> _signInManager;
-        private readonly TokenManager _manager;      
+        private readonly TokenManager _manager;
+        private readonly EmailServices _services;
         
         /// <summary>
         /// User Constructor for Init managers
         /// </summary>
         /// <param name="userManager"></param>
         /// <param name="signInManager"></param>
-        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager,RoleManager<TrackingRole> roleManager)
+        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager,RoleManager<TrackingRole> roleManager,EmailServices services)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _manager = new TokenManager();         
-            
+            _manager = new TokenManager();
+            _services = services;            
         }
         
         /// <summary>
@@ -67,22 +69,47 @@ namespace Tracking.Web.Controllers
 
                 else
                 {
-                    
-                    TrackingUser user = new TrackingUser { Email = email.ToString(), UserName = email.ToString() };
-                    IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
-                    IdentityRole role = await _roleManager.FindByNameAsync("Auditor");
-                    //IdentityRole role = await _roleManager.FindByIdAsync("10");
+                    var userAudience = _services.FindUserInAudience(email);
+                    var userCompliance = _services.FindUserInComplaince(email);
+                    if(userAudience != null)
+                    {
+                        TrackingUser user = new TrackingUser { Email = email.ToString(), UserName = email.ToString() };
+                        IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
+                        IdentityRole role = await _roleManager.FindByNameAsync("Auditor");
+                        //IdentityRole role = await _roleManager.FindByIdAsync("10");
 
-                    if (res.Succeeded)
-                    {
-                        await _userManager.AddToRoleAsync(user, role.Name);
-                        await _signInManager.SignInAsync(user, false);
-                        return RedirectToAction("Index", "Home");
+                        if (res.Succeeded)
+                        {
+                            await _userManager.AddToRoleAsync(user, role.Name);
+                            await _signInManager.SignInAsync(user, false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Error", "Account", json.redirectUrl.ToString());
+                        }
                     }
-                    else
+                    else if(userCompliance!=null)
                     {
-                        return RedirectToAction("Error", "Account", json.redirectUrl.ToString());
+                        TrackingUser user = new TrackingUser { Email = email.ToString(), UserName = email.ToString() };
+                        IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
+                        IdentityRole role = await _roleManager.FindByNameAsync("Compliance");
+                        //IdentityRole role = await _roleManager.FindByIdAsync("10");
+
+                        if (res.Succeeded)
+                        {
+                            await _userManager.AddToRoleAsync(user, role.Name);
+                            await _signInManager.SignInAsync(user, false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Error", "Account", json.redirectUrl.ToString());
+                        }
                     }
+                    return RedirectToAction("Error", "Account", json.redirectUrl.ToString());
+
+
                 }
             }
             catch(Exception e)
