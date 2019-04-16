@@ -184,6 +184,8 @@ main {
     border: 1px solid #C0C5C9;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
     z-index: 10;
+    overflow:auto;
+    max-height:400px;
 }
 
 fieldset {
