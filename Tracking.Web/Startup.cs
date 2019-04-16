@@ -15,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Tracking.Web.Models;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
-using Tracking.Web.Repositories;
 using Tracking.Web.Managers;
 
 namespace Tracking.Web
