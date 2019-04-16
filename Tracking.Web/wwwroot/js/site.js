@@ -96,6 +96,7 @@ function Edit(value, settings) {
             var name = $("#LegalEntityName option:selected").text();
             window.Survey.LegalEntity.Name = name;
             window.Survey.LegalEntity.Id = value;
+            $("#LegalEntityCode").text(value);
             break;
         case 'ScrepArea':
             window.Survey.ScrepArea = value;

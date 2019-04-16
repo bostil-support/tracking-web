@@ -99,7 +99,14 @@
         </div>
         <div class="card-item description">
             <div>Descrizione</div>
-            <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
+            @if (@Model.Role == "Auditor business")
+            {
+                <div class="bold full-line" id="ActionDescription">@Model.ActionDescription</div>
+            }
+            else
+            {
+                <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
+            }
         </div>
         @if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
         {
@@ -137,7 +144,10 @@
         <div class="button-container">
             <input type="button" value="ANNULLA" id="annulla">
             <input type="button" class="primary" value="SALVA" id="salva">
-            <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi">
+            @if (@Model.Role != "Compliance business")
+            {
+                <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi">
+            }
         </div>
     </div>
 </div>
