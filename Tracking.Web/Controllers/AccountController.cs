@@ -14,6 +14,7 @@ namespace Tracking.Web.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<TrackingUser> _userManager;
+        private readonly RoleManager<TrackingRole> _roleManager;
         private readonly SignInManager<TrackingUser> _signInManager;
         private readonly TokenManager _manager;      
         
@@ -22,10 +23,11 @@ namespace Tracking.Web.Controllers
         /// </summary>
         /// <param name="userManager"></param>
         /// <param name="signInManager"></param>
-        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager)
+        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager,RoleManager<TrackingRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _manager = new TokenManager();         
             
         }
@@ -57,18 +59,23 @@ namespace Tracking.Web.Controllers
                 var json = JsonConvert.DeserializeObject<TokenModel>(tokenString);
                 var email = json.userName.ToString();
 
-                var result = await _signInManager.PasswordSignInAsync(email, "Qwerty123!", true, false);
+                var result = await _signInManager.PasswordSignInAsync(email, "Qwerty123!", true, false);                
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
-                }
+                }              
 
                 else
                 {
+                    
                     TrackingUser user = new TrackingUser { Email = email.ToString(), UserName = email.ToString() };
                     IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
+                    IdentityRole role = await _roleManager.FindByNameAsync("Auditor");
+                    //IdentityRole role = await _roleManager.FindByIdAsync("10");
+
                     if (res.Succeeded)
                     {
+                        await _userManager.AddToRoleAsync(user, role.Name);
                         await _signInManager.SignInAsync(user, false);
                         return RedirectToAction("Index", "Home");
                     }
@@ -78,7 +85,7 @@ namespace Tracking.Web.Controllers
                     }
                 }
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return RedirectToAction("Error", "Account");
             }                      
