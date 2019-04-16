@@ -53,7 +53,7 @@ namespace Tracking.Web
             services.AddScoped<SignInManager<TrackingUser>, SignInManager<TrackingUser>>();
             services.AddScoped<UserManager<TrackingUser>, UserManager<TrackingUser>>();
             services.AddScoped<RoleManager<IdentityRole>, RoleManager<IdentityRole>>();
-            services.AddTransient<EmailServices>(x=> new EmailServices(connectionToAudience,connectionToComliance));
+            services.AddTransient<SearchRemoteUserEmailService>(x=> new SearchRemoteUserEmailService(connectionToAudience,connectionToComliance));
             services.AddTransient<IInterventionRepository, InterventionRepository>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IWorkContext, WorkContext>();

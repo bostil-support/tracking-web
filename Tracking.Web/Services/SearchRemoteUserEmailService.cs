@@ -8,12 +8,12 @@ using Dapper;
 
 namespace Tracking.Web.Managers
 {
-    public class EmailServices
+    public class SearchRemoteUserEmailService
     {
         private readonly string _connAud = null;
         private readonly string _connCompl = null;
 
-        public EmailServices(string connAud, string connCompl)
+        public SearchRemoteUserEmailService(string connAud, string connCompl)
         {
             _connAud = connAud;
             _connCompl = connCompl;
