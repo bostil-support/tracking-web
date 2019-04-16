@@ -42,5 +42,7 @@ namespace Tracking.Web.Data
         void UpdateSurveyAsync(Survey survey);
 
         Task<Dictionary<int, string>> GetEntityNames();
+
+        Task<Dictionary<int, string>> GetRisks();
     }
 }

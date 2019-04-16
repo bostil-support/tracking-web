@@ -181,8 +181,13 @@ namespace Tracking.Web.Data
 
         public Task<Dictionary<int, string>> GetEntityNames()
         {
-            // return _context.LegalEntities.Where(x => x.Code != null).Select(x => x.Name).ToListAsync();
             return _context.LegalEntities.Where(x => x.Code != null).ToDictionaryAsync(x => x.Id, x => x.Name);
+        }
+
+        public async Task<Dictionary<int, string>> GetRisks()
+        {
+            var risks = await _context.RiskTypes.ToDictionaryAsync(x => x.Id, x => x.Name);
+            return risks;
         }
     }
 }
