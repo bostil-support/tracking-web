@@ -8,7 +8,13 @@ using System.Threading.Tasks;
 namespace Tracking.Web.Models
 {
     public class Survey : BaseEntity
-    {   
+    {
+        /// <summary>
+        /// Survey`s Id from remote Db
+        /// </summary>
+        [Column("Id_Rilievo")]
+        public string IdRilievo { get; set; }
+
         public string Title { get; set; }
 
         /// <summary>
@@ -21,6 +27,7 @@ namespace Tracking.Web.Models
         /// <summary>
         /// This is the date of the latest import on our db
         /// </summary>
+        [Display(Name = "Data inserimento")]
         public DateTime ImportDownloadDate { get; set; }
 
         /// <summary>
@@ -28,6 +35,7 @@ namespace Tracking.Web.Models
         /// In Itallian mockup field Severitta rillievo
         /// </summary>
         [Display(Name = "Severita")]
+        [Column("Severita_Rilievo")]
         public string SurveySeverity { get; set; }
 
         /// <summary>
@@ -41,6 +49,7 @@ namespace Tracking.Web.Models
         /// In italian it is translated as Utente Censimento. 
         /// </summary>
         [Display(Name = "Utente Censimento")]
+        [Column("Utente_Censimento")]
         public string UserName { get; set; }
 
         /// <summary>
@@ -61,9 +70,10 @@ namespace Tracking.Web.Models
         public LegalEntity LegalEntity { get; set; }
 
         /// <summary>
-        /// Azione di mitigazione - Owner
+        /// Owner Azione di mitigazione
         /// </summary>
-        [Display(Name = "Owner")]
+        [Display(Name = "Owner Azione di Mitigazione")]
+        [Column("Owner_Azione_di_Mitigazione")]
         public string ActionOwner { get; set; }
 
         /// <summary>
@@ -89,6 +99,7 @@ namespace Tracking.Web.Models
         /// New expiry date
         /// </summary>
         [Display(Name = "Nuova Data Scadenza")]
+        [Column("Data_Scadenza")]
         public DateTime DueDateLocal { get; set; }
 
         /// <summary>
@@ -107,5 +118,11 @@ namespace Tracking.Web.Models
         /// </summary>
         public int RiskTypeId { get; set; }
         public RiskType RiskType { get; set; }
+
+        /// <summary>
+        /// This field is different in the versions of the Audit and Compliance DB  
+        /// </summary>
+        [Column("Oggetto_Valutato")]
+        public string EvaluatedObject { get; set; }
     }
 }

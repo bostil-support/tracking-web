@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
 using Dapper;
 
 namespace Tracking.Web.Managers
@@ -23,7 +20,8 @@ namespace Tracking.Web.Managers
         {
             using (IDbConnection db = new SqlConnection(_connAud))
             {
-                var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where Email = @email", new { email }).FirstOrDefault();
+                var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where Email = @email", 
+                    new { email }).FirstOrDefault();
                 return userEmail;
             }
         }
@@ -32,7 +30,8 @@ namespace Tracking.Web.Managers
         {
             using (IDbConnection db = new SqlConnection(_connCompl))
             {
-                var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where Email = @email", new { email }).FirstOrDefault();
+                var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where Email = @email", 
+                    new { email }).FirstOrDefault();
                 return userEmail;
             }
         }
