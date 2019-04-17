@@ -33,7 +33,7 @@
             <div>Descrizione</div>
             <div class="bold dati-rilievo" id="Description">@Model.Description</div>
         </div>
-        @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+        @if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
         {
             <div class="edit-container">
                 <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.dati-rilievo').trigger('custom_event');">
@@ -51,7 +51,7 @@
             <div>Cod. Legal Entity</div>
             <div class="bold" id="LegalEntityCode">@Model.LegalEntity.Code</div>
         </div>
-        @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+        @if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
         {
             <div class="edit-container">
                 <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.legal-entity').trigger('custom_event');">
@@ -66,7 +66,7 @@
         @Html.Partial("_Normativa", Model)
     }
 
-    @if (@Model.Role == "Audit")
+    @if (@Model.Role == "Auditor")
     {
         @Html.Partial("_Mappatura", Model)
     }
@@ -91,17 +91,24 @@
             <div>Owner</div>
             <div class="bold">
                 <span class="azione"  id="ActionOwner">@Model.ActionOwner</span>
-                @if (@Model.Role == "Audit business")
+                @if (@Model.Role == "Auditor business")
                 {
-                    @*<span id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>*@
+                    <span id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>
                 }
             </div>
         </div>
         <div class="card-item description">
             <div>Descrizione</div>
-            <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
+            @if (@Model.Role == "Auditor business")
+            {
+                <div class="bold full-line" id="ActionDescription">@Model.ActionDescription</div>
+            }
+            else
+            {
+                <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
+            }
         </div>
-        @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+        @if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
         {
             <div class="edit-container">
                 <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">
@@ -137,7 +144,10 @@
         <div class="button-container">
             <input type="button" value="ANNULLA" id="annulla">
             <input type="button" class="primary" value="SALVA" id="salva">
-            <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi">
+            @if (@Model.Role != "Compliance business")
+            {
+                <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi">
+            }
         </div>
     </div>
 </div>

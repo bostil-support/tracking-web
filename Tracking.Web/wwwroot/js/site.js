@@ -48,11 +48,27 @@ $('.legal-entity').editable(Edit,
         loadurl: '/Home/GetEntityNames'
     });
 
+$('.mappatura').editable(Edit,
+    {
+        type: 'select',
+        submit: 'Salva',
+        tooltip: "Click to edit...",
+        style: 'display: inline',
+        onblur: "ignore",
+        event: 'custom_event',
+        loadurl: '/Home/GetRisks'
+    });
+
+function SetEdit() {
+    $('.mappatura').trigger('custom_event');
+    $('.screp').trigger('custom_event');
+}
+
 $('.normativa').editable(Edit, arguments);
 
-$('.mappatura').editable(Edit, arguments);
-
 $('.azione').editable(Edit, arguments);
+
+$('.screp').editable(Edit, arguments);
 
 $('#StatusId').select();
 
@@ -77,16 +93,18 @@ function Edit(value, settings) {
             window.Survey.Description = value;
             break;
         case 'LegalEntityName':
-            var name = $('select[name="value"] option[value=' + value + ']').text()
+            var name = $("#LegalEntityName option:selected").text();
             window.Survey.LegalEntity.Name = name;
             window.Survey.LegalEntity.Id = value;
-            $('#LegalEntityCode').text(value);
+            $("#LegalEntityCode").text(value);
             break;
         case 'ScrepArea':
             window.Survey.ScrepArea = value;
             break;
         case 'RiskType':
-            window.Survey.RiskType.Name = value;
+            var type = $("#RiskType option:selected").text();
+            window.Survey.RiskType.Name = type;
+            window.Survey.RiskType.Id = value;
             break;
         case 'ActionOwner':
             window.Survey.ActionOwner = value;
@@ -98,6 +116,8 @@ function Edit(value, settings) {
 
     if ($(this).attr('id') == 'LegalEntityName')
         return name;
+    else if ($(this).attr('id') == 'RiskType')
+        return type;
     else
         return value;
 }
@@ -114,13 +134,14 @@ function Edit(value, settings) {
                 Id: document.getElementById('LegalEntityCode').textContent,
                 Name: document.getElementById('LegalEntityName').textContent,
             },
-            ScrepArea: document.getElementById('ScrepArea').textContent,
-            ActionOwner: document.getElementById('ActionOwner').textContent,
+            ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent: '',
             ActionDescription: document.getElementById('ActionDescription').textContent,
             StatusId: $('#StatusId :selected').val(),
             DueDateLocal: $('#dueDateLocal1').val(),
+            ScrepArea: document.getElementById('ScrepArea') ? document.getElementById('ScrepArea').textContent: '',
             RiskType: {
-                Name: document.getElementById('Risk').textContent
+                Id: $('#RiskTypeId').attr('value'),
+                Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent: ''
             },
             //MRN: document.getElementById('mrn').textContent,
             //Regulatory_Area: document.getElementById('regulatory_area').textContent,

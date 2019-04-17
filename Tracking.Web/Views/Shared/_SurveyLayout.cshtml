@@ -13,7 +13,10 @@
         <link rel="stylesheet" href="~/css/detail-survey.css" asp-append-version="true" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     </environment>
-    
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/detail-survey.css" />
 </head>
 <body>
     <header>
@@ -34,12 +37,6 @@
             <img class="bottom-logo" src="~/images/bottom-logo.png" alt="logo">
         </div>
     </footer>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
-    <script src="https://www.appelsiini.net/download/jquery.jeditable.mini.js"></script>
-    <script src="~/js/moment.js"></script>
-    <script src="~/js/moment-with-locales.min.js"></script>
-    <script src="~/js/bootstrap.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/jeditable/src/jquery.jeditable.js"></script>
@@ -50,6 +47,10 @@
         <script src="~/lib/jeditable/dist/jquery.jeditable.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
+    <script src="~/js/moment.js"></script>
+    <script src="~/js/moment-with-locales.min.js"></script>
+    <script src="~/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

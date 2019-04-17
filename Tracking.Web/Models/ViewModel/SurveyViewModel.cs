@@ -94,7 +94,7 @@ namespace Tracking.Web.Models.ViewModel
         /// <summary>
         /// New expiry date
         /// </summary>
-        public DateTime DueDateLocal { get; set; }
+        public string DueDateLocal { get; set; }
 
         /// <summary>
         /// New note 

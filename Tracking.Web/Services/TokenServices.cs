@@ -11,7 +11,7 @@ namespace Tracking.Web.Managers
     /// <summary>
     /// Manager For Token Decrypt
     /// </summary>
-    public class TokenManager 
+    public class TokenServices 
     {
         /// <summary>
         /// Method which return decode token values
@@ -83,6 +83,8 @@ namespace Tracking.Web.Managers
                 return false;
             }
         }
+
+
     }
 }
 
