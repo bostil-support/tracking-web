@@ -22,6 +22,7 @@ namespace Tracking.Web.Models
         /// Survey description
         /// </summary>
         [Display(Name = "Descrizione")]
+        [Column("Descrizione_Rilievo")]
         public string Description { get; set; }
 
         /// <summary>

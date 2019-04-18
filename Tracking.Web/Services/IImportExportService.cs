@@ -1,6 +1,6 @@
 namespace Tracking.Web.Services
 {
-    public interface IImportService
+    public interface IImportExportService
     {
         void ImportSurveysAudit();
     }

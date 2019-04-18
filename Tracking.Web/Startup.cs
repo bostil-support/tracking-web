@@ -16,6 +16,7 @@ using Tracking.Web.Models;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Tracking.Web.Managers;
+using Tracking.Web.Services;
 
 namespace Tracking.Web
 {
@@ -56,7 +57,7 @@ namespace Tracking.Web
             services.AddTransient<IInterventionRepository, InterventionRepository>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IWorkContext, WorkContext>();
-           
+            services.AddTransient<IImportExportService, ImportExportService>(provider =>  new ImportExportService(Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(
