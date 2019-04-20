@@ -179,7 +179,7 @@ namespace Tracking.Web.Data
             }
         }
 
-        public Task<Dictionary<int, string>> GetEntityNames()
+        public Task<Dictionary<string, string>> GetEntityNames()
         {
             return _context.LegalEntities.Where(x => x.Code != null).ToDictionaryAsync(x => x.Id, x => x.Name);
         }

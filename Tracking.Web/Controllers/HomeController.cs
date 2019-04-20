@@ -10,9 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
 using System.Globalization;
+using Tracking.Web.Services;
 
 namespace Tracking.Web.Controllers
 {
@@ -20,11 +19,14 @@ namespace Tracking.Web.Controllers
     {
         private readonly IInterventionRepository _rep;
         private readonly IWorkContext _workContext;
+        private readonly IImportExportService _service;
 
-        public HomeController(IInterventionRepository repo, IWorkContext workContext)
+        public HomeController(IInterventionRepository repo, IWorkContext workContext, IImportExportService service)
         {
             _rep = repo;
             _workContext = workContext;
+            _service = service;
+            GetSurveysAudit();
         }
 
         [Authorize]
@@ -178,7 +180,7 @@ namespace Tracking.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<Dictionary<int, string>> GetEntityNames()
+        public async Task<Dictionary<string, string>> GetEntityNames()
         {
             var legalEntites = await _rep.GetEntityNames();
             return legalEntites;
@@ -202,6 +204,13 @@ namespace Tracking.Web.Controllers
         {
             var risks = await _rep.GetRisks();
             return risks;
+        }
+
+        // TEST METHOD
+        public void GetSurveysAudit()
+        {
+           _service.ImportSurveysAudit();
+           //_service.ImportDescriptiveAttributes();
         }
     }
 }

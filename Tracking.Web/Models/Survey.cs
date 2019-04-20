@@ -67,7 +67,7 @@ namespace Tracking.Web.Models
         /// <summary>
         /// Bank or another financial institute 
         /// </summary>
-        public int LegalEntityId { get; set; }
+        public string LegalEntityId { get; set; }
         public LegalEntity LegalEntity { get; set; }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Tracking.Web.Models
         /// New expiry date
         /// </summary>
         [Display(Name = "Nuova Data Scadenza")]
-        [Column("Data_Scadenza")]
+      //  [Column("Data_Scadenza")]
         public DateTime DueDateLocal { get; set; }
 
         /// <summary>
