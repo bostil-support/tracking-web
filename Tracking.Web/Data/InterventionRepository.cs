@@ -44,7 +44,7 @@ namespace Tracking.Web.Data
         /// </summary>
         /// <param name="id">survey id</param>
         /// <returns></returns>
-        public Survey GetSurveyById(int id)
+        public Survey GetSurveyById(string id)
         {
             return _context.Surveys.Include(x=>x.LegalEntity).SingleOrDefault(p => p.Id == id);
         }
@@ -104,7 +104,7 @@ namespace Tracking.Web.Data
         /// </summary>
         /// <param name="surveyId">survey id</param>
         /// <returns></returns>
-        public List<Note> GetNotesForSurvey(int surveyId)
+        public List<Note> GetNotesForSurvey(string surveyId)
         {
             var files = GetAllFiles();
             var users = GetAllUsers();
@@ -179,7 +179,7 @@ namespace Tracking.Web.Data
             }
         }
 
-        public Task<Dictionary<int, string>> GetEntityNames()
+        public Task<Dictionary<string, string>> GetEntityNames()
         {
             return _context.LegalEntities.Where(x => x.Code != null).ToDictionaryAsync(x => x.Id, x => x.Name);
         }

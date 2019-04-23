@@ -9,12 +9,9 @@ namespace Tracking.Web.Models
 {
     public class Survey : BaseEntity
     {
-        /// <summary>
-        /// Survey`s Id from remote Db
-        /// </summary>
-        [Column("Id_Rilievo")]
-        public string IdRilievo { get; set; }
+        public string Id { get; set; }
 
+        [Column("Titolo_Rilievo")]
         public string Title { get; set; }
 
         /// <summary>
@@ -58,18 +55,32 @@ namespace Tracking.Web.Models
         /// </summary>
         [Display(Name = "Area Normativa")]
         public string SrepCluster { get; set; }
+        
         /// <summary>
         /// In itallian mockup field Macro Requisito Normativo
         /// </summary>
         [Display(Name = "Macro Requisito Normativo")]
         public string ScrepArea { get; set; }
-        
+
         /// <summary>
         /// Bank or another financial institute 
         /// </summary>
-        public int LegalEntityId { get; set; }
-        public LegalEntity LegalEntity { get; set; }
+        [Column("Id_Banca")]
+        public string LegalEntityId { get; set; }
 
+        /// <summary>
+        /// Bank`s code 
+        /// </summary>
+        public string Cod_ABI { get; set; }
+
+        /// <summary>
+        /// Bank`s name
+        /// </summary>
+        [Column("Legal_Entity")]
+        public string LegalEntityName { get; set; }
+
+        public LegalEntity LegalEntity { get; set; }
+        
         /// <summary>
         /// Owner Azione di mitigazione
         /// </summary>
@@ -81,6 +92,7 @@ namespace Tracking.Web.Models
         /// Azione di mitigazione - Descrizione
         /// </summary>
         [Display(Name = "Descrizione")]
+        [Column("Azione_di_Mitigazione")]
         public string ActionDescription { get; set; }
 
         /// <summary>
@@ -95,7 +107,7 @@ namespace Tracking.Web.Models
         /// </summary>
         [Display(Name = "Skadenza rilievo")]
         public DateTime DueDateOriginal { get; set; }
-        
+
         /// <summary>
         /// New expiry date
         /// </summary>
@@ -107,13 +119,16 @@ namespace Tracking.Web.Models
         /// Note
         /// </summary>
         public List<Note> Notes { get; set; }
-        
-        /// <summary>
-        /// survey is part of intervention
-        /// </summary>
-        public int InterventionId { get; set; }
-        public Intervention Intervention { get; set; }
 
+        /// <summary>
+        /// Intervention
+        /// </summary>
+        [Column("Id_Intervento")]
+        public int InterventionId { get; set; }
+
+        [Column("Titolo_Intervento")]
+        public string InterventionName { get; set; }
+        
         /// <summary>
         /// survey musst belongs to different type of risks 
         /// </summary>
@@ -125,5 +140,8 @@ namespace Tracking.Web.Models
         /// </summary>
         [Column("Oggetto_Valutato")]
         public string EvaluatedObject { get; set; }
+
+        [Column("Id_Oggetto_Valutato")]
+        public int EvaluatedObjectId { get; set;}
     }
 }

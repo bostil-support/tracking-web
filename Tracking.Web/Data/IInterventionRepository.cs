@@ -13,7 +13,7 @@ namespace Tracking.Web.Data
 
         List<Survey> GetAllSurveys();
 
-        Survey GetSurveyById(int id);
+        Survey GetSurveyById(string id);
 
         Status GetStatusById(int id);
 
@@ -25,7 +25,7 @@ namespace Tracking.Web.Data
 
         RiskType GetRiskById(int id);
 
-        List<Note> GetNotesForSurvey(int surveyId);
+        List<Note> GetNotesForSurvey(string surveyId);
 
         void CreateNote(Note item);
 
@@ -41,7 +41,7 @@ namespace Tracking.Web.Data
 
         void UpdateSurveyAsync(Survey survey);
 
-        Task<Dictionary<int, string>> GetEntityNames();
+        Task<Dictionary<string, string>> GetEntityNames();
 
         Task<Dictionary<int, string>> GetRisks();
     }

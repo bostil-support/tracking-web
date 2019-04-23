@@ -1,6 +1,4 @@
 ﻿using System;
-using Tracking.Web.Data;
-using Tracking.Web.Models;
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
@@ -9,11 +7,13 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Data;
-using System.Data.SqlClient;
+using Tracking.Web.Data;
+using Tracking.Web.Services;
+using Tracking.Web.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Tracking.DbInitialize.Providers
 {
@@ -27,7 +27,7 @@ namespace Tracking.DbInitialize.Providers
         public DbInitializeProvider()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS2;Initial Catalog=Tracking;Integrated Security=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS2;Initial Catalog=TrackingDB;Integrated Security=True;MultipleActiveResultSets=true");
 
             _db = new ApplicationDbContext(optionsBuilder.Options);
             _fileName = @"TrackingFields.xlsx";
@@ -153,7 +153,7 @@ namespace Tracking.DbInitialize.Providers
                     {
                         legEntitiesList.Add(new LegalEntity
                         {
-                            Id = Int32.Parse(workSheet.Cells[i, 2].Value.ToString()),
+                            Id = workSheet.Cells[i, 2].Value.ToString(),
                             Name = workSheet.Cells[i, 4].Value.ToString(),
                             Code = workSheet.Cells[i, 2].Value.ToString()
                     });
@@ -274,9 +274,9 @@ namespace Tracking.DbInitialize.Providers
                     {
                         surveyList.Add(new Survey
                         {
-                            Id = Int32.Parse(workSheet.Cells[i, 16].Value.ToString()),
+                            Id = workSheet.Cells[i, 16].Value.ToString(),
                             InterventionId = Int32.Parse(workSheet.Cells[i, 6].Value.ToString()),
-                            LegalEntityId = Int32.Parse(workSheet.Cells[i, 2].Value.ToString()),
+                            LegalEntityId = workSheet.Cells[i, 2].Value.ToString(),
                             LegalEntity = _db.LegalEntities.Find(Int32.Parse(workSheet.Cells[i, 2].Value.ToString())),
                             Title = workSheet.Cells[i, 17].Value.ToString(),
                             Description = workSheet.Cells[i, 18].Value.ToString(),
@@ -344,35 +344,21 @@ namespace Tracking.DbInitialize.Providers
                 }
             }
         }
-
         
         public void ImportSurveysAudit()
         {
-            string connStringAudit = "Server=192.168.13.126,1433;Database=CCB_AuditXOP;User ID=svc_everestech;Password=dBY6V!cF5cZC=KL-;";
-            DataTable dt = new DataTable();
-            using (SqlConnection conn = new SqlConnection(connStringAudit))
-            {
-                conn.Open();
-                // Creates a SQL command
-                using (var command = new SqlCommand("Select * from V_TrackingElencoRilievi", conn))
-                {
-                    // Loads the query results into the table
-                    dt.Load(command.ExecuteReader());
-                }
 
-                conn.Close();
-            }
-            foreach (DataRow row in dt.Rows)
+            using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
+                                        .GetRequiredService<IServiceScopeFactory>()
+                                        .CreateScope())
             {
-                Console.WriteLine("---ROW---");
-                foreach (var item in row.ItemArray)
-                {
-                    Console.Write("Item: ");
-                    Console.WriteLine(item);
-                }
+                var importService = _serviceScope.ServiceProvider.GetRequiredService<IImportExportService>();
+                importService.ImportSurveysAudit();
+
+                Console.Write("Surveys imported. Done!\r\n");
             }
-        }
-        
+        }    
+
         private string GetApplicationRoot()
         {
             var exePath = Path.GetDirectoryName(System.Reflection

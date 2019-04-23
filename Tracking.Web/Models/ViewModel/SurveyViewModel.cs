@@ -12,7 +12,7 @@ namespace Tracking.Web.Models.ViewModel
         /// <summary>
         /// survey id
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
         
         /// <summary>
         /// current status

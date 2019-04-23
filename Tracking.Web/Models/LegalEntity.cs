@@ -7,6 +7,8 @@ namespace Tracking.Web.Models
 {
     public class LegalEntity : BaseEntity
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
         // Cod. Legal Entity
         public string Code { get; set; }

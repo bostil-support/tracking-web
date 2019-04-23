@@ -47,7 +47,7 @@ namespace Tracking.Web.Controllers
             return PartialView("_InterventionSummary", interventions);
         }
 
-        public IActionResult Show(int id)
+        public IActionResult Show(string id)
         {
             var survey = _rep.GetSurveyById(id);
             var currentStatus = _rep.GetStatusById(survey.StatusId);
@@ -139,7 +139,7 @@ namespace Tracking.Web.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Notes(int id)
+        public IActionResult Notes(string id)
         {
             List<Note> list = new List<Note>();
             list = _rep.GetNotesForSurvey(id);
@@ -178,7 +178,7 @@ namespace Tracking.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<Dictionary<int, string>> GetEntityNames()
+        public async Task<Dictionary<string, string>> GetEntityNames()
         {
             var legalEntites = await _rep.GetEntityNames();
             return legalEntites;
