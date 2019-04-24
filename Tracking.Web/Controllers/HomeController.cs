@@ -26,7 +26,6 @@ namespace Tracking.Web.Controllers
             _rep = repo;
             _workContext = workContext;
             _service = service;
-            GetSurveysAudit();
         }
 
         [Authorize]
@@ -36,25 +35,25 @@ namespace Tracking.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetInterventions()
+        public IActionResult GetSurveys()
         {
-            var interventions = _rep.GetAllInterventions();
-            return PartialView("_InterventionSummary", interventions);
+            var surveys = _rep.GroupSurveyByIntervId();
+            return PartialView("_InterventionSummary", surveys);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Filter(FilterViewModel model)
         {
-            var interventions = _rep.Filter(model);
-            return PartialView("_InterventionSummary", interventions);
+            var surveys = _rep.Filter(model);
+            return PartialView("_InterventionSummary", surveys);
         }
 
-        public IActionResult Show(int id)
+        public IActionResult Show(string id)
         {
             var survey = _rep.GetSurveyById(id);
             var currentStatus = _rep.GetStatusById(survey.StatusId);
             var allStatuses = _rep.GetStatusesAsSelectList();
-            var currentTypeRisk = _rep.GetRiskById(survey.RiskTypeId);
+            var currentTypeRisk = _rep.GetSurveyRisk(survey.Id);
             var surveyNotes = _rep.GetNotesForSurvey(id);
             var currentUserRole = _workContext.GetCurrentUserRole();
 
@@ -68,16 +67,16 @@ namespace Tracking.Web.Controllers
                 StatusId = survey.StatusId,
                 ImportDownloadDate = survey.ImportDownloadDate,
                 SurveySeverity = survey.SurveySeverity,
-                ValidatorAttribute = survey.ValidatorAttribute,
+             //   ValidatorAttribute = survey.ValidatorAttribute,
                 UserName = survey.UserName,
-                ScrepArea = survey.ScrepArea,
-                SrepCluster = survey.SrepCluster,
+                //ScrepArea = survey.ScrepArea,
+                //SrepCluster = survey.SrepCluster,
                 RiskType = currentTypeRisk,
                 Notes = surveyNotes,
-                LegalEntity = survey.LegalEntity,
+                LegalEntityName = survey.LegalEntityName,
                 ActionOwner = survey.ActionOwner,
                 ActionDescription = survey.ActionDescription,
-                DueDateLocal = survey.DueDateLocal.ToString("dd.MM.yyyy"),
+                DueDateLocal = survey.DueDateLocal?.ToString("dd.MM.yyyy"),
                 Role = currentUserRole
             };
 
@@ -141,7 +140,7 @@ namespace Tracking.Web.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Notes(int id)
+        public IActionResult Notes(string id)
         {
             List<Note> list = new List<Note>();
             list = _rep.GetNotesForSurvey(id);
@@ -163,15 +162,15 @@ namespace Tracking.Web.Controllers
                 survey.Title = model.Title;
                 survey.SurveySeverity = model.SurveySeverity;
                 survey.UserName = model.UserName;
-                survey.ValidatorAttribute = model.ValidatorAttribute;
+               // survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
-                survey.LegalEntityId = model.LegalEntity.Id;
-                survey.SrepCluster = model.SrepCluster;
-                survey.ScrepArea = model.ScrepArea != null ? model.ScrepArea : survey.ScrepArea;
+                //survey.LegalEntityId = model.LegalEntityName;
+                //survey.SrepCluster = model.SrepCluster;
+                //survey.ScrepArea = model.ScrepArea != null ? model.ScrepArea : survey.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
                 survey.StatusId = model.StatusId;
-                survey.RiskTypeId = model.RiskType.Id != 0 ? model.RiskType.Id : survey.RiskTypeId;
+               // survey.RiskTypeId = model.RiskType.Id != 0 ? model.RiskType.Id : survey.RiskTypeId;
                 survey.DueDateLocal = DateTime.ParseExact(model.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 _rep.UpdateSurveyAsync(survey);
             }
@@ -204,6 +203,19 @@ namespace Tracking.Web.Controllers
         {
             var risks = await _rep.GetRisks();
             return risks;
+        }
+
+        [HttpGet]
+        public IActionResult GetFilterDatas()
+        {
+            var model = new FilterViewModel
+            {
+                LegalEntities = _rep.GetBankNames(),
+                Owners = _rep.GetOwners(),
+                Severities = _rep.GetSeverities()               
+            };
+           
+            return PartialView("_FilterFiledsets", model);
         }
 
         // TEST METHOD

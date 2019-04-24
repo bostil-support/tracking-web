@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-item card-info">
         <div class="card-id bold">
-            <label>ID @Model.Id</label> |<label for="LegalEntity"> @Model.LegalEntity.Name</label>
+            <label>ID @Model.Id</label> |<label for="LegalEntity"> @Model.LegalEntityName</label>
             <div class="id-info">
                 <img src="~/images/info.png" alt="?" />
                 <div class="card-popover">
@@ -33,7 +33,7 @@
     </div>
     <div class="card-item card-status">
         <div>
-            Scadenza rilievo:<span class="bold">@Model.DueDateOriginal.ToShortDateString()</span>
+            Scadenza rilievo:<span class="bold">@Model.DueDateLocal?.ToShortDateString()</span>
         </div>
         <div>
             Stato rilievo:<span class="bold">@Model.Status.Name</span>

@@ -25,7 +25,7 @@ namespace Tracking.Web.Data
         /// <returns></returns>
         public List<Intervention> GetAllInterventions()
         {
-            var surv = GetAllSurveys();
+           // var surv = GetAllSurveys();
             return _context.Interventions.Include(x => x.Surveys).ToList();
         }
 
@@ -33,10 +33,22 @@ namespace Tracking.Web.Data
         /// get surveys
         /// </summary>
         /// <returns></returns>
-        public List<Survey> GetAllSurveys()
+       // public List<Survey> GetAllSurveys()
+      //  {
+        //    var statues = GetAllStatuses();
+       //     return _context.Surveys.ToList();
+        //}
+
+        /// <summary>
+        /// get surveys by interventionId
+        /// </summary>
+        /// <returns></returns>
+        public List<IGrouping<int, Survey>> GroupSurveyByIntervId()
         {
-            var statues = GetAllStatuses();
-            return _context.Surveys.Include(x => x.LegalEntity).ToList();
+            var statuses = _context.Statuses.ToList();
+            var surv = _context.Surveys.ToList();
+            var groupSurv = surv.GroupBy(x => x.InterventionId).ToList();
+            return groupSurv;
         }
 
         /// <summary>
@@ -44,9 +56,9 @@ namespace Tracking.Web.Data
         /// </summary>
         /// <param name="id">survey id</param>
         /// <returns></returns>
-        public Survey GetSurveyById(int id)
+        public Survey GetSurveyById(string id)
         {
-            return _context.Surveys.Include(x=>x.LegalEntity).SingleOrDefault(p => p.Id == id);
+            return _context.Surveys.SingleOrDefault(p => p.Id == id);
         }
 
         /// <summary>
@@ -54,7 +66,7 @@ namespace Tracking.Web.Data
         /// </summary>
         /// <param name="id">status id</param>
         /// <returns></returns>
-        public Status GetStatusById(int id)
+        public Status GetStatusById(int? id)
         {
             return _context.Statuses.Find(id);
         }
@@ -85,9 +97,9 @@ namespace Tracking.Web.Data
         /// </summary>
         /// <param name="id">status id</param>
         /// <returns></returns>
-        public RiskType GetRiskById(int id)
+        public string GetSurveyRisk(string SurveyId)
         {
-            return _context.RiskTypes.Find(id);
+            return _context.SurveyDescriptiveAttributes.Where(x => x.SurveyId == SurveyId).Select(x => x.Risk).ToString();
         }
 
         /// <summary>
@@ -104,7 +116,7 @@ namespace Tracking.Web.Data
         /// </summary>
         /// <param name="surveyId">survey id</param>
         /// <returns></returns>
-        public List<Note> GetNotesForSurvey(int surveyId)
+        public List<Note> GetNotesForSurvey(string surveyId)
         {
             var files = GetAllFiles();
             var users = GetAllUsers();
@@ -139,15 +151,17 @@ namespace Tracking.Web.Data
             return _context.Files.ToList();
         }
 
-        public List<Intervention> Filter(FilterViewModel model)
+
+
+        public List<IGrouping<int, Survey>> Filter(FilterViewModel model)
         {
             var statues = GetAllStatuses();
-            var result = _context.Surveys.Include(x => x.LegalEntity).ToList();
+            var result = _context.Surveys.ToList();
 
             if (model != null)
             {
                 if (model.LegalEntities!= null)
-                    result = result.Where(x => model.LegalEntities.Contains(x.LegalEntity.Name)).ToList();
+                    result = result.Where(x => model.LegalEntities.Contains(x.LegalEntityName)).ToList();
                 if (model.Owners != null)
                     result = result.Where(x => model.Owners.Contains(x.ActionOwner)).ToList();
                 if (model.Statuses != null)
@@ -156,13 +170,7 @@ namespace Tracking.Web.Data
                     result = result.Where(x => model.Severities.Contains(x.SurveySeverity)).ToList();
             }
 
-            var interventions = _context.Interventions.ToList();
-            foreach(var item in interventions)
-            {
-                item.Surveys = item.Surveys.Intersect(result).ToList();
-            }
-
-            return interventions.Where(x=>x.Surveys.Count > 0).ToList();
+            return result.GroupBy(x => x.InterventionId).ToList(); 
         }
 
         public  void UpdateSurveyAsync(Survey survey)
@@ -188,6 +196,24 @@ namespace Tracking.Web.Data
         {
             var risks = await _context.RiskTypes.ToDictionaryAsync(x => x.Id, x => x.Name);
             return risks;
+        }
+
+        public List<string> GetBankNames()
+        {
+            var banks = _context.Surveys.Where(x => x.LegalEntityName != null).Select(x => x.LegalEntityName).Distinct().ToList();
+            return banks;                
+        }
+
+        public List<string> GetOwners()
+        {
+            var banks = _context.Surveys.Where(x => x.ActionOwner !=null).Select(x => x.ActionOwner).Distinct().ToList();
+            return banks;
+        }
+
+        public List<string> GetSeverities()
+        {
+            var banks = _context.Surveys.Where(x => x.SurveySeverity != null).Select(x => x.SurveySeverity).Distinct().ToList();
+            return banks;
         }
     }
 }

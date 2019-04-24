@@ -25,13 +25,14 @@ namespace Tracking.Web.Data
         }
 
         public DbSet<Bank> Banks { get; set; }
+        public DbSet<DescriptiveAttributes> SurveyDescriptiveAttributes { get; set; }
         public DbSet<LegalEntity> LegalEntities { get; set; }
-        public DbSet<RiskType> RiskTypes { get; set; }
-        public DbSet<Severity> Severities { get; set; }
-        public DbSet<Status> Statuses { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Intervention> Interventions { get; set; }
+        public DbSet<RiskType> RiskTypes { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<Severity> Severities { get; set; }
         public DbSet<Survey> Surveys { get; set; }
 
         public bool IsDatabaseExist()

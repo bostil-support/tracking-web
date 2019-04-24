@@ -32,7 +32,7 @@ namespace Tracking.Web.Models
         /// <summary>
         /// relationship with Survey
         /// </summary>
-        public int SurveyId { get; set; }
+        public string SurveyId { get; set; }
         public Survey Survey { get; set; }
         
         /// <summary>
@@ -42,7 +42,7 @@ namespace Tracking.Web.Models
 
         public Note() { }
 
-        public Note(string Description, string UserId, int SurveyId, DateTime Date, int?FileId = null)
+        public Note(string Description, string UserId, string SurveyId, DateTime Date, int?FileId = null)
         {
             this.Description = Description;
             this.FileId = FileId;

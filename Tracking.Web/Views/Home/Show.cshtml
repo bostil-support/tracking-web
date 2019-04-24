@@ -27,7 +27,7 @@
             <div>Utente Censimento</div>
             <div class="bold dati-rilievo" id="UserName">@Model.UserName</div>
             <div>Validatore</div>
-            <div class="bold dati-rilievo" id="ValidatorAttribute">@Model.ValidatorAttribute</div>
+            <div class="bold dati-rilievo" id="ValidatorAttribute">Validator_attribute</div>
         </div>
         <div class="card-item description">
             <div>Descrizione</div>
@@ -47,9 +47,9 @@
         <div class="card-header">Legal entity</div>
         <div class="card-item">
             <div>Denom. Legal Entity</div>
-            <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntity.Name</div>
+            <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntityName</div>
             <div>Cod. Legal Entity</div>
-            <div class="bold" id="LegalEntityCode">@Model.LegalEntity.Code</div>
+           @* <div class="bold" id="LegalEntityCode">@Model.LegalEntityName</div>*@
         </div>
         @if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
         {
@@ -71,20 +71,6 @@
         @Html.Partial("_Mappatura", Model)
     }
 
-    @*<div class="card">
-        <div class="card-header">Attributi</div>
-        <div class="card-item">
-            <div>Area Normativa</div>
-            <div class="bold" id="SrepCluster">@Model.SrepCluster</div>
-            <div>MRN</div>
-            <div class="bold" id="ScrepArea">@Model.ScrepArea</div>
-        </div>
-        <div class="edit-container">
-            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.attributti').trigger('custom_event');">
-                <img src="~/images/edit.png" alt="edit">
-            </a>
-        </div>
-    </div>*@
     <div class="card">
         <div class="card-header">Azione di mitigazione</div>
         <div class="card-item">

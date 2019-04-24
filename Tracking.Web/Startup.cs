@@ -58,6 +58,8 @@ namespace Tracking.Web
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IWorkContext, WorkContext>();
             services.AddTransient<IImportExportService, ImportExportService>(provider =>  new ImportExportService(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddImportExportService(Configuration.GetConnectionString("DefaultConnection"));
+            //services.AddTransient<IImportExportService, ImportExportService>(provider =>  new ImportExportService(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(

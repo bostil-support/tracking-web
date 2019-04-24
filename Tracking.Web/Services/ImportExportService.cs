@@ -1,39 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using Tracking.Web.Models.ViewModel;
 
 namespace Tracking.Web.Services
 {
     public class ImportExportService : IImportExportService
     {
-        private readonly string _connStringAudit = "Server=192.168.13.126,1433;Database=CCB_AuditXOP;User ID=svc_everestech;Password=dBY6V!cF5cZC=KL-;";
+        private readonly string _connStringAudit = "Server=192.168.13.126,1433;Database='CCB_AuditXOP';User ID='svc_everestech';Password='dBY6V!cF5cZC=KL-';";
         private readonly string _conn;
 
         public ImportExportService(string connection)
         {
-            _conn = "Data Source=.\\SQLEXPRESS2;Initial Catalog=TrackingTest;Integrated Security=True;MultipleActiveResultSets=true";            
+            _conn = connection;
         }
 
         public void ImportSurveysAudit()
         {
             var dt = GetDataTableAuditSurveys();
 
-            using (var sqlcon = new SqlConnection(_conn))
+            try
             {
-                sqlcon.Open();
-
-                using (var sqlcmd = new SqlCommand("sp_ImportSurveys", sqlcon))
+                using (var sqlcon = new SqlConnection(_conn))
                 {
-                    sqlcmd.CommandType = CommandType.StoredProcedure;
-                    sqlcmd.Parameters.AddWithValue("@surveys", dt);
-                    sqlcmd.ExecuteNonQuery();
+                    sqlcon.Open();
+                    using (var sqlcmd = new SqlCommand("sp_ImportSurveys", sqlcon))
+                    {
+                        sqlcmd.CommandType = CommandType.StoredProcedure;
+                        sqlcmd.Parameters.AddWithValue("@surveys", dt);
+                        sqlcmd.ExecuteNonQuery();
+                    }
+                    sqlcon.Close();
                 }
-
-                sqlcon.Close();
+            }
+            catch (SqlException e)
+            {
+                var text = e.Message;
             }
         }
 
@@ -43,19 +43,15 @@ namespace Tracking.Web.Services
 
             using (var sqlcon = new SqlConnection(_conn))
             {
-                sqlcon.Open();
-
-                using (var sqlcmd = new SqlCommand("sp_ImportDescriptiveAttributes", sqlcon))
+                using (var sqlcmd = new SqlCommand("ps_ImportDescriptiveAttributes", sqlcon))
                 {
                     sqlcmd.CommandType = CommandType.StoredProcedure;
                     sqlcmd.Parameters.AddWithValue("@descAttr", dt);
                     sqlcmd.ExecuteNonQuery();
                 }
-
-                sqlcon.Close();
             }
         }
-        
+
         private DataTable GetDataTableAuditSurveys()
         {
             DataTable dt = new DataTable();

@@ -1,14 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Tracking.Web.Data;
 
 namespace Tracking.DbInitialize
 {
     public class DbInitializeContext : ApplicationDbContext
     {
-        public DbInitializeContext(DbContextOptions options) : base(options)
+        public DbInitializeContext(DbContextOptions 
+            options) : base(options)
         {
         }
 
@@ -19,7 +17,7 @@ namespace Tracking.DbInitialize
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS2;Initial Catalog=Tracking;Integrated Security=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS2;Initial Catalog=TrackingDB;Integrated Security=True;MultipleActiveResultSets=true");
             base.OnConfiguring(optionsBuilder);
         }
     }

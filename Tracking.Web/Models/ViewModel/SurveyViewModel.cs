@@ -12,12 +12,12 @@ namespace Tracking.Web.Models.ViewModel
         /// <summary>
         /// survey id
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
         
         /// <summary>
         /// current status
         /// </summary>
-        public int StatusId { get; set; }
+        public int? StatusId { get; set; }
 
         /// <summary>
         /// statuses list, we use for select tag values
@@ -74,7 +74,8 @@ namespace Tracking.Web.Models.ViewModel
         /// <summary>
         /// Bank or another financial institute 
         /// </summary>
-        public LegalEntity LegalEntity { get; set; }
+        //public LegalEntity LegalEntity { get; set; }
+        public string LegalEntityName { get; set; }
 
         /// <summary>
         /// Azione di mitigazione - Owner
@@ -89,7 +90,7 @@ namespace Tracking.Web.Models.ViewModel
         /// <summary>
         ///  expiry date
         /// </summary>
-        public DateTime DueDateOriginal { get; set; }
+        //public DateTime DueDateOriginal { get; set; }
 
         /// <summary>
         /// New expiry date
@@ -115,7 +116,7 @@ namespace Tracking.Web.Models.ViewModel
         /// <summary>
         /// Current value type of risks 
         /// </summary>
-        public RiskType RiskType { get; set; }
+        public string RiskType { get; set; }
         
         /// <summary>
         /// List all risks. It will be used for select tag
