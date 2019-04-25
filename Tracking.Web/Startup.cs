@@ -16,6 +16,8 @@ using Tracking.Web.Models;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Tracking.Web.Managers;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Tracking.Web
 {
@@ -65,7 +67,7 @@ namespace Tracking.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -90,6 +92,11 @@ namespace Tracking.Web
                     name: "default",
                     template: "{controller=Account}/{action=Index}");
             });
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger();
         }
     }
 }

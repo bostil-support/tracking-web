@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Tracking.Web.Managers;
 using Newtonsoft.Json;
 using System;
-using Tracking.Web.Managers;
+using Microsoft.Extensions.Logging;
+using Tracking.Web.Logs;
 
 namespace Tracking.Web.Controllers
 {
@@ -19,19 +20,21 @@ namespace Tracking.Web.Controllers
         private readonly SignInManager<TrackingUser> _signInManager;
         private readonly TokenManager _manager;
         private readonly EmailServices _services;
+        private readonly ILogger _logger;
         
         /// <summary>
         /// User Constructor for Init managers
         /// </summary>
         /// <param name="userManager"></param>
         /// <param name="signInManager"></param>
-        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager,RoleManager<TrackingRole> roleManager,EmailServices services)
+        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager,RoleManager<TrackingRole> roleManager,EmailServices services,ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _manager = new TokenManager();
-            _services = services;            
+            _services = services;
+            _logger = logger;
         }
         
         /// <summary>
@@ -114,7 +117,8 @@ namespace Tracking.Web.Controllers
             }
             catch(Exception e)
             {
-                return RedirectToAction("Error", "Account");
+                _logger.Write(e.Message);                
+                return RedirectToAction("Error", "Account");                
             }                      
         }
         
