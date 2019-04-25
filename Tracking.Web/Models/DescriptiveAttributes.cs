@@ -8,7 +8,7 @@ namespace Tracking.Web.Models
 {
     public class DescriptiveAttributes : BaseEntity
     {
-        public string UID_Analisi { get; set; }
+        public Guid UID_Analisi { get; set; }
         [Column("Id_Rilievo")]
         public  string SurveyId { get; set; }
         public Survey Survey { get; set; }

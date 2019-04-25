@@ -143,5 +143,7 @@ namespace Tracking.Web.Models
 
         [Column("Id_Oggetto_Valutato")]
         public int EvaluatedObjectId { get; set;}
+
+        List<DescriptiveAttributes> DescriptiveAttributes { get; set; }
     }
 }

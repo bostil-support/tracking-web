@@ -43,12 +43,14 @@ namespace Tracking.Web.Services
 
             using (var sqlcon = new SqlConnection(_conn))
             {
-                using (var sqlcmd = new SqlCommand("ps_ImportDescriptiveAttributes", sqlcon))
+                sqlcon.Open();
+                using (var sqlcmd = new SqlCommand("sp_ImportDescriptiveAttributes", sqlcon))
                 {
                     sqlcmd.CommandType = CommandType.StoredProcedure;
                     sqlcmd.Parameters.AddWithValue("@descAttr", dt);
                     sqlcmd.ExecuteNonQuery();
                 }
+                sqlcon.Close();
             }
         }
         

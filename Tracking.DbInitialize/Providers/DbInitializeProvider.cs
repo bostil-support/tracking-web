@@ -347,7 +347,6 @@ namespace Tracking.DbInitialize.Providers
         
         public void ImportSurveysAudit()
         {
-
             using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
                                         .GetRequiredService<IServiceScopeFactory>()
                                         .CreateScope())
@@ -357,7 +356,20 @@ namespace Tracking.DbInitialize.Providers
 
                 Console.Write("Surveys imported. Done!\r\n");
             }
-        }    
+        }
+
+        public void ImportDescriptiveAttrAudit()
+        {
+            using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
+                                        .GetRequiredService<IServiceScopeFactory>()
+                                        .CreateScope())
+            {
+                var importService = _serviceScope.ServiceProvider.GetRequiredService<IImportExportService>();
+                importService.ImportDescriptiveAttributes();
+
+                Console.Write("Descriptive attr imported. Done!\r\n");
+            }
+        }
 
         private string GetApplicationRoot()
         {

@@ -33,6 +33,7 @@ namespace Tracking.Web.Data
         public DbSet<File> Files { get; set; }
         public DbSet<Intervention> Interventions { get; set; }
         public DbSet<Survey> Surveys { get; set; }
+        public DbSet<DescriptiveAttributes> DescriptiveAttributes { get; set; }
 
         public bool IsDatabaseExist()
         {
