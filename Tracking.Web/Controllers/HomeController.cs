@@ -66,14 +66,17 @@ namespace Tracking.Web.Controllers
                 Statuses = allStatuses,
                 StatusId = survey.StatusId,
                 ImportDownloadDate = survey.ImportDownloadDate,
+                InterventionName = survey.InterventionName,
+                EvaluatedObject = survey.EvaluatedObject,
                 SurveySeverity = survey.SurveySeverity,
+                DescriptiveAttributes = survey.DescriptiveAttributes,
              //   ValidatorAttribute = survey.ValidatorAttribute,
                 UserName = survey.UserName,
                 //ScrepArea = survey.ScrepArea,
                 //SrepCluster = survey.SrepCluster,
-                RiskType = currentTypeRisk,
                 Notes = surveyNotes,
                 LegalEntityName = survey.LegalEntityName,
+                Cod_ABI = survey.Cod_ABI,
                 ActionOwner = survey.ActionOwner,
                 ActionDescription = survey.ActionDescription,
                 DueDateLocal = survey.DueDateLocal?.ToString("dd.MM.yyyy"),
@@ -164,14 +167,17 @@ namespace Tracking.Web.Controllers
                 survey.UserName = model.UserName;
                // survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
-                //survey.LegalEntityId = model.LegalEntityName;
+                survey.Cod_ABI = model.Cod_ABI;
+                survey.LegalEntityName = model.LegalEntityName;
+                survey.InterventionName = model.InterventionName;
+                survey.EvaluatedObject = model.EvaluatedObject;
                 //survey.SrepCluster = model.SrepCluster;
                 //survey.ScrepArea = model.ScrepArea != null ? model.ScrepArea : survey.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
                 survey.StatusId = model.StatusId;
-               // survey.RiskTypeId = model.RiskType.Id != 0 ? model.RiskType.Id : survey.RiskTypeId;
-                survey.DueDateLocal = DateTime.ParseExact(model.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                //survey.RiskTypeId = model.RiskType.Id != 0 ? model.RiskType.Id : survey.RiskTypeId;
+                //survey.DueDateLocal = DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 _rep.UpdateSurveyAsync(survey);
             }
 

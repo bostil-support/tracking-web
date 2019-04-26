@@ -2,6 +2,7 @@
 var owners = [];
 var statuses = [];
 var severities = [];
+var textDescr = {};
 var filter;
 
 window.onload = function () {
@@ -12,6 +13,8 @@ window.onload = function () {
         type: "GET",
         success: GetSurveysSuccess
     });
+
+    SetDescriptionText();
 }
 
 function SetFilterFields() {
@@ -93,4 +96,19 @@ function remove(array, element) {
 
 function GetSurveysSuccess(data) {
     $('#main-content').html(data);
+}
+
+function SetDescriptionText() {
+    var d = document.getElementById('LegalEntity');
+    var id = document.getElementsByClassName('modelId');
+    var descrptn = document.getElementsByClassName('descr');
+
+    for (var i = 0; i < id.length; i++) {
+        textDescr["id"].push(id[i]);
+        textDescr["descrptn"].push(descrptn[i]);
+    }
+
+    for (var i = 0; i < textDescr.length; i++) {
+        console.log(textDescr[i]["id"] + " " + textDescr[i]["descrptn"]);
+    }
 }

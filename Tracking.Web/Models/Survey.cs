@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
@@ -61,12 +59,6 @@ namespace Tracking.Web.Models
         ///// </summary>
         //[Display(Name = "Macro Requisito Normativo")]
         //public string ScrepArea { get; set; }////////////////////////
-
-        /// <summary>
-        /// Bank or another financial institute 
-        /// </summary>
-        [Column("Id_Banca")]
-        public int LegalEntityId { get; set; }
 
         /// <summary>
         /// Bank`s code 
@@ -135,5 +127,7 @@ namespace Tracking.Web.Models
 
         [Column("Id_Oggetto_Valutato")]
         public int EvaluatedObjectId { get; set; }
+
+        public DescriptiveAttributes DescriptiveAttributes { get; set; }
     }
 }

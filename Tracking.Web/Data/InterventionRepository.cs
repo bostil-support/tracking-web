@@ -189,7 +189,8 @@ namespace Tracking.Web.Data
 
         public Task<Dictionary<string, string>> GetEntityNames()
         {
-            return _context.LegalEntities.Where(x => x.Code != null).ToDictionaryAsync(x => x.Id, x => x.Name);
+            var bankNames = _context.Surveys.GroupBy(x => x.Cod_ABI).Select(x => x.FirstOrDefault()).ToDictionaryAsync(x=>x.Cod_ABI, x=>x.LegalEntityName);
+            return bankNames;
         }
 
         public async Task<Dictionary<int, string>> GetRisks()

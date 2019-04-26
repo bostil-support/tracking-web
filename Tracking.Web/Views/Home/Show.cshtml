@@ -27,7 +27,7 @@
             <div>Utente Censimento</div>
             <div class="bold dati-rilievo" id="UserName">@Model.UserName</div>
             <div>Validatore</div>
-            <div class="bold dati-rilievo" id="ValidatorAttribute">Validator_attribute</div>
+            <div class="bold dati-rilievo" id="ValidatorAttribute">Validator_attribute(not yet available)</div>
         </div>
         <div class="card-item description">
             <div>Descrizione</div>
@@ -43,30 +43,33 @@
         }
     </div>
 
-    <div class="card">
-        <div class="card-header">Legal entity</div>
-        <div class="card-item">
-            <div>Denom. Legal Entity</div>
-            <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntityName</div>
-            <div>Cod. Legal Entity</div>
-           @* <div class="bold" id="LegalEntityCode">@Model.LegalEntityName</div>*@
-        </div>
-        @if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
-        {
-            <div class="edit-container">
-                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.legal-entity').trigger('custom_event');">
-                    <img src="~/images/edit.png" alt="edit">
-                </a>
+    @if (@Model.Role.Contains("Auditor"))
+    {
+        <div class="card">
+            <div class="card-header">Legal entity</div>
+            <div class="card-item">
+                <div>Denom. Legal Entity</div>
+                <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntityName</div>
+                <div>Cod. Legal Entity</div>
+                <div class="bold" id="Cod_ABI">@Model.Cod_ABI</div>
             </div>
-        }
-    </div>
+            @if (@Model.Role == "Auditor")
+            {
+                <div class="edit-container">
+                    <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.legal-entity').trigger('custom_event');">
+                        <img src="~/images/edit.png" alt="edit">
+                    </a>
+                </div>
+            }
+        </div>
+    }
 
-    @if (@Model.Role == "Compliance")
+    @if (@Model.Role.Contains("Compliance"))
     {
         @Html.Partial("_Normativa", Model)
     }
 
-    @if (@Model.Role == "Auditor")
+    @if (@Model.Role.Contains("Auditor"))
     {
         @Html.Partial("_Mappatura", Model)
     }
@@ -76,7 +79,7 @@
         <div class="card-item">
             <div>Owner</div>
             <div class="bold">
-                <span class="azione"  id="ActionOwner">@Model.ActionOwner</span>
+                <span class="azione" id="ActionOwner">@Model.ActionOwner</span>
                 @if (@Model.Role == "Auditor business")
                 {
                     <span id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>

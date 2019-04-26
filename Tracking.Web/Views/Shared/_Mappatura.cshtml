@@ -4,14 +4,17 @@
     <div class="card-header">Mappatura Rischio</div>
     <div class="card-item">
         <div>Titolo</div>
-        @*<span id="RiskTypeId" hidden="hidden" value="@Model.RiskType.Id"></span>
-        <div class="bold mappatura" id="RiskType">@Model.RiskType.Name</div>*@
+        @*<span id="RiskTypeId" hidden="hidden" value="@Model.RiskType.Id"></span>*@
+        @*<div class="bold mappatura" id="RiskType">@Model.RiskType</div>*@
         <div>Area SREP</div>
         <div class="bold screp" id="ScrepArea">@Model.ScrepArea</div>
     </div>
-    <div class="edit-container">
-        <a href="#" class="edit-all-dati-rilievo-btn" @*onclick="$('.mappatura').trigger('custom_event');"*@ onclick="SetEdit()">
-            <img src="~/images/edit.png" alt="edit">
-        </a>
-    </div>
+    @if (@Model.Role == "Auditor")
+    {
+        <div class="edit-container">
+            <a href="#" class="edit-all-dati-rilievo-btn" @*onclick="$('.mappatura').trigger('custom_event');" *@ onclick="SetEdit()">
+                <img src="~/images/edit.png" alt="edit">
+            </a>
+        </div>
+    }
 </div>

@@ -34,6 +34,7 @@ namespace Tracking.Web.Data
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Severity> Severities { get; set; }
         public DbSet<Survey> Surveys { get; set; }
+        public DbSet<DescriptiveAttributes> DescriptiveAttributes { get; set; }
 
         public bool IsDatabaseExist()
         {

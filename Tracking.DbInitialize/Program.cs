@@ -19,7 +19,8 @@ namespace Tracking.DbInitialize
 
             //Display display = _db.ImportSurveysAudit;
             //display.Invoke();
-            _db.ImportSurveysAudit();
+            //_db.ImportSurveysAudit();
+            _db.ImportDescriptiveAttrAudit();
 
             Console.WriteLine($"\r\n{new string('-', 80)}");
             Console.WriteLine("For continue press any button...");
