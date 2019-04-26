@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Tracking.Web.Logs;
 
 namespace Tracking.Web.Managers
 {
@@ -13,6 +15,11 @@ namespace Tracking.Web.Managers
     /// </summary>
     public class TokenServices 
     {
+        private readonly ILogger _logger;
+        public TokenManager(ILogger<TokenManager> logger)
+        {
+            _logger = logger;
+        }
         /// <summary>
         /// Method which return decode token values
         /// </summary>
@@ -20,27 +27,39 @@ namespace Tracking.Web.Managers
         /// <returns></returns>
         public string Decrypt(string data)
         {
-            string token = null;
-            byte[][] keys = GetHashKeys("kww5jOy6011XIPAf5Muw0i7DcJMFvAEy");
+            try
+            {
+                string token = null;
+                byte[][] keys = GetHashKeys("kww5jOy6011XIPAf5Muw0i7DcJMFvAEy");
 
-            token = DecryptStringFromBytes_Aes(data, keys[0], keys[1]);
+                token = DecryptStringFromBytes_Aes(data, keys[0], keys[1]);
 
-            return token;
+                return token;
+            }
+            catch(Exception e)
+            {
+                _logger.Write(e.Message);
+                return e.Message;
+            }
+
 
         }
         private byte[][] GetHashKeys(string key)
         {
-            byte[][] result = new byte[2][];
-            Encoding enc = Encoding.UTF8;
-            SHA256 sha2 = new SHA256CryptoServiceProvider();
-            byte[] rawKey = enc.GetBytes(key);
-            byte[] rawIV = enc.GetBytes(key);
-            byte[] hashKey = sha2.ComputeHash(rawKey);
-            byte[] hashIV = sha2.ComputeHash(rawIV);
-            Array.Resize(ref hashIV, 16);
-            result[0] = hashKey;
-            result[1] = hashIV;
-            return result;
+            
+                byte[][] result = new byte[2][];
+                Encoding enc = Encoding.UTF8;
+                SHA256 sha2 = new SHA256CryptoServiceProvider();
+                byte[] rawKey = enc.GetBytes(key);
+                byte[] rawIV = enc.GetBytes(key);
+                byte[] hashKey = sha2.ComputeHash(rawKey);
+                byte[] hashIV = sha2.ComputeHash(rawIV);
+                Array.Resize(ref hashIV, 16);
+                result[0] = hashKey;
+                result[1] = hashIV;
+                return result;
+            
+            
         }
 
         private string DecryptStringFromBytes_Aes(string cipherTextString, byte[] Key, byte[] IV)
