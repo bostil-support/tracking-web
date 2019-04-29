@@ -15,11 +15,8 @@ namespace Tracking.Web.Managers
     /// </summary>
     public class TokenServices 
     {
-        private readonly ILogger _logger;
-        public TokenManager(ILogger<TokenManager> logger)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger<TokenManager> _logger;
+        
         /// <summary>
         /// Method which return decode token values
         /// </summary>

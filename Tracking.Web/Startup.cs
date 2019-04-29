@@ -35,6 +35,7 @@ namespace Tracking.Web
         {
             string connectionToAudience = "Server=192.168.13.126,1433;Database=CCB_AuditXOP;User ID=svc_everestech;Password=dBY6V!cF5cZC=KL-";
             string connectionToComliance = "Server=192.168.13.126,1433;Database=CCB_ComplianceXOP;User ID=svc_everestech;Password=dBY6V!cF5cZC=KL-";
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

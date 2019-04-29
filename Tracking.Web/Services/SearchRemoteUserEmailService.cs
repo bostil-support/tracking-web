@@ -14,13 +14,13 @@ namespace Tracking.Web.Managers
     {
         private readonly string _connAud = null;
         private readonly string _connCompl = null;
-        private readonly ILogger _logger;
+        private readonly ILogger<EmailServices> _logger;
 
-        public EmailServices(string connAud, string connCompl,ILogger<EmailServices> logger)
+        public EmailServices(string connAud, string connCompl)
         {
             _connAud = connAud;
             _connCompl = connCompl;
-            _logger = logger;
+            
         }
 
         public string FindUserInAudience(string email)
