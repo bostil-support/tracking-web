@@ -224,7 +224,6 @@ namespace Tracking.Web.Controllers
             return PartialView("_FilterFiledsets", model);
         }
 
-        // TEST METHOD
         public void GetSurveysAudit()
         {
            _service.ImportSurveysAudit();
