@@ -6,7 +6,7 @@ using Tracking.Web.Managers;
 using Newtonsoft.Json;
 using System;
 using Microsoft.Extensions.Logging;
-using Tracking.Web.Logs;
+using Tracking.Web.Logigng;
 
 namespace Tracking.Web.Controllers
 {

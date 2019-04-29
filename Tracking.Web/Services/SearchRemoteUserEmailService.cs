@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Logging;
-using Tracking.Web.Logs;
+using Tracking.Web.Logigng;
 
 namespace Tracking.Web.Managers
 {
