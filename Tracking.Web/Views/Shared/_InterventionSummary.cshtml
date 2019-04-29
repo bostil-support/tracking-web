@@ -1,18 +1,18 @@
-﻿@model IEnumerable<Intervention>
+﻿@model List<IGrouping<int, Survey>>
 
 @foreach (var item in Model)
 {
     <div class="day">
         <div>
             <span class="date-text bold">
-                @item.Title 
+                @item.ElementAt(0).InterventionName
             </span>
             <span class="date">
                 Data inserimento: 12-01-2019
             </span>
         </div>
         <div>
-            @foreach (var survey in item.Surveys.Take(4))
+            @foreach (var survey in item.Take(4))
             {
                 @Html.Partial("_SurveySummary", survey)
             }

@@ -16,7 +16,7 @@ namespace Tracking.Web.Models.ViewModel
         /// <summary>
         /// relationship with Survey
         /// </summary>
-        public int SurveyId { get; set; }
+        public string SurveyId { get; set; }
 
         /// <summary>
         /// Attached file

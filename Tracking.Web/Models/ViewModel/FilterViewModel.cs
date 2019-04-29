@@ -11,5 +11,7 @@ namespace Tracking.Web.Models.ViewModel
         public List<string> Owners { get; set; }
         public List<string> Statuses { get; set; }
         public List<string> Severities { get; set; }
+
+
     }
 }

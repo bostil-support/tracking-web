@@ -3,12 +3,22 @@
 <div class="card">
     <div class="card-header">Normativa</div>
     <div class="card-item">
-        <div>Titolo</div>
-        <div class="bold normativa" id="mrn">MRN(not yet available)</div>
-        <div>Area normativa</div>
-        <div class="bold normativa" id="regulatory_area">Area_Normativa(not yet available)</div>
+        <div>Denom. Legal Entity</div>
+        <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntityName</div>
+        <div>Cod. Legal Entity</div>
+        <div class="bold" id="Cod_ABI">@Model.Cod_ABI</div>
+        <div>Titolo Verefica</div>
+        <div class="bold" id="intervTitle">@Model.InterventionName</div>
+        <div>MRN</div>
+        <div class="bold normativa" id="mrn">@Model.EvaluatedObject</div>
+        <div>Normativa</div>
+        @*<div class="bold">
+            <div id="normativa_livello_1">@Model.DescriptiveAttributes.Normativa_Livello_1</div>
+            <div id="normativa_livello_2">@Model.DescriptiveAttributes.Normativa_Livello_2</div>
+            <div id="normativa_livello_3">@Model.DescriptiveAttributes.Normativa_Livello_3</div>
+        </div>*@
     </div>
-    @if (@Model.Role == "Audit" || @Model.Role == "Compliance")
+    @if (@Model.Role == "Compliance")
     {
         <div class="edit-container">
             <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.normativa').trigger('custom_event');">

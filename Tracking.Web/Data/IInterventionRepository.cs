@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
+using System.Linq;
 
 namespace Tracking.Web.Data
 {
@@ -11,11 +12,13 @@ namespace Tracking.Web.Data
     {
         List<Intervention> GetAllInterventions();
 
-        List<Survey> GetAllSurveys();
+        //List<Survey> GetAllSurveys();
 
-        Survey GetSurveyById(int id);
+        Survey GetSurveyById(string id);
 
-        Status GetStatusById(int id);
+        List<IGrouping<int, Survey>> GroupSurveyByIntervId();
+
+        Status GetStatusById(int? id);
 
         List<Status> GetAllStatuses();
 
@@ -23,9 +26,9 @@ namespace Tracking.Web.Data
 
         List<RiskType> GetAllRiskTypes();
 
-        RiskType GetRiskById(int id);
+        string GetSurveyRisk(string SurveyId);
 
-        List<Note> GetNotesForSurvey(int surveyId);
+        List<Note> GetNotesForSurvey(string surveyId);
 
         void CreateNote(Note item);
 
@@ -37,12 +40,18 @@ namespace Tracking.Web.Data
 
         List<TrackingUser> GetAllUsers();
 
-        List<Intervention> Filter(FilterViewModel model);
+        List<IGrouping<int, Survey>> Filter(FilterViewModel model);
 
         void UpdateSurveyAsync(Survey survey);
 
-        Task<Dictionary<int, string>> GetEntityNames();
+        Task<Dictionary<string, string>> GetEntityNames();
 
         Task<Dictionary<int, string>> GetRisks();
+
+        List<string> GetBankNames();
+
+        List<string> GetOwners();
+
+        List<string> GetSeverities();
     }
 }

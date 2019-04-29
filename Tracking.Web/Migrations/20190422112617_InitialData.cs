@@ -52,7 +52,8 @@ namespace Tracking.Web.Migrations
                 name: "Banks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     BankABI = table.Column<string>(nullable: true)
                 },
@@ -65,7 +66,8 @@ namespace Tracking.Web.Migrations
                 name: "Files",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: true),
                     FilePath = table.Column<string>(nullable: true)
                 },
@@ -78,7 +80,7 @@ namespace Tracking.Web.Migrations
                 name: "LegalEntities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Code = table.Column<string>(nullable: true)
                 },
@@ -91,7 +93,8 @@ namespace Tracking.Web.Migrations
                 name: "RiskTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -103,7 +106,8 @@ namespace Tracking.Web.Migrations
                 name: "Severities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -115,7 +119,8 @@ namespace Tracking.Web.Migrations
                 name: "Statuses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -233,10 +238,10 @@ namespace Tracking.Web.Migrations
                 name: "Interventions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: true),
-                    TrackingUserId = table.Column<string>(nullable: true),
-                    TrackingUserId1 = table.Column<string>(nullable: true)
+                    TrackingUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -247,41 +252,51 @@ namespace Tracking.Web.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Interventions_AspNetUsers_TrackingUserId1",
-                        column: x => x.TrackingUserId1,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Surveys",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Descrizione_Rilievo = table.Column<string>(nullable: true),
                     ImportDownloadDate = table.Column<DateTime>(nullable: false),
-                    SurveySeverity = table.Column<string>(nullable: true),
+                    Severita_Rilievo = table.Column<string>(nullable: true),
                     ValidatorAttribute = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(nullable: true),
+                    Utente_Censimento = table.Column<string>(nullable: true),
                     SrepCluster = table.Column<string>(nullable: true),
                     ScrepArea = table.Column<string>(nullable: true),
-                    LegalEntityId = table.Column<int>(nullable: false),
-                    ActionOwner = table.Column<string>(nullable: true),
-                    ActionDescription = table.Column<string>(nullable: true),
+                    LegalEntityId = table.Column<string>(nullable: true),
+                    Owner_Azione_di_Mitigazione = table.Column<string>(nullable: true),
+                    Azione_di_Mitigazione = table.Column<string>(nullable: true),
                     StatusId = table.Column<int>(nullable: false),
                     DueDateOriginal = table.Column<DateTime>(nullable: false),
-                    DueDateLocal = table.Column<DateTime>(nullable: false)
+                    Data_Scadenza = table.Column<DateTime>(nullable: false),
+                    InterventionId = table.Column<int>(nullable: false),
+                    RiskTypeId = table.Column<int>(nullable: false),
+                    Oggetto_Valutato = table.Column<string>(nullable: true),
+                    Id_Oggetto_Valutato = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Surveys", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Surveys_Interventions_InterventionId",
+                        column: x => x.InterventionId,
+                        principalTable: "Interventions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Surveys_LegalEntities_LegalEntityId",
                         column: x => x.LegalEntityId,
                         principalTable: "LegalEntities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Surveys_RiskTypes_RiskTypeId",
+                        column: x => x.RiskTypeId,
+                        principalTable: "RiskTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -296,12 +311,13 @@ namespace Tracking.Web.Migrations
                 name: "Notes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
                     FileId = table.Column<int>(nullable: true),
-                    UserId = table.Column<int>(nullable: false),
-                    UserId1 = table.Column<string>(nullable: true),
-                    SurveyId = table.Column<int>(nullable: false)
+                    UserId = table.Column<string>(nullable: true),
+                    SurveyId = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -317,10 +333,10 @@ namespace Tracking.Web.Migrations
                         column: x => x.SurveyId,
                         principalTable: "Surveys",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Notes_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Notes_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -371,11 +387,6 @@ namespace Tracking.Web.Migrations
                 column: "TrackingUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Interventions_TrackingUserId1",
-                table: "Interventions",
-                column: "TrackingUserId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Notes_FileId",
                 table: "Notes",
                 column: "FileId");
@@ -386,14 +397,24 @@ namespace Tracking.Web.Migrations
                 column: "SurveyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notes_UserId1",
+                name: "IX_Notes_UserId",
                 table: "Notes",
-                column: "UserId1");
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Surveys_InterventionId",
+                table: "Surveys",
+                column: "InterventionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Surveys_LegalEntityId",
                 table: "Surveys",
                 column: "LegalEntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Surveys_RiskTypeId",
+                table: "Surveys",
+                column: "RiskTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Surveys_StatusId",
@@ -422,13 +443,7 @@ namespace Tracking.Web.Migrations
                 name: "Banks");
 
             migrationBuilder.DropTable(
-                name: "Interventions");
-
-            migrationBuilder.DropTable(
                 name: "Notes");
-
-            migrationBuilder.DropTable(
-                name: "RiskTypes");
 
             migrationBuilder.DropTable(
                 name: "Severities");
@@ -443,13 +458,19 @@ namespace Tracking.Web.Migrations
                 name: "Surveys");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Interventions");
 
             migrationBuilder.DropTable(
                 name: "LegalEntities");
 
             migrationBuilder.DropTable(
+                name: "RiskTypes");
+
+            migrationBuilder.DropTable(
                 name: "Statuses");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

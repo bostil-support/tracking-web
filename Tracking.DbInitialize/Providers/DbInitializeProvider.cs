@@ -1,6 +1,4 @@
 ﻿using System;
-using Tracking.Web.Data;
-using Tracking.Web.Models;
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
@@ -9,9 +7,13 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Data;
+using Tracking.Web.Data;
+using Tracking.Web.Services;
+using Tracking.Web.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Tracking.DbInitialize.Providers
 {
@@ -25,7 +27,7 @@ namespace Tracking.DbInitialize.Providers
         public DbInitializeProvider()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS2;Initial Catalog=Tracking;Integrated Security=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS2;Initial Catalog=TrackingDB;Integrated Security=True;MultipleActiveResultSets=true");
 
             _db = new ApplicationDbContext(optionsBuilder.Options);
             _fileName = @"TrackingFields.xlsx";
@@ -151,7 +153,7 @@ namespace Tracking.DbInitialize.Providers
                     {
                         legEntitiesList.Add(new LegalEntity
                         {
-                            Id = Int32.Parse(workSheet.Cells[i, 2].Value.ToString()),
+                            Id = workSheet.Cells[i, 2].Value.ToString(),
                             Name = workSheet.Cells[i, 4].Value.ToString(),
                             Code = workSheet.Cells[i, 2].Value.ToString()
                     });
@@ -272,23 +274,23 @@ namespace Tracking.DbInitialize.Providers
                     {
                         surveyList.Add(new Survey
                         {
-                            Id = Int32.Parse(workSheet.Cells[i, 16].Value.ToString()),
+                            Id = workSheet.Cells[i, 16].Value.ToString(),
                             InterventionId = Int32.Parse(workSheet.Cells[i, 6].Value.ToString()),
-                            LegalEntityId = Int32.Parse(workSheet.Cells[i, 2].Value.ToString()),
-                            LegalEntity = _db.LegalEntities.Find(Int32.Parse(workSheet.Cells[i, 2].Value.ToString())),
+                          //  LegalEntityId = workSheet.Cells[i, 2].Value.ToString(),
+                          //  LegalEntity = _db.LegalEntities.Find(Int32.Parse(workSheet.Cells[i, 2].Value.ToString())),
                             Title = workSheet.Cells[i, 17].Value.ToString(),
                             Description = workSheet.Cells[i, 18].Value.ToString(),
                             SurveySeverity = workSheet.Cells[i, 21].Value.ToString(),
-                            ValidatorAttribute = workSheet.Cells[i, 25].Value.ToString(),
+                          //  ValidatorAttribute = workSheet.Cells[i, 25].Value.ToString(),
                             UserName = workSheet.Cells[i, 20].Value.ToString(),
-                            SrepCluster = workSheet.Cells[i, 11].Value.ToString(),
-                            ScrepArea = workSheet.Cells[i, 10].Value.ToString(),
+                            //SrepCluster = workSheet.Cells[i, 11].Value.ToString(),
+                           // ScrepArea = workSheet.Cells[i, 10].Value.ToString(),
                             ActionOwner = workSheet.Cells[i, 22].Value.ToString(),
                             ActionDescription = workSheet.Cells[i, 22].Value.ToString(),
                             ImportDownloadDate = DateTime.Parse(workSheet.Cells[i, 1].Value.ToString()),
-                            DueDateOriginal = DateTime.Parse(workSheet.Cells[i, 23].Value.ToString()),
-                            StatusId = 1,
-                            RiskTypeId = 1
+                           // DueDateOriginal = DateTime.Parse(workSheet.Cells[i, 23].Value.ToString()),
+                            StatusId = 1
+                           // RiskTypeId = 1
                             
                         });
                     }
@@ -340,6 +342,32 @@ namespace Tracking.DbInitialize.Providers
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
+        }
+        
+        public void ImportSurveysAudit()
+        {
+            using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
+                                        .GetRequiredService<IServiceScopeFactory>()
+                                        .CreateScope())
+            {
+                var importService = _serviceScope.ServiceProvider.GetRequiredService<IImportExportService>();
+                importService.ImportSurveysAudit();
+
+                Console.Write("Surveys imported. Done!\r\n");
+            }
+        }
+
+        public void ImportDescriptiveAttrAudit()
+        {
+            using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
+                                        .GetRequiredService<IServiceScopeFactory>()
+                                        .CreateScope())
+            {
+                var importService = _serviceScope.ServiceProvider.GetRequiredService<IImportExportService>();
+                importService.ImportDescriptiveAttributes();
+
+                Console.Write("Descriptive attr imported. Done!\r\n");
             }
         }
 
