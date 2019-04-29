@@ -18,8 +18,8 @@ namespace Tracking.Web.Controllers
         private readonly UserManager<TrackingUser> _userManager;
         private readonly RoleManager<TrackingRole> _roleManager;
         private readonly SignInManager<TrackingUser> _signInManager;
-        private readonly TokenManager _manager;
-        private readonly EmailServices _services;
+        private readonly TokenServices _manager;
+        private readonly SearchRemoteUserEmailService _services;
         private readonly ILogger _logger;
         
         /// <summary>
@@ -27,12 +27,12 @@ namespace Tracking.Web.Controllers
         /// </summary>
         /// <param name="userManager"></param>
         /// <param name="signInManager"></param>
-        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager,RoleManager<TrackingRole> roleManager,EmailServices services,ILogger<AccountController> logger)
+        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager,RoleManager<TrackingRole> roleManager, SearchRemoteUserEmailService services,ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _manager = new TokenManager();
+            _manager = new TokenServices();
             _services = services;
             _logger = logger;
         }

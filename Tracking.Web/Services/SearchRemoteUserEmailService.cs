@@ -14,9 +14,9 @@ namespace Tracking.Web.Managers
     {
         private readonly string _connAud = null;
         private readonly string _connCompl = null;
-        private readonly ILogger<EmailServices> _logger;
+        private readonly ILogger<SearchRemoteUserEmailService> _logger;
 
-        public EmailServices(string connAud, string connCompl)
+        public SearchRemoteUserEmailService(string connAud, string connCompl)
         {
             _connAud = connAud;
             _connCompl = connCompl;
