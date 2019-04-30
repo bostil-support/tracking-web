@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
@@ -20,13 +21,13 @@ namespace Tracking.Web.Managers
             
         }
 
-        public string FindUserInAudience(string email)
+        public string FindUserInAudience(string userName)
         {
             try
             {
                 using (IDbConnection db = new SqlConnection(_connAud))
                 {
-                    var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where Email = @email", new { email }).FirstOrDefault();
+                    var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where UserName = @userName", new { userName }).FirstOrDefault();
                     return userEmail;
                 }
             }
@@ -37,13 +38,13 @@ namespace Tracking.Web.Managers
             }
         }
 
-        public string FindUserInComplaince(string email)
+        public string FindUserInComplaince(string userName)
         {
             try
             {
                 using (IDbConnection db = new SqlConnection(_connCompl))
                 {
-                    var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where Email = @email", new { email }).FirstOrDefault();
+                    var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where UserName = @userName", new { userName }).FirstOrDefault();
                     return userEmail;
                 }
             }
