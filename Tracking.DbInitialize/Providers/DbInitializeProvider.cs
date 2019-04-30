@@ -371,6 +371,34 @@ namespace Tracking.DbInitialize.Providers
             }
         }
 
+        public void ImportSurveysComplaince()
+        {
+            using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
+                                        .GetRequiredService<IServiceScopeFactory>()
+                                        .CreateScope())
+            {
+                var importService = _serviceScope.ServiceProvider.GetRequiredService<IImportExportService>();
+                importService.ImportSurveysComplaince();
+
+                Console.Write("Surveys imported. Done!\r\n");
+            }
+        }
+
+        public void ImportDescriptiveAttrComplaince()
+        {
+            using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
+                                        .GetRequiredService<IServiceScopeFactory>()
+                                        .CreateScope())
+            {
+                var importService = _serviceScope.ServiceProvider.GetRequiredService<IImportExportService>();
+                importService.ImportDescriptiveAttributesComplaince();
+
+                Console.Write("Descriptive attr imported. Done!\r\n");
+            }
+        }
+
+
+
         private string GetApplicationRoot()
         {
             var exePath = Path.GetDirectoryName(System.Reflection

@@ -19,6 +19,8 @@ using Tracking.Web.Managers;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Tracking.Web.Services;
+using Microsoft.Extensions.Hosting;
+using Tracking.Web.Scheduler;
 
 namespace Tracking.Web
 {
@@ -63,6 +65,7 @@ namespace Tracking.Web
             services.AddTransient<IImportExportService, ImportExportService>(provider =>  new ImportExportService(Configuration.GetConnectionString("DefaultConnection")));
             services.AddImportExportService(Configuration.GetConnectionString("DefaultConnection"));
             //services.AddTransient<IImportExportService, ImportExportService>(provider =>  new ImportExportService(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<IHostedService, ScheduleTask>();
 
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(
@@ -71,7 +74,7 @@ namespace Tracking.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -87,7 +90,7 @@ namespace Tracking.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            
             app.UseAuthentication();
 
             app.UseMvc(routes =>
