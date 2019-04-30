@@ -48,16 +48,7 @@ $('.legal-entity').editable(Edit,
         loadurl: '/Home/GetEntityNames'
     });
 
-$('.mappatura').editable(Edit,
-    {
-        type: 'select',
-        submit: 'Salva',
-        tooltip: "Click to edit...",
-        style: 'display: inline',
-        onblur: "ignore",
-        event: 'custom_event',
-        loadurl: '/Home/GetRisks'
-    });
+$('.mappatura').editable(Edit, arguments);
 
 function SetEdit() {
     $('.mappatura').trigger('custom_event');
@@ -94,9 +85,9 @@ function Edit(value, settings) {
             break;
         case 'LegalEntityName':
             var name = $("#LegalEntityName option:selected").text();
-            window.Survey.LegalEntity.Name = name;
-            window.Survey.LegalEntity.Id = value;
-            $("#LegalEntityCode").text(value);
+            window.Survey.LegalEntityName = name;
+            window.Survey.Cod_ABI = value;
+            $("#Cod_ABI").text(value);
             break;
         case 'ScrepArea':
             window.Survey.ScrepArea = value;
@@ -128,17 +119,15 @@ function Edit(value, settings) {
             SurveySeverity: document.getElementById('SurveySeverity').textContent,
             Id: document.getElementById('Id').textContent,
             UserName: document.getElementById('UserName').textContent,
-            ValidatorAttribute: document.getElementById('ValidatorAttribute').textContent,
+         //   ValidatorAttribute: document.getElementById('ValidatorAttribute').textContent,
             Description: document.getElementById('Description').textContent,
-            LegalEntity: {
-                Id: document.getElementById('LegalEntityCode').textContent,
-                Name: document.getElementById('LegalEntityName').textContent,
-            },
+            LegalEntityName: document.getElementById('LegalEntityName').textContent,
+            Cod_ABI: document.getElementById('Cod_ABI').textContent,
             ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent: '',
             ActionDescription: document.getElementById('ActionDescription').textContent,
             StatusId: $('#StatusId :selected').val(),
             DueDateLocal: $('#dueDateLocal1').val(),
-            ScrepArea: document.getElementById('ScrepArea') ? document.getElementById('ScrepArea').textContent: '',
+        //    ScrepArea: document.getElementById('ScrepArea') ? document.getElementById('ScrepArea').textContent: '',
             RiskType: {
                 Id: $('#RiskTypeId').attr('value'),
                 Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent: ''

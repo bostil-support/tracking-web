@@ -276,21 +276,21 @@ namespace Tracking.DbInitialize.Providers
                         {
                             Id = workSheet.Cells[i, 16].Value.ToString(),
                             InterventionId = Int32.Parse(workSheet.Cells[i, 6].Value.ToString()),
-                            LegalEntityId = workSheet.Cells[i, 2].Value.ToString(),
-                            LegalEntity = _db.LegalEntities.Find(Int32.Parse(workSheet.Cells[i, 2].Value.ToString())),
+                          //  LegalEntityId = workSheet.Cells[i, 2].Value.ToString(),
+                          //  LegalEntity = _db.LegalEntities.Find(Int32.Parse(workSheet.Cells[i, 2].Value.ToString())),
                             Title = workSheet.Cells[i, 17].Value.ToString(),
                             Description = workSheet.Cells[i, 18].Value.ToString(),
                             SurveySeverity = workSheet.Cells[i, 21].Value.ToString(),
-                            ValidatorAttribute = workSheet.Cells[i, 25].Value.ToString(),
+                          //  ValidatorAttribute = workSheet.Cells[i, 25].Value.ToString(),
                             UserName = workSheet.Cells[i, 20].Value.ToString(),
-                            SrepCluster = workSheet.Cells[i, 11].Value.ToString(),
-                            ScrepArea = workSheet.Cells[i, 10].Value.ToString(),
+                            //SrepCluster = workSheet.Cells[i, 11].Value.ToString(),
+                           // ScrepArea = workSheet.Cells[i, 10].Value.ToString(),
                             ActionOwner = workSheet.Cells[i, 22].Value.ToString(),
                             ActionDescription = workSheet.Cells[i, 22].Value.ToString(),
                             ImportDownloadDate = DateTime.Parse(workSheet.Cells[i, 1].Value.ToString()),
-                            DueDateOriginal = DateTime.Parse(workSheet.Cells[i, 23].Value.ToString()),
-                            StatusId = 1,
-                            RiskTypeId = 1
+                           // DueDateOriginal = DateTime.Parse(workSheet.Cells[i, 23].Value.ToString()),
+                            StatusId = 1
+                           // RiskTypeId = 1
                             
                         });
                     }

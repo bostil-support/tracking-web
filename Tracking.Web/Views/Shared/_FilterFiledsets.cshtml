@@ -1,0 +1,35 @@
+﻿@model Tracking.Web.Models.ViewModel.FilterViewModel
+
+<fieldset>
+    <legend class="legend">Legal entity</legend>
+    <hr>
+    @for(int i = 0; i < Model.LegalEntities.Count; i++)
+    {
+        <input id="@("legalEntry"+i)" type="checkbox" onchange="Filter('@("legalEntry"+i)')"/>
+        <label for="@("legalEntry"+i)">@Model.LegalEntities[i]</label><br>
+    }
+</fieldset>
+<fieldset>
+    <legend class="legend">Owner azione correttiva</legend>
+    <hr>
+    @for (int i = 0; i < Model.Owners.Count; i++)
+    {
+        <input id="@("correctiveAction"+i)" type="checkbox" onchange="Filter('@("correctiveAction"+i)')"/>
+        <label for="@("correctiveAction"+i)">@Model.Owners[i]</label><br>
+    }
+</fieldset>
+<fieldset>
+    <legend class="legend">Stato azione correttiva</legend>
+    <hr>
+    <input id="actionStatus1" type="checkbox" onchange="Filter('actionStatus1')"/>
+    <label for="actionStatus1">da validare</label><br>
+</fieldset>
+<fieldset>
+    <legend class="legend">Severità rilievo</legend>
+    <hr>
+    @for (int i = 0; i < Model.Severities.Count; i++)
+    {
+        <input id="@("relevance"+i)" type="checkbox" onchange="Filter('@("relevance"+i)')"/>
+        <label for="@("relevance"+i)">@Model.Severities[i]</label><br>
+    }
+</fieldset>

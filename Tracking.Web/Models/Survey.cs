@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
-    public class Survey : BaseEntity
+    public class Survey
     {
         public string Id { get; set; }
 
@@ -39,8 +37,8 @@ namespace Tracking.Web.Models
         /// <summary>
         /// Field Validatore from mockups. It`s means from italian Validator
         /// </summary>
-        [Display(Name = "Validatore")]
-        public string ValidatorAttribute { get; set; }
+        //[Display(Name = "Validatore")]
+        //public string ValidatorAttribute { get; set; }
 
         /// <summary>
         /// Is the user who made the survey and found the risk.
@@ -51,22 +49,16 @@ namespace Tracking.Web.Models
         public string UserName { get; set; }
 
         /// <summary>
-        /// In itallian mockup field Area normativa
-        /// </summary>
-        [Display(Name = "Area Normativa")]
-        public string SrepCluster { get; set; }
-        
-        /// <summary>
-        /// In itallian mockup field Macro Requisito Normativo
-        /// </summary>
-        [Display(Name = "Macro Requisito Normativo")]
-        public string ScrepArea { get; set; }
+        ///// In itallian mockup field Area normativa
+        ///// </summary>
+        //[Display(Name = "Area Normativa")]
+        //public string SrepCluster { get; set; }///////////////////////////////
 
-        /// <summary>
-        /// Bank or another financial institute 
-        /// </summary>
-        [Column("Id_Banca")]
-        public string LegalEntityId { get; set; }
+        ///// <summary>
+        ///// In itallian mockup field Macro Requisito Normativo
+        ///// </summary>
+        //[Display(Name = "Macro Requisito Normativo")]
+        //public string ScrepArea { get; set; }////////////////////////
 
         /// <summary>
         /// Bank`s code 
@@ -79,8 +71,6 @@ namespace Tracking.Web.Models
         [Column("Legal_Entity")]
         public string LegalEntityName { get; set; }
 
-        public LegalEntity LegalEntity { get; set; }
-        
         /// <summary>
         /// Owner Azione di mitigazione
         /// </summary>
@@ -98,22 +88,16 @@ namespace Tracking.Web.Models
         /// <summary>
         /// Status. In Itallian mockup field Stato
         /// </summary>
-        public int StatusId { get; set; }
-        [Display(Name = "Stato")]
+        public int? StatusId { get; set; }
+        [Display(Name = "Stato")]////////////////////////////////////////////////
         public Status Status { get; set; }
-
-        /// <summary>
-        ///  expiry date
-        /// </summary>
-        [Display(Name = "Skadenza rilievo")]
-        public DateTime DueDateOriginal { get; set; }
 
         /// <summary>
         /// New expiry date
         /// </summary>
-        [Display(Name = "Nuova Data Scadenza")]
+        [Display(Name = "Scandeza Rilievo")]
         [Column("Data_Scadenza")]
-        public DateTime DueDateLocal { get; set; }
+        public DateTime? DueDateLocal { get; set; }
 
         /// <summary>
         /// Note
@@ -128,12 +112,12 @@ namespace Tracking.Web.Models
 
         [Column("Titolo_Intervento")]
         public string InterventionName { get; set; }
-        
+
         /// <summary>
         /// survey musst belongs to different type of risks 
         /// </summary>
-        public int RiskTypeId { get; set; }
-        public RiskType RiskType { get; set; }
+        //public int? RiskTypeId { get; set; }
+        //public RiskType RiskType { get; set; }
 
         /// <summary>
         /// This field is different in the versions of the Audit and Compliance DB  
@@ -142,8 +126,8 @@ namespace Tracking.Web.Models
         public string EvaluatedObject { get; set; }
 
         [Column("Id_Oggetto_Valutato")]
-        public int EvaluatedObjectId { get; set;}
+        public int EvaluatedObjectId { get; set; }
 
-        List<DescriptiveAttributes> DescriptiveAttributes { get; set; }
+        public DescriptiveAttributes DescriptiveAttributes { get; set; }
     }
 }

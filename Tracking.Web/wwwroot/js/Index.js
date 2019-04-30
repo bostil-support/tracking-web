@@ -2,30 +2,44 @@
 var owners = [];
 var statuses = [];
 var severities = [];
+var textDescr = {};
 var filter;
 
 window.onload = function () {
+    SetFilterFields();
     $('#filterDiv').hide();
     $.ajax({
-        url: "/Home/GetInterventions",
+        url: "/Home/GetSurveys",
         type: "GET",
-        success: GetInterventionsSuccess
+        success: GetSurveysSuccess
+    });
+
+    SetDescriptionText();
+}
+
+function SetFilterFields() {
+    $.ajax({
+        url: "/Home/GetFilterDatas",
+        type: "GET",
+        success: function (data) {
+            $('#filterDiv').html(data);
+        }
     });
 }
 
-$('#buttonFiltri').click(function () {
+function ButtonFilterClick() {
     if ($('#filterDiv').css('display') == 'none')
         $('#filterDiv').css('display', 'block');
     else
         $('#filterDiv').css('display', 'none');
-});
+}
 
-$('input[type=checkbox]').change(function () {
-    var id = $(this).attr('id');
+function Filter(id) {
+    var element = document.getElementById(id);
     filter = $('label[for="' + id + '"]').text();
-    var property = $($(this).parent()).children('.legend').text();
+    var property = $($(element).parent()).children('.legend').text();
 
-    if ($(this).is(':checked')) {
+    if ($(element).is(':checked')) {
         if (property == "Legal entity") {
             names.push(filter);
         }
@@ -63,7 +77,7 @@ $('input[type=checkbox]').change(function () {
 
     $.ajax({
         url: "/Home/Filter",
-        type: "POST",
+        type: "GET",
         traditional: true,
         data: {
             LegalEntities: names,
@@ -71,15 +85,30 @@ $('input[type=checkbox]').change(function () {
             Statuses: statuses,
             Severities: severities
         },
-        success: GetInterventionsSuccess
+        success: GetSurveysSuccess
     });
-});
+}
 
 function remove(array, element) {
     var index = array.indexOf(element);
     array.splice(index, 1);
 }
 
-function GetInterventionsSuccess(data) {
+function GetSurveysSuccess(data) {
     $('#main-content').html(data);
+}
+
+function SetDescriptionText() {
+    var d = document.getElementById('LegalEntity');
+    var id = document.getElementsByClassName('modelId');
+    var descrptn = document.getElementsByClassName('descr');
+
+    for (var i = 0; i < id.length; i++) {
+        textDescr["id"].push(id[i]);
+        textDescr["descrptn"].push(descrptn[i]);
+    }
+
+    for (var i = 0; i < textDescr.length; i++) {
+        console.log(textDescr[i]["id"] + " " + textDescr[i]["descrptn"]);
+    }
 }

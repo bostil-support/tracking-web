@@ -13,11 +13,11 @@ namespace Tracking.Web.Models.ViewModel
         /// survey id
         /// </summary>
         public string Id { get; set; }
-        
+
         /// <summary>
         /// current status
         /// </summary>
-        public int StatusId { get; set; }
+        public int? StatusId { get; set; }
 
         /// <summary>
         /// statuses list, we use for select tag values
@@ -74,7 +74,9 @@ namespace Tracking.Web.Models.ViewModel
         /// <summary>
         /// Bank or another financial institute 
         /// </summary>
-        public LegalEntity LegalEntity { get; set; }
+        public string Cod_ABI { get; set; }
+
+        public string LegalEntityName { get; set; }
 
         /// <summary>
         /// Azione di mitigazione - Owner
@@ -85,11 +87,11 @@ namespace Tracking.Web.Models.ViewModel
         /// Azione di mitigazione - Descrizione
         /// </summary>
         public string ActionDescription { get; set; }
-        
+
         /// <summary>
         ///  expiry date
         /// </summary>
-        public DateTime DueDateOriginal { get; set; }
+        //public DateTime DueDateOriginal { get; set; }
 
         /// <summary>
         /// New expiry date
@@ -100,7 +102,7 @@ namespace Tracking.Web.Models.ViewModel
         /// New note 
         /// </summary>
         public Note Note { get; set; }
-                
+
         /// <summary>
         /// Notes list of survey
         /// </summary>
@@ -111,12 +113,7 @@ namespace Tracking.Web.Models.ViewModel
         /// survey is part of intervention
         /// </summary>
         public int InterventionId { get; set; }
-        
-        /// <summary>
-        /// Current value type of risks 
-        /// </summary>
-        public RiskType RiskType { get; set; }
-        
+
         /// <summary>
         /// List all risks. It will be used for select tag
         /// </summary>
@@ -126,5 +123,17 @@ namespace Tracking.Web.Models.ViewModel
         /// User role
         /// </summary>
         public string Role { get; set; }
+
+        /// <summary>
+        /// Titolo Intervento
+        /// </summary>
+        public string InterventionName { get; set; }
+
+        /// <summary>
+        /// Ogetto_Valutato
+        /// </summary>
+        public string EvaluatedObject { get; set; }
+
+        public DescriptiveAttributes DescriptiveAttributes { get; set; }
     }
 }

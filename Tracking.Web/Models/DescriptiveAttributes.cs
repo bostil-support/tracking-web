@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
-    public class DescriptiveAttributes : BaseEntity
+    public class DescriptiveAttributes:BaseEntity
     {
         public Guid UID_Analisi { get; set; }
         [Column("Id_Rilievo")]

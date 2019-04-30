@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Tracking.Web.Managers;
 using Newtonsoft.Json;
 using System;
-using Tracking.Web.Managers;
+using Microsoft.Extensions.Logging;
+using Tracking.Web.Logigng;
 
 namespace Tracking.Web.Controllers
 {
@@ -19,19 +20,21 @@ namespace Tracking.Web.Controllers
         private readonly SignInManager<TrackingUser> _signInManager;
         private readonly TokenServices _manager;
         private readonly SearchRemoteUserEmailService _services;
+        private readonly ILogger _logger;
         
         /// <summary>
         /// User Constructor for Init managers
         /// </summary>
         /// <param name="userManager"></param>
         /// <param name="signInManager"></param>
-        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager,RoleManager<TrackingRole> roleManager,SearchRemoteUserEmailService services)
+        public AccountController(UserManager<TrackingUser> userManager, SignInManager<TrackingUser> signInManager,RoleManager<TrackingRole> roleManager, SearchRemoteUserEmailService services,ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _manager = new TokenServices();
-            _services = services;            
+            _services = services;
+            _logger = logger;
         }
         
         /// <summary>
@@ -59,9 +62,9 @@ namespace Tracking.Web.Controllers
                 token = token.Replace(" ", "+");
                 string tokenString = _manager.Decrypt(token.ToString());
                 var json = JsonConvert.DeserializeObject<TokenModel>(tokenString);
-                var email = json.userName.ToString();
+                var userName = json.userName.ToString();
 
-                var result = await _signInManager.PasswordSignInAsync(email, "Qwerty123!", true, false);                
+                var result = await _signInManager.PasswordSignInAsync(userName, "Qwerty123!", true, false);                
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
@@ -69,11 +72,11 @@ namespace Tracking.Web.Controllers
 
                 else
                 {
-                    var userAudience = _services.FindUserInAudience(email);
-                    var userCompliance = _services.FindUserInComplaince(email);
+                    var userAudience = _services.FindUserInAudience(userName);
+                    var userCompliance = _services.FindUserInComplaince(userName);
                     if(userAudience != null)
                     {
-                        TrackingUser user = new TrackingUser { Email = email.ToString(), UserName = email.ToString() };
+                        TrackingUser user = new TrackingUser { Email = userAudience.ToString(), UserName = userName.ToString() };
                         IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
                         IdentityRole role = await _roleManager.FindByNameAsync("Auditor");
                         //IdentityRole role = await _roleManager.FindByIdAsync("10");
@@ -91,7 +94,7 @@ namespace Tracking.Web.Controllers
                     }
                     else if(userCompliance!=null)
                     {
-                        TrackingUser user = new TrackingUser { Email = email.ToString(), UserName = email.ToString() };
+                        TrackingUser user = new TrackingUser { Email = userCompliance.ToString(), UserName = userName.ToString() };
                         IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
                         IdentityRole role = await _roleManager.FindByNameAsync("Compliance");
                         //IdentityRole role = await _roleManager.FindByIdAsync("10");
@@ -114,7 +117,8 @@ namespace Tracking.Web.Controllers
             }
             catch(Exception e)
             {
-                return RedirectToAction("Error", "Account");
+                _logger.Write(e.Message);                
+                return RedirectToAction("Error", "Account");                
             }                      
         }
         

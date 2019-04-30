@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Tracking.Web.Models
 {
-    public class LegalEntity : BaseEntity
+    public class LegalEntity
     {
         public string Id { get; set; }
 
