@@ -21,6 +21,7 @@ using Serilog;
 using Tracking.Web.Services;
 using Microsoft.Extensions.Hosting;
 using Tracking.Web.Scheduler;
+using Tracking.Web.Logigng;
 
 namespace Tracking.Web
 {
@@ -104,6 +105,9 @@ namespace Tracking.Web
                 .ReadFrom.Configuration(Configuration)
                 .Enrich.FromLogContext()
                 .CreateLogger();
+
+            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+            var logger = loggerFactory.CreateLogger("FileLogger");
         }
     }
 }
