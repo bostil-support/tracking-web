@@ -347,8 +347,9 @@ Tracking.Web/.vs/*
 Tracking.Web/bin/*
 Tracking.Web/obj/*
 
-# Migration ignore
+# Logging ignore
 Tracking.Web/Logs
+Tracking.Web/logger.txt
 
 # ignore appsettings
 **/appsettings.development.json
