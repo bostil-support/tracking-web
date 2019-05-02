@@ -1,0 +1,156 @@
+Failed to authenticate HTTPS connection.
+Failed to authenticate HTTPS connection.
+Failed to authenticate HTTPS connection.
+Request starting HTTP/1.1 GET https://localhost:5002/  
+Route matched with {action = "Index", controller = "Account"}. Executing action Tracking.Web.Controllers.AccountController.Index (Tracking.Web)
+Executing action method Tracking.Web.Controllers.AccountController.Index (Tracking.Web) - Validation state: Valid
+Executed action method Tracking.Web.Controllers.AccountController.Index (Tracking.Web), returned result Microsoft.AspNetCore.Mvc.ViewResult in 1.7915ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 308.3059ms.
+Executed action Tracking.Web.Controllers.AccountController.Index (Tracking.Web) in 486.5786ms
+Failed to authenticate HTTPS connection.
+Request finished in 1254.1924ms 200 text/html; charset=utf-8
+Failed to authenticate HTTPS connection.
+Failed to authenticate HTTPS connection.
+Failed to authenticate HTTPS connection.
+Failed to authenticate HTTPS connection.
+Failed to authenticate HTTPS connection.
+Request starting HTTP/1.1 GET https://localhost:5002/css/site.css  
+Request starting HTTP/1.1 GET https://localhost:5002/lib/jquery/dist/jquery.js  
+Request starting HTTP/1.1 GET https://localhost:5002/js/index.js?v=SQ3eRkdTiiFZxTancfW0RS3JJpxzYV51ylWA4xqnYwU  
+Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\boikochev\Documents\tracking-main\Tracking.Web\wwwroot\css\site.css'
+Request starting HTTP/1.1 GET https://localhost:5002/js/site.js?v=5PiI6l1_cM25QX4RvBVsBc58Hhh6J02dMiKZO-HDT6Y  
+Request starting HTTP/1.1 GET https://localhost:5002/images/logo.png  
+Sending file. Request path: '/js/site.js'. Physical path: 'C:\Users\boikochev\Documents\tracking-main\Tracking.Web\wwwroot\js\site.js'
+Request finished in 240.7996ms 200 text/css
+Sending file. Request path: '/images/logo.png'. Physical path: 'C:\Users\boikochev\Documents\tracking-main\Tracking.Web\wwwroot\images\logo.png'
+Request finished in 136.8582ms 200 image/png
+Request finished in 247.6682ms 200 application/javascript
+Request starting HTTP/1.1 GET https://localhost:5002/images/bottom-logo.png  
+Sending file. Request path: '/images/bottom-logo.png'. Physical path: 'C:\Users\boikochev\Documents\tracking-main\Tracking.Web\wwwroot\images\bottom-logo.png'
+Sending file. Request path: '/lib/jquery/dist/jquery.js'. Physical path: 'C:\Users\boikochev\Documents\tracking-main\Tracking.Web\wwwroot\lib\jquery\dist\jquery.js'
+Request finished in 138.4681ms 200 image/png
+Request finished in 679.8332ms 200 application/javascript
+Sending file. Request path: '/js/index.js'. Physical path: 'C:\Users\boikochev\Documents\tracking-main\Tracking.Web\wwwroot\js\index.js'
+Request finished in 745.4818ms 200 application/javascript
+Request starting HTTP/1.1 GET https://localhost:5002/Home/GetSurveys  
+Request starting HTTP/1.1 GET https://localhost:5002/Home/GetFilterDatas  
+Route matched with {action = "GetSurveys", controller = "Home"}. Executing action Tracking.Web.Controllers.HomeController.GetSurveys (Tracking.Web)
+Route matched with {action = "GetFilterDatas", controller = "Home"}. Executing action Tracking.Web.Controllers.HomeController.GetFilterDatas (Tracking.Web)
+Executing action method Tracking.Web.Controllers.HomeController.GetFilterDatas (Tracking.Web) - Validation state: Valid
+Executing action method Tracking.Web.Controllers.HomeController.GetSurveys (Tracking.Web) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Entity Framework Core 2.1.4-rtm-31024 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT [x].[Legal_Entity]
+FROM [Surveys] AS [x]
+WHERE [x].[Legal_Entity] IS NOT NULL
+Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[Id], [s].[Name]
+FROM [Statuses] AS [s]
+Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT [x].[Owner_Azione_di_Mitigazione]
+FROM [Surveys] AS [x]
+WHERE [x].[Owner_Azione_di_Mitigazione] IS NOT NULL
+Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT [x].[Severita_Rilievo]
+FROM [Surveys] AS [x]
+WHERE [x].[Severita_Rilievo] IS NOT NULL
+Executed action method Tracking.Web.Controllers.HomeController.GetFilterDatas (Tracking.Web), returned result Microsoft.AspNetCore.Mvc.PartialViewResult in 1061.2964ms.
+Executing PartialViewResult, running view _FilterFiledsets.
+Executed PartialViewResult - view _FilterFiledsets executed in 21.6724ms.
+Executed action Tracking.Web.Controllers.HomeController.GetFilterDatas (Tracking.Web) in 1110.815ms
+Request finished in 1205.8411ms 200 text/html; charset=utf-8
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[Id], [s].[Azione_di_Mitigazione], [s].[Owner_Azione_di_Mitigazione], [s].[Cod_ABI], [s].[Descrizione_Rilievo], [s].[Data_Scadenza], [s].[Oggetto_Valutato], [s].[Id_Oggetto_Valutato], [s].[ImportDownloadDate], [s].[Id_Intervento], [s].[Titolo_Intervento], [s].[Legal_Entity], [s].[RiskTypeId], [s].[StatusId], [s].[Severita_Rilievo], [s].[Titolo_Rilievo], [s].[Utente_Censimento]
+FROM [Surveys] AS [s]
+Executed action method Tracking.Web.Controllers.HomeController.GetSurveys (Tracking.Web), returned result Microsoft.AspNetCore.Mvc.PartialViewResult in 1265.1394ms.
+Executing PartialViewResult, running view _InterventionSummary.
+Executed PartialViewResult - view _InterventionSummary executed in 67.13ms.
+Executed action Tracking.Web.Controllers.HomeController.GetSurveys (Tracking.Web) in 1373.4183ms
+Request finished in 1468.6525ms 200 text/html; charset=utf-8
+Server server01:4548:7729c600 heartbeat successfully sent
+Request starting HTTP/1.1 GET https://localhost:5002/Account/Authorize?token=ydabAoMygbaOJg9tfcsulWwtM0wyqNnzEkbxBgxYEr0eHyMiOExQ29uikor2hPTyMT1/6oy7q2wexC/PpZ/TruPjT/NZDBAg81ZzHpCC40gkj4nvGpB2+lU5KO8qnhLCNXEwPI7z9hwESj1RdvfsESuC5iS8rz26F6SuXvKV0es=  
+Route matched with {action = "Authorize", controller = "Account"}. Executing action Tracking.Web.Controllers.AccountController.Authorize (Tracking.Web)
+Executing action method Tracking.Web.Controllers.AccountController.Authorize (Tracking.Web) with arguments (ydabAoMygbaOJg9tfcsulWwtM0wyqNnzEkbxBgxYEr0eHyMiOExQ29uikor2hPTyMT1/6oy7q2wexC/PpZ/TruPjT/NZDBAg81ZzHpCC40gkj4nvGpB2 lU5KO8qnhLCNXEwPI7z9hwESj1RdvfsESuC5iS8rz26F6SuXvKV0es=) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executed DbCommand (26ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[ConcurrencyStamp], [u].[Email], [u].[EmailConfirmed], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AspNetUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0
+Executed DbCommand (14ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+SELECT [uc].[Id], [uc].[ClaimType], [uc].[ClaimValue], [uc].[UserId]
+FROM [AspNetUserClaims] AS [uc]
+WHERE [uc].[UserId] = @__user_Id_0
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+SELECT [role].[Name]
+FROM [AspNetUserRoles] AS [userRole]
+INNER JOIN [AspNetRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0
+Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Description], [r].[Name], [r].[NormalizedName]
+FROM [AspNetRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0
+Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='Text', CommandTimeout='30']
+SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AspNetRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0
+AuthenticationScheme: Identity.Application signed in.
+Executed action method Tracking.Web.Controllers.AccountController.Authorize (Tracking.Web), returned result Microsoft.AspNetCore.Mvc.RedirectToActionResult in 723.1411ms.
+Executing RedirectResult, redirecting to /Home.
+Executed action Tracking.Web.Controllers.AccountController.Authorize (Tracking.Web) in 827.9809ms
+Request finished in 943.9713ms 302 
+Request starting HTTP/1.1 GET https://localhost:5002/Home  
+Route matched with {action = "Index", controller = "Home"}. Executing action Tracking.Web.Controllers.HomeController.Index (Tracking.Web)
+Authorization was successful.
+Executing action method Tracking.Web.Controllers.HomeController.Index (Tracking.Web) - Validation state: Valid
+Executed action method Tracking.Web.Controllers.HomeController.Index (Tracking.Web), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.5231ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 61.9277ms.
+Executed action Tracking.Web.Controllers.HomeController.Index (Tracking.Web) in 155.811ms
+Request starting HTTP/1.1 GET https://localhost:5002/css/site.css  
+Request finished in 223.2482ms 200 text/html; charset=utf-8
+Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\boikochev\Documents\tracking-main\Tracking.Web\wwwroot\css\site.css'
+Request finished in 29.9895ms 200 text/css
+Request starting HTTP/1.1 GET https://localhost:5002/Home/GetFilterDatas  
+Request starting HTTP/1.1 GET https://localhost:5002/Home/GetSurveys  
+Route matched with {action = "GetSurveys", controller = "Home"}. Executing action Tracking.Web.Controllers.HomeController.GetSurveys (Tracking.Web)
+Route matched with {action = "GetFilterDatas", controller = "Home"}. Executing action Tracking.Web.Controllers.HomeController.GetFilterDatas (Tracking.Web)
+Executing action method Tracking.Web.Controllers.HomeController.GetSurveys (Tracking.Web) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executing action method Tracking.Web.Controllers.HomeController.GetFilterDatas (Tracking.Web) - Validation state: Valid
+Entity Framework Core 2.1.4-rtm-31024 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[Id], [s].[Name]
+FROM [Statuses] AS [s]
+Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT [x].[Legal_Entity]
+FROM [Surveys] AS [x]
+WHERE [x].[Legal_Entity] IS NOT NULL
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[Id], [s].[Azione_di_Mitigazione], [s].[Owner_Azione_di_Mitigazione], [s].[Cod_ABI], [s].[Descrizione_Rilievo], [s].[Data_Scadenza], [s].[Oggetto_Valutato], [s].[Id_Oggetto_Valutato], [s].[ImportDownloadDate], [s].[Id_Intervento], [s].[Titolo_Intervento], [s].[Legal_Entity], [s].[RiskTypeId], [s].[StatusId], [s].[Severita_Rilievo], [s].[Titolo_Rilievo], [s].[Utente_Censimento]
+FROM [Surveys] AS [s]
+Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT [x].[Owner_Azione_di_Mitigazione]
+FROM [Surveys] AS [x]
+WHERE [x].[Owner_Azione_di_Mitigazione] IS NOT NULL
+Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT [x].[Severita_Rilievo]
+FROM [Surveys] AS [x]
+WHERE [x].[Severita_Rilievo] IS NOT NULL
+Executed action method Tracking.Web.Controllers.HomeController.GetFilterDatas (Tracking.Web), returned result Microsoft.AspNetCore.Mvc.PartialViewResult in 88.9411ms.
+Executing PartialViewResult, running view _FilterFiledsets.
+Executed action method Tracking.Web.Controllers.HomeController.GetSurveys (Tracking.Web), returned result Microsoft.AspNetCore.Mvc.PartialViewResult in 141.4514ms.
+Executed PartialViewResult - view _FilterFiledsets executed in 10.8813ms.
+Executing PartialViewResult, running view _InterventionSummary.
+Executed action Tracking.Web.Controllers.HomeController.GetFilterDatas (Tracking.Web) in 174.3233ms
+Executed PartialViewResult - view _InterventionSummary executed in 31.0002ms.
+Request finished in 313.935ms 200 text/html; charset=utf-8
+Executed action Tracking.Web.Controllers.HomeController.GetSurveys (Tracking.Web) in 232.2677ms
+Request finished in 326.803ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET https://localhost:5002/images/info.png  
+Request starting HTTP/1.1 GET https://localhost:5002/images/arrow.png  
+Sending file. Request path: '/images/info.png'. Physical path: 'C:\Users\boikochev\Documents\tracking-main\Tracking.Web\wwwroot\images\info.png'
+Sending file. Request path: '/images/arrow.png'. Physical path: 'C:\Users\boikochev\Documents\tracking-main\Tracking.Web\wwwroot\images\arrow.png'
+Request finished in 40.6225ms 200 image/png
+Request finished in 69.3971ms 200 image/png

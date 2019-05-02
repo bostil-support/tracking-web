@@ -22,6 +22,7 @@ using Tracking.Web.Services;
 using Microsoft.Extensions.Hosting;
 using Tracking.Web.Scheduler;
 using Tracking.Web.Logigng;
+using Hangfire;
 
 namespace Tracking.Web
 {
@@ -63,6 +64,7 @@ namespace Tracking.Web
             services.AddTransient<SearchRemoteUserEmailService>(x=> new SearchRemoteUserEmailService(connectionToAudience,connectionToComliance));
             services.AddTransient<IInterventionRepository, InterventionRepository>();
             services.AddTransient<IWorkContext, WorkContext>();
+            services.AddTransient<CleaningLoggerFileServices>();
             services.AddTransient<IImportExportService, ImportExportService>(provider =>  new ImportExportService(Configuration.GetConnectionString("DefaultConnection")));
             services.AddImportExportService(Configuration.GetConnectionString("DefaultConnection"));
             //services.AddTransient<IImportExportService, ImportExportService>(provider =>  new ImportExportService(Configuration.GetConnectionString("DefaultConnection")));
@@ -72,10 +74,12 @@ namespace Tracking.Web
                 new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILoggerFactory loggerFactory, CleaningLoggerFileServices fileServices)
         {
             if (env.IsDevelopment())
             {
@@ -91,7 +95,10 @@ namespace Tracking.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            
+
+            app.UseHangfireServer();
+            RecurringJob.AddOrUpdate(()=>fileServices.CleanFile(),Cron.Daily(3));
+
             app.UseAuthentication();
 
             app.UseMvc(routes =>
@@ -106,7 +113,7 @@ namespace Tracking.Web
                 .Enrich.FromLogContext()
                 .CreateLogger();
 
-            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+            loggerFactory.AddFile(Path.Combine(".\\Logigng", "logger.txt"));
             var logger = loggerFactory.CreateLogger("FileLogger");
         }
     }
