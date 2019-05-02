@@ -43,7 +43,7 @@ namespace Tracking.Web.Services
 
         public void ImportSurveysComplaince()
         {
-            var dt = GetDataTableComplainceSurveys();
+            DataTable dt = GetDataTableComplainceSurveys();
 
             try
             {
@@ -61,7 +61,8 @@ namespace Tracking.Web.Services
             }
             catch (SqlException e)
             {
-                _logger.Write(e.Message);
+                var text = e.Message;
+                //_logger.Write(e.Message);
             }
         }
 

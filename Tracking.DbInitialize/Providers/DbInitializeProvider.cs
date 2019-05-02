@@ -380,7 +380,7 @@ namespace Tracking.DbInitialize.Providers
                 var importService = _serviceScope.ServiceProvider.GetRequiredService<IImportExportService>();
                 importService.ImportSurveysComplaince();
 
-                Console.Write("Surveys imported. Done!\r\n");
+                Console.Write("Surveys complaince imported. Done!\r\n");
             }
         }
 

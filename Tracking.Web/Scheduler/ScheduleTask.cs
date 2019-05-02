@@ -16,14 +16,14 @@ namespace Tracking.Web.Scheduler
         {
             _importExportService = importExportService;
         }
-
-        protected override string Schedule => "59 23 * * *"; // runs every 5 minutes
+        protected override string Schedule => "/5 * * * *";
+        // protected override string Schedule => "59 23 * * *"; // runs every day 23:59 minutes
         public override Task ProcessInScope(IServiceProvider serviceProvider)
         {
             _importExportService.ImportSurveysAudit();
-            //_importExportService.ImportDescriptiveAttributes();
+            _importExportService.ImportDescriptiveAttributes();
             _importExportService.ImportSurveysComplaince();
-            //_importExportService.ImportDescriptiveAttributesComplaince();
+            _importExportService.ImportDescriptiveAttributesComplaince();
             
             return Task.CompletedTask;
         }
