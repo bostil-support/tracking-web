@@ -165,7 +165,7 @@ namespace Tracking.Web.Controllers
                 survey.Title = model.Title;
                 survey.SurveySeverity = model.SurveySeverity;
                 survey.UserName = model.UserName;
-               // survey.ValidatorAttribute = model.ValidatorAttribute;
+              // survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
                 survey.Cod_ABI = model.Cod_ABI;
                 survey.LegalEntityName = model.LegalEntityName;
