@@ -17,7 +17,7 @@ namespace Tracking.Web.Scheduler
             _importExportService = importExportService;
         }
 
-        protected override string Schedule => "*/5 * * * *"; // runs every 5 minutes
+        protected override string Schedule => "59 23 * * *"; // runs every day 23:59 minutes
         public override Task ProcessInScope(IServiceProvider serviceProvider)
         {
             _importExportService.ImportSurveysAudit();
