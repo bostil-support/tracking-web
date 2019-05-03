@@ -151,7 +151,7 @@
 
             GetNotes();
 
-            $('#surveyId').val(@Model.Id);
+            $('#surveyId').val('@Model.Id');
         }
 
         $(function () {
@@ -163,9 +163,9 @@
             var formData = new FormData();
             formData.append('Description', $('textarea').val());
             formData.append('File', $('#attachfile')[0].files[0]);
-            formData.append('SurveyId', @Model.Id);
+            formData.append('SurveyId', '@Model.Id');
             formData.append('Description', $('textarea').val());
-            formData.append('SurveyId', @Model.Id);
+            formData.append('SurveyId', '@Model.Id');
 
             $.ajax({
                 type: "POST",
@@ -179,7 +179,7 @@
 
         function GetNotes() {
             $.ajax({
-                url: "/Home/Notes?id=" + @Model.Id,
+                url: "/Home/Notes?id=" + "@Model.Id",
                 type: "Get",
                 success: GetAllNotesSuccess
             })

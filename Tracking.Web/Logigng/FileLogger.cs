@@ -30,10 +30,10 @@ namespace Tracking.Web.Logigng
         {
             if (formatter != null)
             {
-                lock (_lock)
-                {
-                    File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
-                }
+                //lock (_lock)
+                //{
+                //    File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
+                //}
             }
         }
     }
