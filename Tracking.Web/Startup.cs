@@ -96,11 +96,11 @@ namespace Tracking.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseHangfireServer();
+            app.UseHangfireServer();                      
             RecurringJob.AddOrUpdate(()=>fileServices.CleanFile(),Cron.Daily(3));
 
             app.UseAuthentication();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

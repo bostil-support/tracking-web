@@ -10,7 +10,7 @@ namespace Tracking.Web.Controllers
 {
     public class FileController : Controller
     {
-
+        
         public async Task<IActionResult> Download(string fileName)
         {
             if (fileName == null)
@@ -29,6 +29,7 @@ namespace Tracking.Web.Controllers
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
 
+        
         private string GetContentType(string path)
         {
             var types = GetMimeTypes();
