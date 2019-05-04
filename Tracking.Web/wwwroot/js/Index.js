@@ -9,7 +9,7 @@ window.onload = function () {
     SetFilterFields();
     $('#filterDiv').hide();
     $.ajax({
-        url: "/Home/GetSurveys",
+        url: "GetSurveys",
         type: "GET",
         success: GetSurveysSuccess
     });
