@@ -83,11 +83,13 @@ namespace Tracking.Web
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                //app.UseDeveloperExceptionPage();
+                //app.UseDatabaseErrorPage();
             }
             else
             {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
@@ -96,8 +98,8 @@ namespace Tracking.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseHangfireServer();                      
-            RecurringJob.AddOrUpdate(()=>fileServices.CleanFile(),Cron.Daily(3));
+         //   app.UseHangfireServer();                      
+          //  RecurringJob.AddOrUpdate(()=>fileServices.CleanFile(),Cron.Daily(3));
 
             app.UseAuthentication();
             
