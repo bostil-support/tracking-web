@@ -42,6 +42,7 @@ namespace Tracking.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Account/Index")]
         public IActionResult Index()
         {
             ViewData["Message"] = "Per favore inserisci il tuo token nell'URL";
@@ -55,6 +56,7 @@ namespace Tracking.Web.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
+        [Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Account/Authorize")]
         public async Task<IActionResult> Authorize(string token)
         {
             try

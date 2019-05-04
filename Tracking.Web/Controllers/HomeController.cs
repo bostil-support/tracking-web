@@ -29,25 +29,28 @@ namespace Tracking.Web.Controllers
         }
 
         [Authorize]
+        [Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/Index")]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
+        [Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/GetSurveys")]
         public IActionResult GetSurveys()
         {
             var surveys = _rep.GroupSurveyByIntervId();
             return PartialView("_InterventionSummary", surveys);
         }
 
-        [HttpGet]
+        [HttpGet]        
         public IActionResult Filter(FilterViewModel model)
         {
             var surveys = _rep.Filter(model);
             return PartialView("_InterventionSummary", surveys);
         }
 
+        
         public IActionResult Show(string id)
         {
             var survey = _rep.GetSurveyById(id);
@@ -91,7 +94,7 @@ namespace Tracking.Web.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost]        
         public async Task<IActionResult> AddNote(NoteViewModel model)
         {
             var currentUser = _workContext.GetCurrentUserAsync().Result;
@@ -142,7 +145,7 @@ namespace Tracking.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet]        
         public IActionResult Notes(string id)
         {
             List<Note> list = new List<Note>();
