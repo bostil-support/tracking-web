@@ -1,0 +1,28 @@
+﻿<div id="modalWindow" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h4>Import done</h4>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        window.onload = function () {
+            $('#modalWindow').css('display', 'none');
+            $.ajax({
+                url: "/ImportSurveys",
+                type: "PUT",
+                success: function () {
+                    $('#modalWindow').css('display', 'block');
+                }
+            });
+        }
+
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function () {
+            $('#modalWindow').css('display', 'none');
+        }
+    </script>
+}

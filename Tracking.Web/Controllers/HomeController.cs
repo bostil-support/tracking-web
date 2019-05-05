@@ -43,14 +43,14 @@ namespace Tracking.Web.Controllers
             return PartialView("_InterventionSummary", surveys);
         }
 
-        [HttpGet]        
+        [HttpGet]
         public IActionResult Filter(FilterViewModel model)
         {
             var surveys = _rep.Filter(model);
             return PartialView("_InterventionSummary", surveys);
         }
 
-        
+
         public IActionResult Show(string id)
         {
             var survey = _rep.GetSurveyById(id);
@@ -73,7 +73,7 @@ namespace Tracking.Web.Controllers
                 EvaluatedObject = survey.EvaluatedObject,
                 SurveySeverity = survey.SurveySeverity,
                 DescriptiveAttributes = survey.DescriptiveAttributes,
-             //   ValidatorAttribute = survey.ValidatorAttribute,
+                //   ValidatorAttribute = survey.ValidatorAttribute,
                 UserName = survey.UserName,
                 //ScrepArea = survey.ScrepArea,
                 //SrepCluster = survey.SrepCluster,
@@ -94,7 +94,7 @@ namespace Tracking.Web.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost]        
+        [HttpPost]
         public async Task<IActionResult> AddNote(NoteViewModel model)
         {
             var currentUser = _workContext.GetCurrentUserAsync().Result;
@@ -145,7 +145,7 @@ namespace Tracking.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet]        
+        [HttpGet]
         public IActionResult Notes(string id)
         {
             List<Note> list = new List<Note>();
@@ -168,7 +168,7 @@ namespace Tracking.Web.Controllers
                 survey.Title = model.Title;
                 survey.SurveySeverity = model.SurveySeverity;
                 survey.UserName = model.UserName;
-              // survey.ValidatorAttribute = model.ValidatorAttribute;
+                // survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
                 survey.Cod_ABI = model.Cod_ABI;
                 survey.LegalEntityName = model.LegalEntityName;
@@ -221,16 +221,24 @@ namespace Tracking.Web.Controllers
             {
                 LegalEntities = _rep.GetBankNames(),
                 Owners = _rep.GetOwners(),
-                Severities = _rep.GetSeverities()               
+                Severities = _rep.GetSeverities()
             };
-           
+
             return PartialView("_FilterFiledsets", model);
         }
 
-        public void GetSurveysAudit()
+        [Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/Import")]
+        public IActionResult Import()
         {
-           _service.ImportSurveysAudit();
-           //_service.ImportDescriptiveAttributes();
+            _service.ImportSurveysAudit();
+            _service.ImportDescriptiveAttributes();
+            _service.ImportSurveysComplaince();
+            _service.ImportDescriptiveAttributesComplaince();
+
+            var model = new ImportViewModel();
+            string[] Url = Request.Path.ToString().Split('/');
+            model.Url = '/' +  Url[1] + '/' + Url[2] + '/' + Url[3] + '/' + "Index";
+            return View(model);
         }
     }
 }

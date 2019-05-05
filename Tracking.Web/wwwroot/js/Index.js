@@ -8,12 +8,8 @@ var filter;
 window.onload = function () {
     SetFilterFields();
     $('#filterDiv').hide();
-    $.ajax({
-        url: "GetSurveys",
-        type: "GET",
-        success: GetSurveysSuccess
-    });
 
+    GetSurveys();
     SetDescriptionText();
 }
 
@@ -24,6 +20,14 @@ function SetFilterFields() {
         success: function (data) {
             $('#filterDiv').html(data);
         }
+    });
+}
+
+function GetSurveys() {
+    $.ajax({
+        url: "GetSurveys",
+        type: "GET",
+        success: GetSurveysSuccess
     });
 }
 

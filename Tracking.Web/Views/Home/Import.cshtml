@@ -1,0 +1,24 @@
+﻿@model Tracking.Web.Models.ImportViewModel
+
+<link rel="stylesheet" href="~/css/site.css" />
+<div id="modalWindow" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h4>Import done</h4>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        window.onload = function(){
+            $('#modalWindow').css('display', 'block');
+        }
+
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function () {
+            window.location.href = "@Model.Url";
+        }
+    </script>
+}

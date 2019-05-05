@@ -173,6 +173,7 @@ main {
 .filters {
     position: relative;
     margin-bottom: 36px;
+    display:inline-block;
 }
 
 .filters-popover {
@@ -228,11 +229,91 @@ input {
     margin-bottom: 20px;
 }
 
-#buttonFiltri {
+#buttonFiltri, #ImportButton {
     background: none;
     color: #3095BA;
     border: none;
     outline: none;
 }
 
+.Import{
+    display:inline-block;
+    width:50%;
+}
 
+.button-container{
+    width:10%;
+    float:right;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    top: 30%;
+    width: 35%;
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+}
+
+@-webkit-keyframes animatetop {
+    from {
+        top: 0px;
+        opacity: 0
+    }
+
+    to {
+        top: 190px;
+        opacity: 1
+    }
+}
+
+.modal-header {
+    padding: 2px 16px;
+    color: black;
+}
+
+    .modal-header h4 {
+        font-weight: bold;
+        padding: 10px 0px;
+        text-align:center;
+    }
+
+.modal-body {
+    padding: 2px 16px;
+}
+
+.modal-footer {
+    padding: 30px 16px;
+    color: white;
+}
+
+.modal-footer input {
+    margin-left: 20px;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

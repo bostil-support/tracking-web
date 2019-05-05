@@ -8,7 +8,7 @@ namespace Tracking.Web.Models
     public class Survey
     {
         public string Id { get; set; }
-
+   
         [Column("Titolo_Rilievo")]
         public string Title { get; set; }
 
