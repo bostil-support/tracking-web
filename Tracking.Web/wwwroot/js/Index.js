@@ -24,7 +24,7 @@ function SetFilterFields() {
 
 function GetSurveys() {
     $.ajax({
-        url: "GetSurveys",
+        url: "/Home/GetSurveys",
         type: "GET",
         success: GetSurveysSuccess
     });
@@ -122,9 +122,8 @@ function SetDescriptionText() {
 
 function EspandiText(id) {
     var descrptn = document.getElementsByClassName('descr');
-    var currentIndex;
     for (var i = 0; i < textDescr.length; i++) {
-        if (textDescr[i].id = id) {
+        if (textDescr[i].key == id) {
             descrptn[i].textContent = textDescr[i].value;
             document.getElementById('Espandi ' + id).style.display = 'none';
             document.getElementById('Riduci ' + id).style.display = '';
@@ -135,9 +134,8 @@ function EspandiText(id) {
 
 function RiduciText(id) {
     var descrptn = document.getElementsByClassName('descr');
-    var currentIndex;
     for (var i = 0; i < textDescr.length; i++) {
-        if (textDescr[i].id = id) {
+        if (textDescr[i].key == id) {
             descrptn[i].textContent = textDescr[i].value.substring(0, 150) + '...';
             document.getElementById('Espandi ' + id).style.display = '';
             document.getElementById('Riduci ' + id).style.display = 'none';
