@@ -29,14 +29,14 @@ namespace Tracking.Web.Controllers
         }
 
         [Authorize]
-        [Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/Index")]
+        //[Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/Index")]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        [Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/GetSurveys")]
+        //[Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/GetSurveys")]
         public IActionResult GetSurveys()
         {
             var surveys = _rep.GroupSurveyByIntervId();
@@ -227,7 +227,7 @@ namespace Tracking.Web.Controllers
             return PartialView("_FilterFiledsets", model);
         }
 
-        [Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/Import")]
+        //[Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/Import")]
         public IActionResult Import()
         {
             _service.ImportSurveysAudit();
@@ -236,8 +236,8 @@ namespace Tracking.Web.Controllers
             _service.ImportDescriptiveAttributesComplaince();
 
             var model = new ImportViewModel();
-            string[] Url = Request.Path.ToString().Split('/');
-            model.Url = '/' +  Url[1] + '/' + Url[2] + '/' + Url[3] + '/' + "Index";
+            //string[] Url = Request.Path.ToString().Split('/');
+            //model.Url = '/' +  Url[1] + '/' + Url[2] + '/' + Url[3] + '/' + "Index";
             return View(model);
         }
     }
