@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
@@ -73,7 +72,7 @@ namespace Tracking.Web.Controllers
                 EvaluatedObject = survey.EvaluatedObject,
                 SurveySeverity = survey.SurveySeverity,
                 DescriptiveAttributes = survey.DescriptiveAttributes,
-                //   ValidatorAttribute = survey.ValidatorAttribute,
+                //ValidatorAttribute = survey.ValidatorAttribute,
                 UserName = survey.UserName,
                 //ScrepArea = survey.ScrepArea,
                 //SrepCluster = survey.SrepCluster,
