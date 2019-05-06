@@ -2,7 +2,7 @@
 var owners = [];
 var statuses = [];
 var severities = [];
-var textDescr = {};
+var textDescr = [];
 var filter;
 
 window.onload = function () {
@@ -10,7 +10,6 @@ window.onload = function () {
     $('#filterDiv').hide();
 
     GetSurveys();
-    SetDescriptionText();
 }
 
 function SetFilterFields() {
@@ -100,19 +99,49 @@ function remove(array, element) {
 
 function GetSurveysSuccess(data) {
     $('#main-content').html(data);
+    SetDescriptionText();
 }
 
 function SetDescriptionText() {
-    var d = document.getElementById('LegalEntity');
     var id = document.getElementsByClassName('modelId');
     var descrptn = document.getElementsByClassName('descr');
 
     for (var i = 0; i < id.length; i++) {
-        textDescr["id"].push(id[i]);
-        textDescr["descrptn"].push(descrptn[i]);
+        textDescr.push({
+            key: id[i].textContent,
+            value: descrptn[i].textContent
+        });
     }
 
     for (var i = 0; i < textDescr.length; i++) {
-        console.log(textDescr[i]["id"] + " " + textDescr[i]["descrptn"]);
+        descrptn[i].textContent = textDescr[i].value.substring(0, 150) + '...';
+    }
+
+    $('.riduci').hide();
+}
+
+function EspandiText(id) {
+    var descrptn = document.getElementsByClassName('descr');
+    var currentIndex;
+    for (var i = 0; i < textDescr.length; i++) {
+        if (textDescr[i].id = id) {
+            descrptn[i].textContent = textDescr[i].value;
+            document.getElementById('Espandi ' + id).style.display = 'none';
+            document.getElementById('Riduci ' + id).style.display = '';
+            break;
+        }
+    }
+}
+
+function RiduciText(id) {
+    var descrptn = document.getElementsByClassName('descr');
+    var currentIndex;
+    for (var i = 0; i < textDescr.length; i++) {
+        if (textDescr[i].id = id) {
+            descrptn[i].textContent = textDescr[i].value.substring(0, 150) + '...';
+            document.getElementById('Espandi ' + id).style.display = '';
+            document.getElementById('Riduci ' + id).style.display = 'none';
+            break;
+        }
     }
 }

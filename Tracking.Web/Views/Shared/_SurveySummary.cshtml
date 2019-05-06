@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-item card-info">
         <div class="card-id bold">
-            <label class="modelId">ID @Model.Id</label> |<label for="LegalEntity"><span id="LegalEntity">@Model.LegalEntityName</span> </label>
+            <label>ID <span class="modelId">@Model.Id</span></label> |<label for="LegalEntity"><span id="LegalEntity">@Model.LegalEntityName</span> </label>
             <div class="id-info">
                 <img src="~/images/info.png" alt="?" />
                 <div class="card-popover">
@@ -28,7 +28,8 @@
         <div class="content">
             <span class="action-title bold">Azione di mitigazione:</span>
             <span class="descr">@Model.ActionDescription</span>
-            <span class="more">Espandi</span>
+            <span class="espandi" id="Espandi @Model.Id" onclick="EspandiText('@Model.Id')">Espandi</span>
+            <span class="riduci" id="Riduci @Model.Id" onclick="RiduciText('@Model.Id')">Riduci</span>
         </div>
     </div>
     <div class="card-item card-status">
