@@ -166,10 +166,11 @@
             formData.append('SurveyId', '@Model.Id');
             formData.append('Description', $('textarea').val());
             formData.append('SurveyId', '@Model.Id');
-
+            var url = window.location.href.split('/');
+            var prefix = url[3];
             $.ajax({
                 type: "POST",
-                url: "/Home/AddNote",
+                url: "/" + prefix+"/Home/AddNote",
                 processData: false,
                 contentType: false,
                 data: formData,
@@ -179,7 +180,7 @@
 
         function GetNotes() {
             $.ajax({
-                url: "/Home/Notes?id=" + "@Model.Id",
+                url: "/" + prefix + "/Home/Notes?id=" + "@Model.Id",
                 type: "Get",
                 success: GetAllNotesSuccess
             })
