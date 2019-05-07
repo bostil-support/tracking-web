@@ -12,6 +12,7 @@ using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
 using System.Globalization;
 using Tracking.Web.Services;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace Tracking.Web.Controllers
 {
@@ -32,6 +33,7 @@ namespace Tracking.Web.Controllers
         //[Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/Index")]
         public IActionResult Index()
         {
+            string[] url = Request.Path.ToString().Split('/');
             return View();
         }
 
@@ -50,15 +52,20 @@ namespace Tracking.Web.Controllers
             return PartialView("_InterventionSummary", surveys);
         }
 
-
+        
         public IActionResult Show(string id)
         {
+            string[] url = Request.Path.ToString().Split("/");
+
+
             var survey = _rep.GetSurveyById(id);
             var currentStatus = _rep.GetStatusById(survey.StatusId);
             var allStatuses = _rep.GetStatusesAsSelectList();
             var currentTypeRisk = _rep.GetSurveyRisk(survey.Id);
             var surveyNotes = _rep.GetNotesForSurvey(id);
             var currentUserRole = _workContext.GetCurrentUserRole();
+
+
 
             var survyViewModel = new SurveyViewModel
             {
@@ -83,7 +90,9 @@ namespace Tracking.Web.Controllers
                 ActionOwner = survey.ActionOwner,
                 ActionDescription = survey.ActionDescription,
                 DueDateLocal = survey.DueDateLocal?.ToString("dd.MM.yyyy"),
-                Role = currentUserRole
+                Role = currentUserRole,
+                Url = '/'+ url[1] + '/'
+                
             };
 
             return View(survyViewModel);

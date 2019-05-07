@@ -169,17 +169,20 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Home/AddNote",
+                url: "/"+@Model.Url+"/Home/AddNote",
                 processData: false,
                 contentType: false,
                 data: formData,
                 success: GetNotes
+
+               
+              
             })
         }
 
         function GetNotes() {
             $.ajax({
-                url: "/Home/Notes?id=" + "@Model.Id",
+                url: @Model.Url+"Home/Notes?id=" + "@Model.Id",
                 type: "Get",
                 success: GetAllNotesSuccess
             })

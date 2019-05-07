@@ -5,6 +5,7 @@ var severities = [];
 var textDescr = [];
 var filter;
 
+
 window.onload = function () {
     SetFilterFields();
     $('#filterDiv').hide();
@@ -14,7 +15,7 @@ window.onload = function () {
 
 function SetFilterFields() {
     $.ajax({
-        url: "/Home/GetFilterDatas",
+        url: "./Home/GetFilterDatas",
         type: "GET",
         success: function (data) {
             $('#filterDiv').html(data);
@@ -24,7 +25,7 @@ function SetFilterFields() {
 
 function GetSurveys() {
     $.ajax({
-        url: "/Home/GetSurveys",
+        url: "./Home/GetSurveys",
         type: "GET",
         success: GetSurveysSuccess
     });
@@ -79,7 +80,7 @@ function Filter(id) {
     }
 
     $.ajax({
-        url: "/Home/Filter",
+        url: "./Home/Filter",
         type: "GET",
         traditional: true,
         data: {
