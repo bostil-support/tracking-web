@@ -11,6 +11,7 @@ using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
 using System.Globalization;
 using Tracking.Web.Services;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Tracking.Web.Controllers
 {
@@ -183,8 +184,9 @@ namespace Tracking.Web.Controllers
                 survey.DueDateLocal = DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 _rep.UpdateSurveyAsync(survey);
             }
-
-            return Ok();
+            var url =  Request.GetDisplayUrl();
+            return Ok(url);
+            //return new Js ("window.location = '" + Url.Action("Edit", "Dispatch");
         }
 
         [HttpGet]

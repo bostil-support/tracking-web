@@ -142,8 +142,10 @@ $('#conferma').click(function () {
         type: 'POST',
         url: '/Home/EditSurvey',
         data: window.Survey,
-        success: function () {
-            window.location.href = '/Home/Index'
+        success: function (res) {
+            console.log(res);
+            window.location = '/Home/Index';
+            //window.location.href = '/Home/Index'
         }
     });
 });
