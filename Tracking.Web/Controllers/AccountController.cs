@@ -44,7 +44,8 @@ namespace Tracking.Web.Controllers
         [HttpGet]
         //[Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Account/Index")]
         public IActionResult Index()
-        {
+        {           
+           
             ViewData["Message"] = "Per favore inserisci il tuo token nell'URL";
             return View();
         }

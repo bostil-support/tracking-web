@@ -52,6 +52,7 @@ namespace Tracking.Web.Controllers
 
         public IActionResult Show(string id)
         {
+            var url = Request.QueryString;
             var survey = _rep.GetSurveyById(id);
             var currentStatus = _rep.GetStatusById(survey.StatusId);
             var allStatuses = _rep.GetStatusesAsSelectList();
