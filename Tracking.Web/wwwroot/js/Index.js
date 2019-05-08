@@ -14,7 +14,7 @@ window.onload = function () {
 
 function SetFilterFields() {
     $.ajax({
-        url: "/Home/GetFilterDatas",
+        url: "GetFilterDatas",
         type: "GET",
         success: function (data) {
             $('#filterDiv').html(data);
@@ -24,7 +24,7 @@ function SetFilterFields() {
 
 function GetSurveys() {
     $.ajax({
-        url: "/Home/GetSurveys",
+        url: "GetSurveys",
         type: "GET",
         success: GetSurveysSuccess
     });
@@ -79,7 +79,7 @@ function Filter(id) {
     }
 
     $.ajax({
-        url: "/Home/Filter",
+        url: "Filter",
         type: "GET",
         traditional: true,
         data: {
