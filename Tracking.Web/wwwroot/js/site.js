@@ -140,12 +140,10 @@ function Edit(value, settings) {
 $('#conferma').click(function () {
     $.ajax({
         type: 'POST',
-        url: '/Home/EditSurvey',
+        url: 'EditSurvey',
         data: window.Survey,
-        success: function (res) {
-            console.log(res);
-            window.location = '/Home/Index';
-            //window.location.href = '/Home/Index'
+        success: function () {
+            window.location.href = 'Index'
         }
     });
 });
