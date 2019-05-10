@@ -29,6 +29,7 @@ $('img[class="vizual"]').click(function () {
     }
 });
 
+
 var arguments = {
     submit: 'Salva',
     tooltip: "Click to edit...",
