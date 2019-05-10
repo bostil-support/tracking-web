@@ -129,5 +129,7 @@ namespace Tracking.Web.Models
         public int EvaluatedObjectId { get; set; }
 
         public DescriptiveAttributes DescriptiveAttributes { get; set; }
+
+        public bool IsChanged { get; set; }
     }
 }

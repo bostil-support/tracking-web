@@ -63,6 +63,20 @@ $('.screp').editable(Edit, arguments);
 
 $('#StatusId').select();
 
+
+var previous;
+
+$("#StatusId").on('focus', function () {
+    previous = this.value;
+}).change(function () {
+    var end = this.value;
+    if (previous != end) {
+        ('#IsChanged').val('True');
+        console.log(('#IsChanged').val);
+    }
+});
+
+
 function Edit(value, settings) {
     switch ($(this).attr('id')) {
         case 'Title':
@@ -132,6 +146,7 @@ function Edit(value, settings) {
                 Id: $('#RiskTypeId').attr('value'),
                 Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent: ''
             },
+            IsChanged: $('#IsChanged').val(),
             //MRN: document.getElementById('mrn').textContent,
             //Regulatory_Area: document.getElementById('regulatory_area').textContent,
         };

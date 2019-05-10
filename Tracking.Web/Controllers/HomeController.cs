@@ -82,7 +82,8 @@ namespace Tracking.Web.Controllers
                 ActionOwner = survey.ActionOwner,
                 ActionDescription = survey.ActionDescription,
                 DueDateLocal = survey.DueDateLocal?.ToString("dd.MM.yyyy"),
-                Role = currentUserRole
+                Role = currentUserRole,
+                IsChanged = survey.IsChanged
             };
 
             return View(survyViewModel);
@@ -180,11 +181,11 @@ namespace Tracking.Web.Controllers
                 survey.StatusId = model.StatusId;
                 //survey.RiskTypeId = model.RiskType.Id != 0 ? model.RiskType.Id : survey.RiskTypeId;
                 survey.DueDateLocal = DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                survey.IsChanged = true;
                 _rep.UpdateSurveyAsync(survey);
             }
-            var url =  Request.GetDisplayUrl();
-            return Ok(url);
-            //return new Js ("window.location = '" + Url.Action("Edit", "Dispatch");
+            
+            return Ok();
         }
 
         [HttpGet]

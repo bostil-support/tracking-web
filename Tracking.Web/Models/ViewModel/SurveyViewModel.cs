@@ -135,5 +135,7 @@ namespace Tracking.Web.Models.ViewModel
         public string EvaluatedObject { get; set; }
 
         public DescriptiveAttributes DescriptiveAttributes { get; set; }
+
+        public bool IsChanged { get; set; }
     }
 }

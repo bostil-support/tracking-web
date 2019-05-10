@@ -4,15 +4,18 @@
     <div class="card-item card-info">
         <div class="card-id bold">
             <label>ID <span class="modelId">@Model.Id</span></label> |<label for="LegalEntity"><span id="LegalEntity">@Model.LegalEntityName</span> </label>
-            <div class="id-info">
-                <img src="~/images/info.png" alt="?" />
-                <div class="card-popover">
-                    <div class="popover-body">
-                        Aggiornamenti non visualizzati
+            @if (Model.IsChanged)
+            {
+                <div class="id-info">
+                    <img src="~/images/info.png" alt="?" />
+                    <div class="card-popover">
+                        <div class="popover-body">
+                            Aggiornamenti non visualizzati
+                        </div>
+                        <div class="triangle"></div>
                     </div>
-                    <div class="triangle"></div>
                 </div>
-            </div>
+            }
         </div>
         <div class="card-title bold">
             @Model.Title
