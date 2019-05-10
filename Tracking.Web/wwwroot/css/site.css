@@ -77,7 +77,7 @@ main {
 
 .main-content {
     overflow-y: auto;
-    height: calc(100% - 179px);
+    height: calc(100% - 200px);
 }
 
 .card {
@@ -92,8 +92,8 @@ main {
     margin: 20px 30px;
 }
 
-.content{
-    max-width:358px;
+.content {
+    max-width: 358px;
 }
 
 .card-button {
@@ -173,21 +173,38 @@ main {
 .filters {
     position: relative;
     margin-bottom: 36px;
-    display:inline-block;
+    display: inline-block;
 }
+
+    .filters .label {
+        margin: 10px 0;
+    }
 
 .filters-popover {
     display: none;
     position: absolute;
     right: 0;
-    width: 250px;
+    min-width: 250px;
     background: white;
     border: 1px solid #C0C5C9;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
     z-index: 10;
-    overflow:auto;
-    max-height:400px;
+    overflow: auto;
+    max-height: calc(100vh - 250px);
 }
+
+    .filters-popover fieldset {
+        line-height: 25px;
+        white-space: nowrap;
+    }
+
+    .filters-popover legend {
+        letter-spacing: 0.4pt;
+    }
+
+    .filters-popover .label {
+        margin-left: 12px;
+    }
 
 fieldset {
     left: 0;
@@ -236,14 +253,14 @@ input {
     outline: none;
 }
 
-.Import{
-    display:inline-block;
-    width:50%;
+.Import {
+    display: inline-block;
+    width: 50%;
 }
 
-.button-container{
-    width:10%;
-    float:right;
+.button-container {
+    width: 10%;
+    float: right;
 }
 
 .modal {
@@ -288,7 +305,7 @@ input {
     .modal-header h4 {
         font-weight: bold;
         padding: 10px 0px;
-        text-align:center;
+        text-align: center;
     }
 
 .modal-body {
@@ -300,9 +317,9 @@ input {
     color: white;
 }
 
-.modal-footer input {
-    margin-left: 20px;
-}
+    .modal-footer input {
+        margin-left: 20px;
+    }
 
 .close {
     color: #aaaaaa;
@@ -311,9 +328,23 @@ input {
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.date{
+    margin-bottom:4px;
+}
+
+#imgFiltri{
+    width:90px;
+}
+
+.espandi,
+.riduci,
+#imgFiltri {
     cursor: pointer;
 }

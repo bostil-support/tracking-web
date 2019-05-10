@@ -9,14 +9,20 @@ $('#annulla').click(function () {
     $('textarea').attr("placeholder", "Note").val('');
 });
 
+var showNotes = true;
 $('img[class="vizual"]').click(function () {
-    if (!($('#notesList').css('display') == 'none')) {
-        $('#notesList').hide();
+    var notes = document.getElementById('notesList').children;
+    if (!showNotes) {
+        showNotes = true;
+        for (var i = 4; i < notes.length; i++)
+            notes[i].style.display = 'none';
         $(this).attr('src', "/images/plus.png");
         $('#vizualizi').text('Visualizza tutti');
     }
     else {
-        $('#notesList').show();
+        showNotes = false;
+        for (var i = 4; i < notes.length; i++)
+            notes[i].style.display = 'block';
         $(this).attr('src', "/images/minus.png");
         $('#vizualizi').text('Riduci visualizzati');
     }
@@ -113,37 +119,37 @@ function Edit(value, settings) {
         return value;
 }
 
-    (function ($) {
-        window.Survey = {
-            Title: document.getElementById('Title').textContent,
-            SurveySeverity: document.getElementById('SurveySeverity').textContent,
-            Id: document.getElementById('Id').textContent,
-            UserName: document.getElementById('UserName').textContent,
-         //   ValidatorAttribute: document.getElementById('ValidatorAttribute').textContent,
-            Description: document.getElementById('Description').textContent,
-            LegalEntityName: document.getElementById('LegalEntityName').textContent,
-            Cod_ABI: document.getElementById('Cod_ABI').textContent,
-            ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent: '',
-            ActionDescription: document.getElementById('ActionDescription').textContent,
-            StatusId: $('#StatusId :selected').val(),
-            DueDateLocal: $('#dueDateLocal1').val(),
+(function ($) {
+    window.Survey = {
+        Title: document.getElementById('Title').textContent,
+        SurveySeverity: document.getElementById('SurveySeverity').textContent,
+        Id: document.getElementById('Id').textContent,
+        UserName: document.getElementById('UserName').textContent,
+        //   ValidatorAttribute: document.getElementById('ValidatorAttribute').textContent,
+        Description: document.getElementById('Description').textContent,
+        LegalEntityName: document.getElementById('LegalEntityName').textContent,
+        Cod_ABI: document.getElementById('Cod_ABI').textContent,
+        ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent : '',
+        ActionDescription: document.getElementById('ActionDescription').textContent,
+        StatusId: $('#StatusId :selected').val(),
+        DueDateLocal: $('#dueDateLocal1').val(),
         //    ScrepArea: document.getElementById('ScrepArea') ? document.getElementById('ScrepArea').textContent: '',
-            RiskType: {
-                Id: $('#RiskTypeId').attr('value'),
-                Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent: ''
-            },
-            //MRN: document.getElementById('mrn').textContent,
-            //Regulatory_Area: document.getElementById('regulatory_area').textContent,
-        };
-    })(jQuery);
+        RiskType: {
+            Id: $('#RiskTypeId').attr('value'),
+            Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent : ''
+        },
+        //MRN: document.getElementById('mrn').textContent,
+        //Regulatory_Area: document.getElementById('regulatory_area').textContent,
+    };
+})(jQuery);
 
 $('#conferma').click(function () {
     $.ajax({
         type: 'POST',
-        url: '/Home/EditSurvey',
+        url: 'EditSurvey',
         data: window.Survey,
         success: function () {
-            window.location.href = '/Home/Index'
+            window.location.href = 'Index'
         }
     });
 });

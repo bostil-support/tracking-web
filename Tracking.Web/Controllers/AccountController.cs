@@ -44,7 +44,8 @@ namespace Tracking.Web.Controllers
         [HttpGet]
         //[Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Account/Index")]
         public IActionResult Index()
-        {
+        {           
+           
             ViewData["Message"] = "Per favore inserisci il tuo token nell'URL";
             return View();
         }
@@ -69,7 +70,7 @@ namespace Tracking.Web.Controllers
                 var result = await _signInManager.PasswordSignInAsync(userName, "Qwerty123!", true, false);                
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return Redirect("~/Home/Index");
                 }              
 
                 else
@@ -87,7 +88,7 @@ namespace Tracking.Web.Controllers
                         {
                             await _userManager.AddToRoleAsync(user, role.Name);
                             await _signInManager.SignInAsync(user, false);
-                            return RedirectToAction("Index", "Home");
+                            return Redirect("~/Home/Index");
                         }
                         else
                         {
@@ -105,7 +106,7 @@ namespace Tracking.Web.Controllers
                         {
                             await _userManager.AddToRoleAsync(user, role.Name);
                             await _signInManager.SignInAsync(user, false);
-                            return RedirectToAction("Index", "Home");
+                            return Redirect("~/Home/Index");
                         }
                         else
                         {

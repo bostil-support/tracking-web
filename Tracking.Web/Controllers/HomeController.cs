@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +11,7 @@ using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
 using System.Globalization;
 using Tracking.Web.Services;
-using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Tracking.Web.Controllers
 {
@@ -30,15 +29,12 @@ namespace Tracking.Web.Controllers
         }
 
         [Authorize]
-        //[Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/Index")]
         public IActionResult Index()
         {
-            string[] url = Request.Path.ToString().Split('/');
             return View();
         }
 
         [HttpGet]
-        //[Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/GetSurveys")]
         public IActionResult GetSurveys()
         {
             var surveys = _rep.GroupSurveyByIntervId();
@@ -52,20 +48,16 @@ namespace Tracking.Web.Controllers
             return PartialView("_InterventionSummary", surveys);
         }
 
-        
+
         public IActionResult Show(string id)
         {
-            string[] url = Request.Path.ToString().Split("/");
-
-
+            var url = Request.QueryString;
             var survey = _rep.GetSurveyById(id);
             var currentStatus = _rep.GetStatusById(survey.StatusId);
             var allStatuses = _rep.GetStatusesAsSelectList();
             var currentTypeRisk = _rep.GetSurveyRisk(survey.Id);
             var surveyNotes = _rep.GetNotesForSurvey(id);
             var currentUserRole = _workContext.GetCurrentUserRole();
-
-
 
             var survyViewModel = new SurveyViewModel
             {
@@ -80,7 +72,7 @@ namespace Tracking.Web.Controllers
                 EvaluatedObject = survey.EvaluatedObject,
                 SurveySeverity = survey.SurveySeverity,
                 DescriptiveAttributes = survey.DescriptiveAttributes,
-                //   ValidatorAttribute = survey.ValidatorAttribute,
+                //ValidatorAttribute = survey.ValidatorAttribute,
                 UserName = survey.UserName,
                 //ScrepArea = survey.ScrepArea,
                 //SrepCluster = survey.SrepCluster,
@@ -90,9 +82,7 @@ namespace Tracking.Web.Controllers
                 ActionOwner = survey.ActionOwner,
                 ActionDescription = survey.ActionDescription,
                 DueDateLocal = survey.DueDateLocal?.ToString("dd.MM.yyyy"),
-                Role = currentUserRole,
-                Url = '/'+ url[1] + '/'
-                
+                Role = currentUserRole
             };
 
             return View(survyViewModel);
@@ -192,8 +182,9 @@ namespace Tracking.Web.Controllers
                 survey.DueDateLocal = DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 _rep.UpdateSurveyAsync(survey);
             }
-
-            return Ok();
+            var url = Request.GetDisplayUrl();
+            return Ok(url);
+            //return new Js ("window.location = '" + Url.Action("Edit", "Dispatch");
         }
 
         [HttpGet]

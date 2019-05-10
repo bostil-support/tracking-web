@@ -7,7 +7,7 @@
 
 <div class="big-label">
     <h2>
-        Elenco rilievi/azioni di mitigazione
+        @Model.Title
     </h2>
 </div>
 <div class="main-content">
@@ -19,7 +19,7 @@
         </div>
         <div class="card-item">
             <div>Titolo</div>
-            <div class="bold dati-rilievo" id="Title">@Model.Title</div>
+            <div class="bold dati-rilievo" id="Title">@Model.InterventionName</div>
             <div>ID</div>
             <div class="bold" id="Id">@Model.Id</div>
         </div>
@@ -131,11 +131,12 @@
         @Html.Partial("AddNotePartial", Model.Note)
 
         <div class="button-container">
-            <input type="button" value="ANNULLA" id="annulla">
+            <input type="button" value="ANNULLA" id="annulla" onclick="window.location='Index'">
             <input type="button" class="primary" value="SALVA" id="salva">
             @if (@Model.Role != "Compliance business")
             {
-                <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi">
+                <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi"
+                       onclick="window.location='Index'" />
             }
         </div>
     </div>
@@ -167,22 +168,21 @@
             formData.append('Description', $('textarea').val());
             formData.append('SurveyId', '@Model.Id');
 
+
+
             $.ajax({
                 type: "POST",
-                url: "/"+@Model.Url+"/Home/AddNote",
+                url: "AddNote",
                 processData: false,
                 contentType: false,
                 data: formData,
                 success: GetNotes
-
-               
-              
             })
         }
 
         function GetNotes() {
             $.ajax({
-                url: @Model.Url+"Home/Notes?id=" + "@Model.Id",
+                url:"Notes?id=" + "@Model.Id",
                 type: "Get",
                 success: GetAllNotesSuccess
             })
@@ -195,44 +195,5 @@
             $('textarea').attr("placeholder", "Note").val('');
         }
 
-        //function GetRole() {
-        //    $.ajax({
-        //        type: "Get",
-        //        url: "/Home/GerUserRole",
-        //        success: RolesContraint
-        //    });
-        //}
-
-        //function RolesContraint(role) {
-        //    switch (role)
-        //    { 
-        //        case 'Auditor':
-        //            ShowEditContainer();
-        //            $('#EditOwner').hide();
-        //            break;
-        //        case 'Compliance':
-        //            $('.edit-container').show();
-        //            $('#EditOwner').hide();
-        //            break;
-        //        case 'Audit business':
-        //            $('.edit-container').hide();
-        //            $('#EditOwner').show();
-        //            break;
-        //        case 'Compliance business':
-        //            $('.edit-container').hide();
-        //            $('#EditOwner').hide();
-        //            break;
-        //    }
-        //}
-
-        //function ShowEditContainer() {
-        //    $.ajax({
-        //        type: "Get",
-        //        url: "/Home/GetEditContainer",
-        //        success: function (data) {
-        //            $('.card').prepend(data);
-        //        }
-        //    });
-        //}
     </script>
 }

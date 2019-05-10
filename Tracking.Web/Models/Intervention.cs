@@ -10,7 +10,7 @@ namespace Tracking.Web.Models
     {
         public string Title { get; set; }
         /// <summary>
-        /// One intervention musst to include surveys 
+        /// One intervention must include surveys 
         /// </summary>
         public List<Survey> Surveys { get; set; }
 

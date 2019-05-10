@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tracking.Web.Data;
@@ -98,8 +93,8 @@ namespace Tracking.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-         //   app.UseHangfireServer();                      
-          //  RecurringJob.AddOrUpdate(()=>fileServices.CleanFile(),Cron.Daily(3));
+            app.UseHangfireServer();
+            RecurringJob.AddOrUpdate(() => fileServices.CleanFile(), Cron.Daily(3));
 
             app.UseAuthentication();
             

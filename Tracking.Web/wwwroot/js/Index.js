@@ -5,7 +5,6 @@ var severities = [];
 var textDescr = [];
 var filter;
 
-
 window.onload = function () {
     SetFilterFields();
     $('#filterDiv').hide();
@@ -15,7 +14,7 @@ window.onload = function () {
 
 function SetFilterFields() {
     $.ajax({
-        url: "./Home/GetFilterDatas",
+        url: "GetFilterDatas",
         type: "GET",
         success: function (data) {
             $('#filterDiv').html(data);
@@ -25,7 +24,7 @@ function SetFilterFields() {
 
 function GetSurveys() {
     $.ajax({
-        url: "./Home/GetSurveys",
+        url: "GetSurveys",
         type: "GET",
         success: GetSurveysSuccess
     });
@@ -80,7 +79,7 @@ function Filter(id) {
     }
 
     $.ajax({
-        url: "./Home/Filter",
+        url: "Filter",
         type: "GET",
         traditional: true,
         data: {
@@ -115,7 +114,7 @@ function SetDescriptionText() {
     }
 
     for (var i = 0; i < textDescr.length; i++) {
-        descrptn[i].textContent = textDescr[i].value.substring(0, 150) + '...';
+        descrptn[i].textContent = textDescr[i].value.substring(0, 110) + '...';
     }
 
     $('.riduci').hide();
@@ -137,7 +136,7 @@ function RiduciText(id) {
     var descrptn = document.getElementsByClassName('descr');
     for (var i = 0; i < textDescr.length; i++) {
         if (textDescr[i].key == id) {
-            descrptn[i].textContent = textDescr[i].value.substring(0, 150) + '...';
+            descrptn[i].textContent = textDescr[i].value.substring(0, 110) + '...';
             document.getElementById('Espandi ' + id).style.display = '';
             document.getElementById('Riduci ' + id).style.display = 'none';
             break;
