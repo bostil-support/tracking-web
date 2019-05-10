@@ -8,7 +8,6 @@
 
 header {
     display: flex;
-    cursor: pointer;
 }
 
 footer {
@@ -17,6 +16,10 @@ footer {
 
 header, footer {
     z-index: 5;
+}
+
+.header-container > .header {
+    cursor: pointer;
 }
 
 .footer {

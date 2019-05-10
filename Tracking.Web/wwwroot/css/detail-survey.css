@@ -9,7 +9,6 @@ html, body {
 
 header {
     display: flex;
-    cursor: pointer;
 }
 
 footer {
@@ -19,6 +18,10 @@ footer {
 
 header, footer {
     z-index: 5;
+}
+
+.header-container > .header{
+    cursor:pointer;
 }
 
 .footer {
@@ -168,6 +171,7 @@ main {
         width: 13px;
         height: 13px;
         margin-left:5px;
+        cursor: pointer;
     }
 
     .notes hr {
@@ -180,6 +184,7 @@ main {
     .notes img.clip {
         width: 14px;
         height: 14px;
+        cursor:pointer;
     }
 
 .textarea-container {

@@ -32,7 +32,7 @@ $('img[class="vizual"]').click(function () {
 
 var arguments = {
     submit: 'Salva',
-    tooltip: "Click to edit...",
+    tooltip: "",
     style: 'display: inline',
     onblur: "ignore",
     event: 'custom_event'
@@ -49,11 +49,11 @@ $('.legal-entity').editable(Edit,
     {
         type: 'select',
         submit: 'Salva',
-        tooltip: "Click to edit...",
+        tooltip: "",
         style: 'display: inline',
         onblur: "ignore",
         event: 'custom_event',
-        loadurl: '/Home/GetEntityNames'
+        loadurl: '../Home/GetEntityNames'
     });
 
 $('.mappatura').editable(Edit, arguments);
