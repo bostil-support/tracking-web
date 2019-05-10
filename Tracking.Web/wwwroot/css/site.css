@@ -8,6 +8,7 @@
 
 header {
     display: flex;
+    cursor: pointer;
 }
 
 footer {

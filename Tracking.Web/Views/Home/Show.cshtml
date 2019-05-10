@@ -118,24 +118,27 @@
                 </span>
             </div>
         </div>
-        <div class="bold align-top">Storico note</div>
-        <div class="notes full-line">
-            <div class="blue">
-                <span id="vizualizi">Riduci visualizzati</span>
-                <img class="vizual" src="~/images/minus.png">
-            </div>
-            <hr>
-        </div>
 
+        @if (@Model.Notes.Count > 0)
+        {
+            <div class="bold align-top">Storico note</div>
+            <div class="notes full-line">
+                <div class="blue">
+                    <span id="vizualizi">Riduci visualizzati</span>
+                    <img class="vizual" src="~/images/minus.png">
+                </div>
+                <hr>
+            </div>
+        }
         <div class="notes full-line" id="notesList"></div>
         @Html.Partial("AddNotePartial", Model.Note)
 
         <div class="button-container">
-            <input type="button" value="ANNULLA" id="annulla" onclick="window.location='Index'">
-            <input type="button" class="primary" value="SALVA" id="salva">
+            <input type="button" id="annulla" value="ANNULLA" onclick="window.location='Index'">
+            <input type="button" class="primary" id="salva" value="SALVA">
             @if (@Model.Role != "Compliance business")
             {
-                <input type="button"  class="primary" value="CHIUDI RILIEVO" id="chiudi" 
+                <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi"
                        onclick="window.location='Index'" />
             }
         </div>

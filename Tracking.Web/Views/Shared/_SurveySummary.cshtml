@@ -17,9 +17,9 @@
         <div class="card-title bold">
             @Model.Title
         </div>
-        <div class="card-severity">
+        <div class="card-severity bold">
             Severità rilievo:
-            <span class="severity-value bold">
+            <span class="severity-value">
                 @Model.SurveySeverity
             </span>
         </div>
@@ -33,11 +33,11 @@
         </div>
     </div>
     <div class="card-item card-status">
-        <div>
-            Scadenza rilievo:<span class="bold">@Model.DueDateLocal?.ToShortDateString()</span>
+        <div class="bold">
+            Scadenza rilievo:<span>@Model.DueDateLocal?.ToShortDateString()</span>
         </div>
-        <div>
-            Stato rilievo:<span class="bold">@Model.Status.Name</span>
+        <div class="bold">
+            Stato rilievo:<span>@Model.Status.Name</span>
         </div>
     </div>
     <div class="card-button">

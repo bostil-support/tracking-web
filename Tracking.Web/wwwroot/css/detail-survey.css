@@ -9,6 +9,7 @@ html, body {
 
 header {
     display: flex;
+    cursor: pointer;
 }
 
 footer {
@@ -79,7 +80,7 @@ main {
 
 .main-content {
     overflow-y: auto;
-    height: calc(100% - 126px);
+    height: calc(100% - 130px);
 }
 
 /*cards*/
@@ -107,6 +108,7 @@ main {
 
 .description {
     margin-top: 30px;
+    border-color: #C0C5C9;
 }
 
 .bold {
@@ -185,23 +187,27 @@ main {
     
 }
 
-.textarea-container textarea {
-    width: 100%;
-    height: 100px;
-}
+    .textarea-container textarea {
+        width: 100%;
+        height: 100px;
+        padding: 7px;
+        border-color: #C0C5C9;
+    }
 
     .textarea-container img.clip {
         position: absolute;
         top: 0;
         right: 0;
-        height: 20px;
-        width: 20px;
+        height:33px;
+        width: 33px;
         background: white;
         border: 1px solid #C0C5C9;
+        opacity:1;
     }
 
     .textarea-container input {
         margin: 30px 0;
+        color: #C0C5C9;
     }
 
 .full-line {
@@ -231,6 +237,10 @@ input[type=button], input[type=submit] {
 input[type=submit].primary, input[type=button].primary {
     background: #3095BA;
     color: #FFFFFF;
+    font-weight:bold;
+    letter-spacing:0.86px;
+    width:150px;
+    height:32px;
 }
 
 #notesList {
@@ -317,4 +327,24 @@ input[type=submit].primary, input[type=button].primary {
     font-weight:normal;
     font-size:12.5px;
     padding-left:5px;
+}
+
+#StatusId,
+#dueDateLocal1,
+#annulla{
+    font-weight: bold;
+}
+
+#dueDateLocal1{
+    z-index:1;
+}
+
+#annulla {
+    background: #ECEDEF;
+    border-color: #ccc;
+    letter-spacing: 0.86px;
+}
+
+#modalWindow{
+    z-index:15;
 }
