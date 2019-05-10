@@ -19,6 +19,7 @@ $('img[class="vizual"]').click(function () {
         $(this).attr('src', "/images/plus.png");
         $('#vizualizi').text('Visualizza tutti');
     }
+
     else {
         showNotes = false;
         for (var i = 4; i < notes.length; i++)
