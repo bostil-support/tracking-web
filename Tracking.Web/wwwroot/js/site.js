@@ -71,8 +71,8 @@ $("#StatusId").on('focus', function () {
 }).change(function () {
     var end = this.value;
     if (previous != end) {
-        ('#IsChanged').val('True');
-        console.log(('#IsChanged').val);
+        //$('#IsChanged').val('True');
+        window.Survey.IsChanged = 'True';
     }
 });
 
@@ -146,7 +146,7 @@ function Edit(value, settings) {
                 Id: $('#RiskTypeId').attr('value'),
                 Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent: ''
             },
-            IsChanged: $('#IsChanged').val(),
+            IsChanged: 'False',
             //MRN: document.getElementById('mrn').textContent,
             //Regulatory_Area: document.getElementById('regulatory_area').textContent,
         };
