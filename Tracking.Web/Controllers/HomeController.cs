@@ -29,14 +29,12 @@ namespace Tracking.Web.Controllers
         }
 
         [Authorize]
-        //[Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/Index")]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        //[Route("{folder1:maxlength(100)}/{folder2:maxlength(100)}/Home/GetSurveys")]
         public IActionResult GetSurveys()
         {
             var surveys = _rep.GroupSurveyByIntervId();
