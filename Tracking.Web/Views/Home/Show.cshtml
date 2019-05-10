@@ -135,6 +135,8 @@
             <input type="button" class="primary" value="SALVA" id="salva">
             @if (@Model.Role != "Compliance business")
             {
+                <input type="button"  class="primary" value="CHIUDI RILIEVO" id="chiudi" 
+                       onclick="window.location='Index'" />
                 <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi"
                        onclick="window.location='Index'" />
             }
@@ -167,9 +169,7 @@
             formData.append('SurveyId', '@Model.Id');
             formData.append('Description', $('textarea').val());
             formData.append('SurveyId', '@Model.Id');
-
-
-
+          
             $.ajax({
                 type: "POST",
                 url: "AddNote",

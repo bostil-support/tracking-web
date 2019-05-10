@@ -182,9 +182,8 @@ namespace Tracking.Web.Controllers
                 survey.DueDateLocal = DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 _rep.UpdateSurveyAsync(survey);
             }
-            var url = Request.GetDisplayUrl();
+            var url =  Request.GetDisplayUrl();
             return Ok(url);
-            //return new Js ("window.location = '" + Url.Action("Edit", "Dispatch");
         }
 
         [HttpGet]
