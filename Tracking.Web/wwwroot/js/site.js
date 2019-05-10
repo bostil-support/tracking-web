@@ -16,7 +16,7 @@ $('img[class="vizual"]').click(function () {
         showNotes = true;
         for (var i = 4; i < notes.length; i++)
             notes[i].style.display = 'none';
-        $(this).attr('src', "/images/plus.png");
+        $(this).attr('src', "~/images/plus.png");
         $('#vizualizi').text('Visualizza tutti');
     }
 
@@ -24,7 +24,7 @@ $('img[class="vizual"]').click(function () {
         showNotes = false;
         for (var i = 4; i < notes.length; i++)
             notes[i].style.display = 'block';
-        $(this).attr('src', "/images/minus.png");
+        $(this).attr('src', "~/images/minus.png");
         $('#vizualizi').text('Riduci visualizzati');
     }
 });
