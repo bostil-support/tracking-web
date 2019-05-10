@@ -220,7 +220,8 @@ namespace Tracking.Web.Controllers
             {
                 LegalEntities = _rep.GetBankNames(),
                 Owners = _rep.GetOwners(),
-                Severities = _rep.GetSeverities()
+                Severities = _rep.GetSeverities(),
+                Statuses = _rep.GetStatusesName()
             };
 
             return PartialView("_FilterFiledsets", model);

@@ -29,15 +29,15 @@ namespace Tracking.Web.Data
             return _context.Interventions.Include(x => x.Surveys).ToList();
         }
 
-        /// <summary>
-        /// get surveys
-        /// </summary>
-        /// <returns></returns>
-       // public List<Survey> GetAllSurveys()
-      //  {
-        //    var statues = GetAllStatuses();
-       //     return _context.Surveys.ToList();
-        //}
+      //  /// <summary>
+      //  /// get surveys
+      //  /// </summary>
+      //  /// <returns></returns>
+      // // public List<Survey> GetAllSurveys()
+      ////  {
+      //  //    var statues = GetAllStatuses();
+      // //     return _context.Surveys.ToList();
+      //  //}
 
         /// <summary>
         /// get surveys by interventionId
@@ -215,6 +215,15 @@ namespace Tracking.Web.Data
         {
             var banks = _context.Surveys.Where(x => x.SurveySeverity != null).Select(x => x.SurveySeverity).Distinct().ToList();
             return banks;
+        }
+
+        /// <summary>
+        /// Get Statuses Name
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetStatusesName()
+        {
+            return _context.Statuses.Where(x => x.Surveys != null).Select(x => x.Name).Distinct().ToList();
         }
     }
 }

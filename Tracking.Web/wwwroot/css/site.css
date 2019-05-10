@@ -176,8 +176,8 @@ main {
     display: inline-block;
 }
 
-    .filters .label {
-        margin: 10px 0;
+    .filters .label img {
+        height: 18px;
     }
 
 .filters-popover {
@@ -202,9 +202,40 @@ main {
         letter-spacing: 0.4pt;
     }
 
-    .filters-popover .label {
-        margin-left: 12px;
+    .filters-popover input {
+        opacity: 0;
+        cursor: pointer;
+        position: absolute;
     }
+
+    .filters-popover label {
+        margin-left: 12px;
+        padding-left: 20px;
+    }
+
+        .filters-popover label .checkbox {
+            box-sizing: border-box;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: #D5D9DA;
+            border: 1px solid #C0C5C9;
+            margin-right: 15px;
+            position: relative;
+        }
+
+        .filters-popover label input:checked ~ .checkbox::after {
+            position: absolute;
+            content: "";
+            -webkit-transform: rotate(45deg) scale(1);
+            -ms-transform: rotate(45deg) scale(1);
+            transform: rotate(45deg) scale(1);
+            left: 3px;
+            width: 4px;
+            height: 9px;
+            border: solid black;
+            border-width: 0 2px 2px 0;
+        }
 
 fieldset {
     left: 0;
@@ -227,10 +258,6 @@ fieldset {
 .legend {
     font-size: 14px;
     font-weight: bold;
-}
-
-input {
-    margin-left: 20px;
 }
 
 .filters {
@@ -334,6 +361,7 @@ input {
         text-decoration: none;
         cursor: pointer;
     }
+
 
 .date{
     margin-bottom:4px;

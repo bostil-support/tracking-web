@@ -53,5 +53,7 @@ namespace Tracking.Web.Data
         List<string> GetOwners();
 
         List<string> GetSeverities();
+
+        List<string> GetStatusesName();
     }
 }

@@ -39,8 +39,9 @@ function ButtonFilterClick() {
 
 function Filter(id) {
     var element = document.getElementById(id);
-    filter = $('label[for="' + id + '"]').text();
-    var property = $($(element).parent()).children('.legend').text();
+    filter = $('span[value="' + id + '"]').text();
+    var filedset = $($(element).parent()).parent();
+    var property = $(filedset).children('.legend').text();
 
     if ($(element).is(':checked')) {
         if (property == "Legal entity") {
