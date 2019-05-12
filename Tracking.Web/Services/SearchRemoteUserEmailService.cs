@@ -27,8 +27,10 @@ namespace Tracking.Web.Managers
             {
                 using (IDbConnection db = new SqlConnection(_connAud))
                 {
-                    var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where UserName = @userName", new { userName }).FirstOrDefault();
+                    var userEmail = db.Query<string>("Select Email From V_Utenti Where UserName = @userName and Attivo = 1", new { userName }).FirstOrDefault();
                     return userEmail;
+                    //var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where UserName = @userName", new { userName }).FirstOrDefault();
+                    //return userEmail;
                 }
             }
             catch(Exception e)
@@ -44,8 +46,10 @@ namespace Tracking.Web.Managers
             {
                 using (IDbConnection db = new SqlConnection(_connCompl))
                 {
-                    var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where UserName = @userName", new { userName }).FirstOrDefault();
+                    var userEmail = db.Query<string>("Select Email From V_Utenti Where UserName = @userName and Attivo = 1", new { userName }).FirstOrDefault();
                     return userEmail;
+                    //var userEmail = db.Query<string>("Select Email From V_TrackingElencoUtentiRilievi Where UserName = @userName", new { userName }).FirstOrDefault();
+                    //return userEmail;
                 }
             }
             catch(Exception e)
