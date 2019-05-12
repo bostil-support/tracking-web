@@ -82,8 +82,7 @@ namespace Tracking.Web.Controllers
                 ActionOwner = survey.ActionOwner,
                 ActionDescription = survey.ActionDescription,
                 DueDateLocal = survey.DueDateLocal?.ToString("dd.MM.yyyy"),
-                Role = currentUserRole,
-                IsChanged = survey.IsChanged
+                Role = currentUserRole
             };
 
             return View(survyViewModel);
@@ -164,7 +163,8 @@ namespace Tracking.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var survey = _rep.GetSurveyById(model.Id);
+                
+                Survey survey = _rep.GetSurveyById(model.Id);
                 survey.Title = model.Title;
                 survey.SurveySeverity = model.SurveySeverity;
                 survey.UserName = model.UserName;
@@ -178,10 +178,11 @@ namespace Tracking.Web.Controllers
                 //survey.ScrepArea = model.ScrepArea != null ? model.ScrepArea : survey.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
-                survey.StatusId = model.StatusId;
+                survey.IsUpdated = true;
+                // survey.StatusId = model.StatusId;
                 //survey.RiskTypeId = model.RiskType.Id != 0 ? model.RiskType.Id : survey.RiskTypeId;
-                survey.DueDateLocal = DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
-                //survey.IsChanged = model.IsChanged;
+                survey.DueDateLocal = model.DueDateLocal == null ? (DateTime?)null : DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                survey.IsUpdated = model.IsUpdated;
                 _rep.UpdateSurveyAsync(survey);
             }
             

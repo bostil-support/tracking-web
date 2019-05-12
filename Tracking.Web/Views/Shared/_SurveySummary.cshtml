@@ -4,7 +4,7 @@
     <div class="card-item card-info">
         <div class="card-id bold">
             <label>ID <span class="modelId">@Model.Id</span></label> |<label for="LegalEntity"><span id="LegalEntity">@Model.LegalEntityName</span> </label>
-            @if (Model.IsChanged)
+            @if (Model.IsUpdated)
             {
                 <div class="id-info">
                     <img src="~/images/info.png" alt="?" />

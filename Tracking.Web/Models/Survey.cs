@@ -130,6 +130,6 @@ namespace Tracking.Web.Models
 
         public DescriptiveAttributes DescriptiveAttributes { get; set; }
 
-        public bool IsChanged { get; set; }
+        public bool IsUpdated { get; set; }
     }
 }

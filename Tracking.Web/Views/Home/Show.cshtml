@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_SurveyLayout.cshtml";
 }
 
-<input type="hidden" asp-for="IsChanged " id="IsChanged" name="IsChanged" />
 <div class="big-label">
     <h2>
         @Model.Title
@@ -157,7 +156,15 @@
         }
 
         $(function () {
-            $('#dueDateLocal').datetimepicker({ locale: 'it', debug: false, format: 'DD.MM.YYYY' });
+            $('#dueDateLocal').datetimepicker({ locale: 'it', debug: false, format: 'DD.MM.YYYY' }).
+                on('dp.change', function (e) {
+                    var previous = e.oldDate;
+                    var end = e.date;
+                    if (previous !== end) { 
+                        window.Survey.IsUpdated = 'True';
+                        console.log(window.Survey.IsUpdated);
+                    }
+                });
           });
 
         function CreateNote() {

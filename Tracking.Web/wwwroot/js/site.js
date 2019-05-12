@@ -71,11 +71,9 @@ $("#StatusId").on('focus', function () {
 }).change(function () {
     var end = this.value;
     if (previous != end) {
-        //$('#IsChanged').val('True');
-        window.Survey.IsChanged = 'True';
+        window.Survey.IsUpdated = 'True';
     }
 });
-
 
 function Edit(value, settings) {
     switch ($(this).attr('id')) {
@@ -133,7 +131,6 @@ function Edit(value, settings) {
             SurveySeverity: document.getElementById('SurveySeverity').textContent,
             Id: document.getElementById('Id').textContent,
             UserName: document.getElementById('UserName').textContent,
-         //   ValidatorAttribute: document.getElementById('ValidatorAttribute').textContent,
             Description: document.getElementById('Description').textContent,
             LegalEntityName: document.getElementById('LegalEntityName').textContent,
             Cod_ABI: document.getElementById('Cod_ABI').textContent,
@@ -141,14 +138,11 @@ function Edit(value, settings) {
             ActionDescription: document.getElementById('ActionDescription').textContent,
             StatusId: $('#StatusId :selected').val(),
             DueDateLocal: $('#dueDateLocal1').val(),
-        //    ScrepArea: document.getElementById('ScrepArea') ? document.getElementById('ScrepArea').textContent: '',
             RiskType: {
                 Id: $('#RiskTypeId').attr('value'),
                 Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent: ''
             },
-            IsChanged: 'False',
-            //MRN: document.getElementById('mrn').textContent,
-            //Regulatory_Area: document.getElementById('regulatory_area').textContent,
+            IsUpdated: 'False',
         };
     })(jQuery);
 
