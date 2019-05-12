@@ -163,7 +163,8 @@ namespace Tracking.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var survey = _rep.GetSurveyById(model.Id);
+                
+                Survey survey = _rep.GetSurveyById(model.Id);
                 survey.Title = model.Title;
                 survey.SurveySeverity = model.SurveySeverity;
                 survey.UserName = model.UserName;
@@ -177,13 +178,15 @@ namespace Tracking.Web.Controllers
                 //survey.ScrepArea = model.ScrepArea != null ? model.ScrepArea : survey.ScrepArea;
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
-                survey.StatusId = model.StatusId;
+                survey.IsUpdated = true;
+                // survey.StatusId = model.StatusId;
                 //survey.RiskTypeId = model.RiskType.Id != 0 ? model.RiskType.Id : survey.RiskTypeId;
-                survey.DueDateLocal = DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                survey.DueDateLocal = model.DueDateLocal == null ? (DateTime?)null : DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                survey.IsUpdated = model.IsUpdated;
                 _rep.UpdateSurveyAsync(survey);
             }
-            var url =  Request.GetDisplayUrl();
-            return Ok(url);
+            
+            return Ok();
         }
 
         [HttpGet]

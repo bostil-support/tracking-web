@@ -71,6 +71,18 @@ $('.screp').editable(Edit, arguments);
 
 $('#StatusId').select();
 
+
+var previous;
+
+$("#StatusId").on('focus', function () {
+    previous = this.value;
+}).change(function () {
+    var end = this.value;
+    if (previous != end) {
+        window.Survey.IsUpdated = 'True';
+    }
+});
+
 function Edit(value, settings) {
     switch ($(this).attr('id')) {
         case 'Title':
@@ -121,29 +133,26 @@ function Edit(value, settings) {
         return value;
 }
 
-(function ($) {
-    window.Survey = {
-        Title: document.getElementById('Title').textContent,
-        SurveySeverity: document.getElementById('SurveySeverity').textContent,
-        Id: document.getElementById('Id').textContent,
-        UserName: document.getElementById('UserName').textContent,
-        //   ValidatorAttribute: document.getElementById('ValidatorAttribute').textContent,
-        Description: document.getElementById('Description').textContent,
-        LegalEntityName: document.getElementById('LegalEntityName').textContent,
-        Cod_ABI: document.getElementById('Cod_ABI').textContent,
-        ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent : '',
-        ActionDescription: document.getElementById('ActionDescription').textContent,
-        StatusId: $('#StatusId :selected').val(),
-        DueDateLocal: $('#dueDateLocal1').val(),
-        //    ScrepArea: document.getElementById('ScrepArea') ? document.getElementById('ScrepArea').textContent: '',
-        RiskType: {
-            Id: $('#RiskTypeId').attr('value'),
-            Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent : ''
-        },
-        //MRN: document.getElementById('mrn').textContent,
-        //Regulatory_Area: document.getElementById('regulatory_area').textContent,
-    };
-})(jQuery);
+    (function ($) {
+        window.Survey = {
+            Title: document.getElementById('Title').textContent,
+            SurveySeverity: document.getElementById('SurveySeverity').textContent,
+            Id: document.getElementById('Id').textContent,
+            UserName: document.getElementById('UserName').textContent,
+            Description: document.getElementById('Description').textContent,
+            LegalEntityName: document.getElementById('LegalEntityName').textContent,
+            Cod_ABI: document.getElementById('Cod_ABI').textContent,
+            ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent: '',
+            ActionDescription: document.getElementById('ActionDescription').textContent,
+            StatusId: $('#StatusId :selected').val(),
+            DueDateLocal: $('#dueDateLocal1').val(),
+            RiskType: {
+                Id: $('#RiskTypeId').attr('value'),
+                Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent: ''
+            },
+            IsUpdated: 'False',
+        };
+    })(jQuery);
 
 $('#conferma').click(function () {
     $.ajax({

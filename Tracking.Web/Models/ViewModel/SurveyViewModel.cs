@@ -137,5 +137,7 @@ namespace Tracking.Web.Models.ViewModel
         public string Url { get; set; }
 
         public DescriptiveAttributes DescriptiveAttributes { get; set; }
+
+        public bool IsUpdated { get; set; }
     }
 }
