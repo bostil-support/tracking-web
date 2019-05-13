@@ -31,18 +31,18 @@ namespace Tracking.Web.Services
         /// <param name="email">current auditor user email</param>
         public IList<Survey> GetSurveysAuditorByUserEmail(string email)
         {
+            var idsSurveys = new List<string>();
             var surveys = new List<Survey>();
             try
             {
                 using (IDbConnection db = new SqlConnection(_connStringAudit))
                 {
-                    var idsSurveys = db.Query<IdsSurveys>("Select (CONVERT(nvarchar(450), Id_Rilievo) + Funzione) as IdRilievo From V_TrackingElencoUtentiRilievi Where Email = @email",
-                      new { email }).ToArray<IdsSurveys>();
-
-                    int count = idsSurveys.Count();
-
-                    surveys = _context.Surveys.Where(o => idsSurveys.Where(x => x.IdRilievo).Contains(o.Id)).ToList();
+                    idsSurveys = db.Query<string>("Select (CONVERT(nvarchar(450), Id_Rilievo) + Funzione) as IdRilievo From V_TrackingElencoUtentiRilievi Where Email = @email",
+                      new { email }).ToList();
+                   
                 }
+
+                surveys = _context.Surveys.Where(o => idsSurveys.Contains(o.Id)).ToList();
             }
             catch (Exception e)
             {
