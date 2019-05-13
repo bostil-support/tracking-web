@@ -12,7 +12,7 @@
             </span>
         </div>
         <div>
-            @foreach (var survey in item.Take(4))
+            @foreach (var survey in item)
             {
                 @Html.Partial("_SurveySummary", survey)
             }

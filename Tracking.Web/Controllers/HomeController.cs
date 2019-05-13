@@ -42,14 +42,16 @@ namespace Tracking.Web.Controllers
         public async Task<IActionResult> GetSurveys()
         {
             var curUser = await _userService.GetCurrentUserAsync();
-            var surveys = _rep.GroupSurveyByIntervId(curUser);
+            var surveys = _rep.GroupSurveyByIntervId(curUser).Result;
             return PartialView("_InterventionSummary", surveys);
         }
 
         [HttpGet]
         public IActionResult Filter(FilterViewModel model)
         {
-            var surveys = _rep.Filter(model);
+            var curUser = _userService.GetCurrentUserAsync().Result;
+            
+            var surveys = _rep.Filter(model,curUser);
             return PartialView("_InterventionSummary", surveys);
         }
 

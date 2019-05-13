@@ -167,10 +167,22 @@ namespace Tracking.Web.Data
 
 
 
-        public List<IGrouping<int, Survey>> Filter(FilterViewModel model)
+        public List<IGrouping<int, Survey>> Filter(FilterViewModel model,TrackingUser user)
         {
             var statues = GetAllStatuses();
-            var result = _context.Surveys.ToList();
+            var userRoles =  _userManager.GetRolesAsync(user).Result;
+            IList<Survey> result = null; 
+            if (userRoles[0] == "Compliance")
+            {
+               result = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
+
+            }
+            else
+            {
+               result = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
+            }
+            
+            //var result = _context.Surveys.ToList();
 
             if (model != null)
             {
