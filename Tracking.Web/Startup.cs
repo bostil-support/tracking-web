@@ -60,9 +60,9 @@ namespace Tracking.Web
             services.AddTransient<IInterventionRepository, InterventionRepository>();
             services.AddTransient<IWorkContext, WorkContext>();
             services.AddTransient<CleaningLoggerFileServices>();
-            services.AddTransient<IImportExportService, ImportExportService>(provider =>  new ImportExportService(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ISurveysService, SurveysService>();
             services.AddImportExportService(Configuration.GetConnectionString("DefaultConnection"));
-            //services.AddTransient<IImportExportService, ImportExportService>(provider =>  new ImportExportService(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSingleton<IHostedService, ScheduleTask>();
 
             services.AddSingleton<IFileProvider>(
@@ -78,8 +78,8 @@ namespace Tracking.Web
         {
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {

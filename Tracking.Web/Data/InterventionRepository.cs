@@ -7,16 +7,24 @@ using System.Threading.Tasks;
 using Tracking.Web.Data;
 using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
+using Tracking.Web.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace Tracking.Web.Data
 {
     public class InterventionRepository : IInterventionRepository
     {
         private ApplicationDbContext _context;
-
-        public InterventionRepository(ApplicationDbContext con)
+        private ISurveysService _surveysService;
+        private readonly UserManager<TrackingUser> _userManager;
+        
+        public InterventionRepository(ApplicationDbContext con, 
+            ISurveysService surveysService,
+            UserManager<TrackingUser> userManager)
         {
             _context = con;
+            _surveysService = surveysService;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -25,29 +33,35 @@ namespace Tracking.Web.Data
         /// <returns></returns>
         public List<Intervention> GetAllInterventions()
         {
-           // var surv = GetAllSurveys();
             return _context.Interventions.Include(x => x.Surveys).ToList();
         }
-
-      //  /// <summary>
-      //  /// get surveys
-      //  /// </summary>
-      //  /// <returns></returns>
-      // // public List<Survey> GetAllSurveys()
-      ////  {
-      //  //    var statues = GetAllStatuses();
-      // //     return _context.Surveys.ToList();
-      //  //}
-
+              
         /// <summary>
         /// get surveys by interventionId
         /// </summary>
         /// <returns></returns>
-        public List<IGrouping<int, Survey>> GroupSurveyByIntervId()
+        public async Task<List<IGrouping<int, Survey>>> GroupSurveyByIntervId(TrackingUser user)
         {
+            IList<Survey> surveys = new List<Survey>();
             var statuses = _context.Statuses.ToList();
-            var surv = _context.Surveys.ToList();
-            var groupSurv = surv.GroupBy(x => x.InterventionId).ToList();
+            //var surv = _context.Surveys.ToList();
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            //foreach (var role in userRoles)
+            //{
+                if (userRoles[0] == "Compliance")
+                {
+                    surveys = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
+                    
+                }
+                else
+                {
+                    surveys = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
+                }
+            //}
+
+            var groupSurv = surveys.GroupBy(x => x.InterventionId).ToList();
             return groupSurv;
         }
 

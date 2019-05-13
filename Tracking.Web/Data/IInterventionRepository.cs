@@ -16,7 +16,7 @@ namespace Tracking.Web.Data
 
         Survey GetSurveyById(string id);
 
-        List<IGrouping<int, Survey>> GroupSurveyByIntervId();
+        Task<List<IGrouping<int, Survey>>> GroupSurveyByIntervId(TrackingUser user);
 
         Status GetStatusById(int? id);
 

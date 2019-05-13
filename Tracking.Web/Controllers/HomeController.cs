@@ -11,7 +11,6 @@ using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
 using System.Globalization;
 using Tracking.Web.Services;
-using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Tracking.Web.Controllers
 {
@@ -20,12 +19,17 @@ namespace Tracking.Web.Controllers
         private readonly IInterventionRepository _rep;
         private readonly IWorkContext _workContext;
         private readonly IImportExportService _service;
+        private readonly IUserService _userService;        
 
-        public HomeController(IInterventionRepository repo, IWorkContext workContext, IImportExportService service)
+        public HomeController(IInterventionRepository repo, 
+            IWorkContext workContext, 
+            IImportExportService service,
+            IUserService userService)
         {
             _rep = repo;
             _workContext = workContext;
             _service = service;
+            _userService = userService;
         }
 
         [Authorize]
@@ -35,9 +39,10 @@ namespace Tracking.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetSurveys()
+        public async Task<IActionResult> GetSurveys()
         {
-            var surveys = _rep.GroupSurveyByIntervId();
+            var curUser = await _userService.GetCurrentUserAsync();
+            var surveys = _rep.GroupSurveyByIntervId(curUser);
             return PartialView("_InterventionSummary", surveys);
         }
 
