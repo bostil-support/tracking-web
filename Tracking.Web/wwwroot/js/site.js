@@ -30,7 +30,15 @@ $('img[class="vizual"]').click(function () {
 });
 
 
-var arguments = {
+var argumentsEdit = {
+    submit: 'Salva',
+    tooltip: "",
+    style: 'display: inline',
+    onblur: "ignore",
+    event: 'custom_event'
+};
+
+var argumentsEditAzione = {
     submit: 'Salva',
     tooltip: "",
     style: 'display: inline',
@@ -43,31 +51,20 @@ function openModalForm() {
     modal.style.display = "block";
 };
 
-$('.dati-rilievo').editable(Edit, arguments);
+$('.dati-rilievo').editable(Edit, argumentsEdit);
 
-$('.legal-entity').editable(Edit,
-    {
-        type: 'select',
-        submit: 'Salva',
-        tooltip: "",
-        style: 'display: inline',
-        onblur: "ignore",
-        event: 'custom_event',
-        loadurl: '../Home/GetEntityNames'
-    });
-
-$('.mappatura').editable(Edit, arguments);
+$('.mappatura').editable(Edit, argumentsEdit);
 
 function SetEdit() {
     $('.mappatura').trigger('custom_event');
     $('.screp').trigger('custom_event');
 }
 
-$('.normativa').editable(Edit, arguments);
+$('.normativa').editable(Edit, argumentsEdit);
 
-$('.azione').editable(Edit, arguments);
+$('.azione').editable(Edit, argumentsEditAzione);
 
-$('.screp').editable(Edit, arguments);
+$('.screp').editable(Edit, argumentsEdit);
 
 $('#StatusId').select();
 
