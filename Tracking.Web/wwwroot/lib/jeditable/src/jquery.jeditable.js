@@ -76,6 +76,16 @@
         return this; // <-- object chaining.
     };
 
+    var actDes = document.getElementById('ActionDescription');
+    var heightActDescr = actDes.clientHeight;
+    var widthActDescr = actDes.clientWidth
+    var textActDescr = actDes.textContent;
+
+    var descr = document.getElementById('Description');
+    var heightDescr = descr.clientHeight;
+    var widthDescr = descr.clientWidth;
+    var textDescr = descr.textContent;
+
     // EDITABLE function
     $.fn.editable = function(target, options) {
 
@@ -267,6 +277,15 @@
                 } else {
                     input_content = self.revert;
                 }
+
+                if (textActDescr != null) {
+                    input_content = textActDescr;
+                }
+
+                if (textDescr != null) {
+                    input_content = textDescr;
+                }
+
                 content.apply(form, [input_content, settings, self]);
 
                 input.attr('name', settings.name);
@@ -624,9 +643,17 @@ var _supportInType = function (type) {
                         input.attr('maxlength', settings.maxlength);
                     }
 
+                    if (original.id === 'Description') {
+                        input.css('width', widthDescr);
+                    }
+
+                    if (original.id === 'ActionDescription') {
+                        input.css('width', widthActDescr);
+                    }
+
                     $(this).append(input);
                     return(input);
-                }
+                },
             },
 
             // TEXTAREA
