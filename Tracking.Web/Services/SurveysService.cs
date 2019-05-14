@@ -59,15 +59,15 @@ namespace Tracking.Web.Services
         /// <param name="email">current complaince user email</param>
         public IList<Survey> GetSurveysComplainceByUserEmail(string email)
         {
+
             var surveys = new List<Survey>();
             try
             {
                 using (IDbConnection db = new SqlConnection(_connStringComplaince))
                 {
-                    var idsSurveys = db.Query<IdsSurveys>("Select (CONVERT(nvarchar(450), Id_Rilievo) + Funzione) as IdRilievo From V_TrackingElencoUtentiRilievi Where Email = @email",
-                        email).ToList();
+                    var idsSurveys = db.Query<string>("Select (CONVERT(nvarchar(450), Id_Rilievo) + Funzione) as IdRilievo From V_TrackingElencoUtentiRilievi Where Email = @email", new { email }).ToList();
 
-                    //surveys = _context.Surveys.Where(o => idsSurveys.Contains(o.Id)).ToList();
+                    surveys = _context.Surveys.Where(o => idsSurveys.Contains(o.Id)).ToList();
                 }
             }
             catch (Exception e)
