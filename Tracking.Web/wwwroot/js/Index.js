@@ -114,7 +114,7 @@ function SetDescriptionText() {
         });
     }
 
-    for (var i = 0; i < textDescr.length; i++) {
+    for (var i = 0; i < descrptn.length; i++) {
         descrptn[i].textContent = textDescr[i].value.substring(0, 110) + '...';
     }
 
@@ -122,25 +122,19 @@ function SetDescriptionText() {
 }
 
 function EspandiText(id) {
-    var descrptn = document.getElementsByClassName('descr');
-    for (var i = 0; i < textDescr.length; i++) {
-        if (textDescr[i].key == id) {
-            descrptn[i].textContent = textDescr[i].value;
-            document.getElementById('Espandi ' + id).style.display = 'none';
-            document.getElementById('Riduci ' + id).style.display = '';
-            break;
-        }
+    const index = textDescr.findIndex(item => item.key === id);
+    if (index >= 0) {
+        document.getElementById('descr ' + id).textContent = textDescr[index].value;
+        document.getElementById('Espandi ' + id).style.display = 'none';
+        document.getElementById('Riduci ' + id).style.display = '';
     }
 }
 
 function RiduciText(id) {
-    var descrptn = document.getElementsByClassName('descr');
-    for (var i = 0; i < textDescr.length; i++) {
-        if (textDescr[i].key == id) {
-            descrptn[i].textContent = textDescr[i].value.substring(0, 110) + '...';
-            document.getElementById('Espandi ' + id).style.display = '';
-            document.getElementById('Riduci ' + id).style.display = 'none';
-            break;
-        }
+    const index = textDescr.findIndex(item => item.key === id);
+    if (index >= 0) {
+        document.getElementById('descr ' + id).textContent = textDescr[index].value.substring(0, 110) + '...';
+        document.getElementById('Espandi ' + id).style.display = '';
+        document.getElementById('Riduci ' + id).style.display = 'none';
     }
 }

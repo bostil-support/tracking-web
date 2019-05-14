@@ -81,7 +81,7 @@ main {
 
 .main-content {
     overflow-y: auto;
-    height: calc(100% - 200px);
+    height: calc(100% - 184px);
 }
 
 .card {

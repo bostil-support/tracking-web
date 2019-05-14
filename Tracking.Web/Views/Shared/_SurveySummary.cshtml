@@ -30,7 +30,7 @@
     <div class="card-item card-action">
         <div class="content">
             <span class="action-title bold">Azione di mitigazione:</span>
-            <span class="descr">@Model.ActionDescription</span>
+            <span class="descr" id="descr @Model.Id">@Model.ActionDescription</span>
             <span class="espandi" id="Espandi @Model.Id" onclick="EspandiText('@Model.Id')">Espandi</span>
             <span class="riduci" id="Riduci @Model.Id" onclick="RiduciText('@Model.Id')">Riduci</span>
         </div>
