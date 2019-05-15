@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<TrackingUser> SignInManager
+@inject UserManager<TrackingUser> UserManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,7 +17,7 @@
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     </environment>
-    
+
 </head>
 <body>
     <header>
@@ -23,18 +28,21 @@
             <p class="header" onclick="location.href='../Home/Index'">Tracking</p>
             <p class="copyright">© The AvantGarde Group 2017 - Vers. 1.0.0.2</p>
         </div>
-        <div class="user-container">
-            <img id="userButton" class="button" src="~/images/user.png">
-            <div class="user-popover">
-                <div class="user-username">
-                    Fulvio.Pagliarni
-                </div>
-                <hr />
-                <div class="user-url">
-                    Torna alla lista applicationi
+        @if(SignInManager.IsSignedIn(User))
+        {
+            <div class="user-container">
+                <img id="userButton" class="button" src="~/images/user.png">
+                <div class="user-popover">
+                    <div class="user-username">
+                        @UserManager.GetUserName(User)
+                    </div>
+                    <hr />
+                    <div class="user-url">
+                        Torna alla lista applicationi
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </header>
     <main>
         @RenderBody()
