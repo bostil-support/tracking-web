@@ -51,18 +51,15 @@ function openModalForm() {
     modal.style.display = "block";
 };
 
-$('.dati-rilievo').editable(Edit, argumentsEdit);
+$('.mappatura').trigger('custom_event');
+$('.screp').trigger('custom_event');
 
-$('.mappatura').editable(Edit, argumentsEdit);
+$("#userButton").click(handler => {
+    const popover = handler.target.parentElement.querySelector('.user-popover');
+    $(popover).toggle();
+})
 
-function SetEdit() {
-    $('.mappatura').trigger('custom_event');
-    $('.screp').trigger('custom_event');
-}
-
-$('.normativa').editable(Edit, argumentsEdit);
-
-$('.azione').editable(Edit, argumentsEditAzione);
+$('.azione').editable(Edit, argumentsEdit);
 
 $('.screp').editable(Edit, argumentsEdit);
 
@@ -130,26 +127,26 @@ function Edit(value, settings) {
         return value;
 }
 
-    (function ($) {
-        window.Survey = {
-            Title: document.getElementById('Title').textContent,
-            SurveySeverity: document.getElementById('SurveySeverity').textContent,
-            Id: document.getElementById('Id').textContent,
-            UserName: document.getElementById('UserName').textContent,
-            Description: document.getElementById('Description').textContent,
-            LegalEntityName: document.getElementById('LegalEntityName').textContent,
-            Cod_ABI: document.getElementById('Cod_ABI').textContent,
-            ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent: '',
-            ActionDescription: document.getElementById('ActionDescription').textContent,
-            StatusId: $('#StatusId :selected').val(),
-            DueDateLocal: $('#dueDateLocal1').val(),
-            RiskType: {
-                Id: $('#RiskTypeId').attr('value'),
-                Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent: ''
-            },
-            IsUpdated: 'False',
-        };
-    })(jQuery);
+(function ($) {
+    window.Survey = {
+        Title: document.getElementById('Title').textContent,
+        SurveySeverity: document.getElementById('SurveySeverity').textContent,
+        Id: document.getElementById('Id').textContent,
+        UserName: document.getElementById('UserName').textContent,
+        Description: document.getElementById('Description').textContent,
+        LegalEntityName: document.getElementById('LegalEntityName').textContent,
+        Cod_ABI: document.getElementById('Cod_ABI').textContent,
+        ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent : '',
+        ActionDescription: document.getElementById('ActionDescription').textContent,
+        StatusId: $('#StatusId :selected').val(),
+        DueDateLocal: $('#dueDateLocal1').val(),
+        RiskType: {
+            Id: $('#RiskTypeId').attr('value'),
+            Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent : ''
+        },
+        IsUpdated: 'False',
+    };
+})(jQuery);
 
 $('#conferma').click(function () {
     $.ajax({

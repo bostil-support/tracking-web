@@ -1,6 +1,4 @@
-﻿
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Tracking.Web.Models;
 
 namespace Tracking.Web.Services
