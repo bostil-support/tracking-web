@@ -50,15 +50,15 @@ namespace Tracking.Web.Data
 
             //foreach (var role in userRoles)
             //{
-                if (userRoles[0] == "Compliance")
-                {
-                    surveys = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
-                    
-                }
-                else
-                {
-                    surveys = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
-                }
+            if (userRoles[0] == "Compliance")
+            {
+                surveys = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
+
+            }
+            else
+            {
+                surveys = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
+            }
             //}
 
             var groupSurv = surveys.GroupBy(x => x.InterventionId).ToList();

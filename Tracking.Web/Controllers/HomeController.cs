@@ -187,7 +187,7 @@ namespace Tracking.Web.Controllers
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
                 survey.IsUpdated = true;
-                // survey.StatusId = model.StatusId;
+                survey.StatusId = model.StatusId;
                 //survey.RiskTypeId = model.RiskType.Id != 0 ? model.RiskType.Id : survey.RiskTypeId;
                 survey.DueDateLocal = model.DueDateLocal == null ? (DateTime?)null : DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 survey.IsUpdated = model.IsUpdated;
