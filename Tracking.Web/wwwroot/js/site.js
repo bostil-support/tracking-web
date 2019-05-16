@@ -133,26 +133,26 @@ function Edit(value, settings) {
         return value;
 }
 
-    (function ($) {
-        window.Survey = {
-            Title: document.getElementById('Title').textContent,
-            SurveySeverity: document.getElementById('SurveySeverity').textContent,
-            Id: document.getElementById('Id').textContent,
-            UserName: document.getElementById('UserName').textContent,
-            Description: document.getElementById('Description').textContent,
-            LegalEntityName: document.getElementById('LegalEntityName').textContent,
-            Cod_ABI: document.getElementById('Cod_ABI').textContent,
-            ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent: '',
-            ActionDescription: document.getElementById('ActionDescription').textContent,
-            StatusId: $('#StatusId :selected').val(),
-            DueDateLocal: $('#dueDateLocal1').val(),
-            RiskType: {
-                Id: $('#RiskTypeId').attr('value'),
-                Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent: ''
-            },
-            IsUpdated: 'False',
-        };
-    })(jQuery);
+(function ($) {
+    window.Survey = {
+        Title: document.getElementById('Title').textContent,
+        SurveySeverity: document.getElementById('SurveySeverity').textContent,
+        Id: document.getElementById('Id').textContent,
+        UserName: document.getElementById('UserName').textContent,
+        Description: document.getElementById('Description').textContent,
+        LegalEntityName: document.getElementById('LegalEntityName').textContent,
+        Cod_ABI: document.getElementById('Cod_ABI').textContent,
+        ActionOwner: document.getElementById('ActionOwner') ? document.getElementById('ActionOwner').textContent : '',
+        ActionDescription: document.getElementById('ActionDescription').textContent,
+        StatusId: $('#StatusId :selected').val(),
+        DueDateLocal: $('#dueDateLocal1').val(),
+        RiskType: {
+            Id: $('#RiskTypeId').attr('value'),
+            Name: document.getElementById('RiskType') ? document.getElementById('RiskType').textContent : ''
+        },
+        IsUpdated: 'False',
+    };
+})(jQuery);
 
 $('#conferma').click(function () {
     $.ajax({
