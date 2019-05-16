@@ -613,7 +613,22 @@
                         var textarea = $('<textarea></textarea>');
                         textarea.css('width', widthActDescr);
                         textarea.css('height', heightActDescr + 100);
-                        element: function (settings, original) {
+
+                        $(this).append(textarea);
+                        return (textarea);
+                    }
+
+                    else
+                        if (original.id === 'Description') {
+                            var textarea = $('<textarea></textarea>');
+                            textarea.css('width', widthDescr);
+                            textarea.css('height', heightDescr + 100);
+
+                            $(this).append(textarea);
+                            return (textarea);
+                        }
+
+                        else {
                             var input = $('<input />').attr({
                                 autocomplete: 'off',
                                 list: settings.list,
@@ -624,229 +639,200 @@
                                 type: 'text'
                             });
 
-                            $(this).append(textarea);
-                            return (textarea);
                             if (settings.width !== 'none') {
-                                input.css('width', settings.width);
+                                input.css('width', 300);
                             }
 
-                            else
-                                if (original.id === 'Description') {
-                                    var textarea = $('<textarea></textarea>');
-                                    textarea.css('width', widthDescr);
-                                    textarea.css('height', heightDescr + 100);
-
-                                    $(this).append(textarea);
-                                    return (textarea);
-                                }
-
-                                else {
-                                    var input = $('<input />').attr({
-                                        autocomplete: 'off',
-                                        list: settings.list,
-                                        maxlength: settings.maxlength,
-                                        pattern: settings.pattern,
-                                        placeholder: settings.placeholder,
-                                        tooltip: settings.tooltip,
-                                        type: 'text'
-                                    });
-
-                                    if (settings.width !== 'none') {
-                                        input.css('width', settings.width);
-                                    }
-
-                                    if (settings.height !== 'none') {
-                                        input.css('height', settings.height);
-                                    }
-
-                                    if (settings.size) {
-                                        input.attr('size', settings.size);
-                                    }
-
-                                    if (settings.maxlength) {
-                                        input.attr('maxlength', settings.maxlength);
-                                    }
-
-                                    $(this).append(input);
-                                    return (input);
-                                }
-                            $(this).append(input);
-                            return (input);
-                        }
-                    },
-
-                    // TEXTAREA
-                    textarea: {
-                        element: function (settings, original) {
-                            var textarea = $('<textarea></textarea>');
-                            if (settings.rows) {
-                                textarea.attr('rows', settings.rows);
-                            } else if (settings.height !== 'none') {
-                                textarea.height(settings.height);
+                            if (settings.height !== 'none') {
+                                input.css('height', settings.height);
                             }
-                            if (settings.cols) {
-                                textarea.attr('cols', settings.cols);
-                            } else if (settings.width !== 'none') {
-                                textarea.width(settings.width);
+
+                            if (settings.size) {
+                                input.attr('size', settings.size);
                             }
 
                             if (settings.maxlength) {
-                                textarea.attr('maxlength', settings.maxlength);
+                                input.attr('maxlength', settings.maxlength);
                             }
 
-                            $(this).append(textarea);
-                            return (textarea);
-                        }
-                    },
-
-                    // SELECT
-                    select: {
-                        element: function (settings, original) {
-                            var select = $('<select />');
-
-                            if (settings.multiple) {
-                                select.attr('multiple', 'multiple');
-                            }
-
-                            $(this).append(select);
-                            return (select);
-                        },
-                        content: function (data, settings, original) {
-                            var json;
-                            // If it is string assume it is json
-                            if (String === data.constructor) {
-                                json = JSON.parse(data);
-                            } else {
-                                // Otherwise assume it is a hash already
-                                json = data;
-                            }
-
-                            // Create tuples for sorting
-                            var tuples = [];
-                            var key;
-                            for (key in json) {
-                                tuples.push([key, json[key]]); // Store: [key, value]
-                            }
-                            if (settings.sortselectoptions) {
-                                // sort it
-                                tuples.sort(function (a, b) {
-                                    a = a[1];
-                                    b = b[1];
-                                    return a < b ? -1 : (a > b ? 1 : 0);
-                                });
-                            }
-                            // now add the options to our select
-                            var option;
-                            for (var i = 0; i < tuples.length; i++) {
-                                key = tuples[i][0];
-                                var value = tuples[i][1];
-
-                                if (!json.hasOwnProperty(key)) {
-                                    continue;
-                                }
-
-                                if (key !== 'selected') {
-                                    option = $('<option />').val(key).append(value);
-
-                                    // add the selected prop if it's the same as original or if the key is 'selected'
-                                    if (json.selected === key || key === $.trim(original.revert)) {
-                                        $(option).prop('selected', 'selected');
-                                    }
-
-                                    $(this).find('select').append(option);
-                                }
-                            }
-
-                            // submit on change if no submit button defined
-                            if (!settings.submit) {
-                                var form = this;
-                                $(this).find('select').change(function () {
-                                    form.submit();
-                                });
-                            }
-                        }
-                    },
-
-                    // NUMBER
-                    number: {
-                        element: function (settings, original) {
-                            var input = $('<input />').attr({
-                                maxlength: settings.maxlength,
-                                placeholder: settings.placeholder,
-                                min: settings.min,
-                                max: settings.max,
-                                step: settings.step,
-                                tooltip: settings.tooltip,
-                                type: _supportInType('number')
-                            });
-                            if (settings.width !== 'none') {
-                                input.css('width', settings.width);
-                            }
                             $(this).append(input);
-                            return input;
+                            return (input);
                         }
-                    },
+                }
+            },
 
-                    // EMAIL
-                    email: {
-                        element: function (settings, original) {
-                            var input = $('<input />').attr({
-                                maxlength: settings.maxlength,
-                                placeholder: settings.placeholder,
-                                tooltip: settings.tooltip,
-                                type: _supportInType('email')
-                            });
-                            if (settings.width !== 'none') {
-                                input.css('width', settings.width);
-                            }
-                            $(this).append(input);
-                            return input;
+            // TEXTAREA
+            textarea: {
+                element: function (settings, original) {
+                    var textarea = $('<textarea></textarea>');
+                    if (settings.rows) {
+                        textarea.attr('rows', settings.rows);
+                    } else if (settings.height !== 'none') {
+                        textarea.height(settings.height);
+                    }
+                    if (settings.cols) {
+                        textarea.attr('cols', settings.cols);
+                    } else if (settings.width !== 'none') {
+                        textarea.width(settings.width);
+                    }
+
+                    if (settings.maxlength) {
+                        textarea.attr('maxlength', settings.maxlength);
+                    }
+
+                    $(this).append(textarea);
+                    return (textarea);
+                }
+            },
+
+            // SELECT
+            select: {
+                element: function (settings, original) {
+                    var select = $('<select />');
+
+                    if (settings.multiple) {
+                        select.attr('multiple', 'multiple');
+                    }
+
+                    $(this).append(select);
+                    return (select);
+                },
+                content: function (data, settings, original) {
+                    var json;
+                    // If it is string assume it is json
+                    if (String === data.constructor) {
+                        json = JSON.parse(data);
+                    } else {
+                        // Otherwise assume it is a hash already
+                        json = data;
+                    }
+
+                    // Create tuples for sorting
+                    var tuples = [];
+                    var key;
+                    for (key in json) {
+                        tuples.push([key, json[key]]); // Store: [key, value]
+                    }
+                    if (settings.sortselectoptions) {
+                        // sort it
+                        tuples.sort(function (a, b) {
+                            a = a[1];
+                            b = b[1];
+                            return a < b ? -1 : (a > b ? 1 : 0);
+                        });
+                    }
+                    // now add the options to our select
+                    var option;
+                    for (var i = 0; i < tuples.length; i++) {
+                        key = tuples[i][0];
+                        var value = tuples[i][1];
+
+                        if (!json.hasOwnProperty(key)) {
+                            continue;
                         }
-                    },
 
-                    // URL
-                    url: {
-                        element: function (settings, original) {
-                            var input = $('<input />').attr({
-                                maxlength: settings.maxlength,
-                                pattern: settings.pattern,
-                                placeholder: settings.placeholder,
-                                tooltip: settings.tooltip,
-                                type: _supportInType('url')
-                            });
-                            if (settings.width !== 'none') {
-                                input.css('width', settings.width);
+                        if (key !== 'selected') {
+                            option = $('<option />').val(key).append(value);
+
+                            // add the selected prop if it's the same as original or if the key is 'selected'
+                            if (json.selected === key || key === $.trim(original.revert)) {
+                                $(option).prop('selected', 'selected');
                             }
-                            $(this).append(input);
-                            return input;
+
+                            $(this).find('select').append(option);
                         }
                     }
-                },
 
-                // add new input type
-                addInputType: function (name, input) {
-                    $.editable.types[name] = input;
+                    // submit on change if no submit button defined
+                    if (!settings.submit) {
+                        var form = this;
+                        $(this).find('select').change(function () {
+                            form.submit();
+                        });
+                    }
                 }
-            };
+            },
 
-            /* Publicly accessible defaults. */
-            $.fn.editable.defaults = {
-                name: 'value',
-                id: 'id',
-                type: 'text',
-                width: 'auto',
-                height: 'auto',
-                // Keyboard accessibility - use mouse click OR press any key to enable editing
-                event: 'click.editable keydown.editable',
-                onblur: 'cancel',
-                tooltip: 'Click to edit',
-                loadtype: 'GET',
-                loadtext: 'Loading...',
-                placeholder: 'Click to edit',
-                sortselectoptions: false,
-                loaddata: {},
-                submitdata: {},
-                ajaxoptions: {}
-            };
+            // NUMBER
+            number: {
+                element: function (settings, original) {
+                    var input = $('<input />').attr({
+                        maxlength: settings.maxlength,
+                        placeholder: settings.placeholder,
+                        min: settings.min,
+                        max: settings.max,
+                        step: settings.step,
+                        tooltip: settings.tooltip,
+                        type: _supportInType('number')
+                    });
+                    if (settings.width !== 'none') {
+                        input.css('width', settings.width);
+                    }
+                    $(this).append(input);
+                    return input;
+                }
+            },
 
-        })(jQuery);
+            // EMAIL
+            email: {
+                element: function (settings, original) {
+                    var input = $('<input />').attr({
+                        maxlength: settings.maxlength,
+                        placeholder: settings.placeholder,
+                        tooltip: settings.tooltip,
+                        type: _supportInType('email')
+                    });
+                    if (settings.width !== 'none') {
+                        input.css('width', settings.width);
+                    }
+                    $(this).append(input);
+                    return input;
+                }
+            },
+
+            // URL
+            url: {
+                element: function (settings, original) {
+                    var input = $('<input />').attr({
+                        maxlength: settings.maxlength,
+                        pattern: settings.pattern,
+                        placeholder: settings.placeholder,
+                        tooltip: settings.tooltip,
+                        type: _supportInType('url')
+                    });
+                    if (settings.width !== 'none') {
+                        input.css('width', settings.width);
+                    }
+                    $(this).append(input);
+                    return input;
+                }
+            }
+        },
+
+        // add new input type
+        addInputType: function (name, input) {
+            $.editable.types[name] = input;
+        }
+    };
+
+    /* Publicly accessible defaults. */
+    $.fn.editable.defaults = {
+        name: 'value',
+        id: 'id',
+        type: 'text',
+        width: 'auto',
+        height: 'auto',
+        // Keyboard accessibility - use mouse click OR press any key to enable editing
+        event: 'click.editable keydown.editable',
+        onblur: 'cancel',
+        tooltip: 'Click to edit',
+        loadtype: 'GET',
+        loadtext: 'Loading...',
+        placeholder: 'Click to edit',
+        sortselectoptions: false,
+        loaddata: {},
+        submitdata: {},
+        ajaxoptions: {}
+    };
+
+})(jQuery);

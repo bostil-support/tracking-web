@@ -59,6 +59,8 @@ $("#userButton").click(handler => {
     $(popover).toggle();
 })
 
+$('.dati-rilievo').editable(Edit, argumentsEdit);
+
 $('.azione').editable(Edit, argumentsEdit);
 
 $('.screp').editable(Edit, argumentsEdit);
