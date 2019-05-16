@@ -46,17 +46,20 @@
         }
     </div>
 
-    <div class="card">
-        <div class="card-header">Legal entity</div>
-        <div class="card-item">
-            <div>Denom. Legal Entity</div>
-            <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntityName</div>
-            <div>Cod. Legal Entity</div>
-            <div class="bold" id="Cod_ABI">@Model.Cod_ABI</div>
+    @if (@Model.Role.Contains("Audit"))
+    {
+        <div class="card">
+            <div class="card-header">Legal entity</div>
+            <div class="card-item">
+                <div>Denom. Legal Entity</div>
+                <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntityName</div>
+                <div>Cod. Legal Entity</div>
+                <div class="bold" id="Cod_ABI">@Model.Cod_ABI</div>
+            </div>
         </div>
-    </div>
+    }
 
-    @if(@Model.Role.Contains("Compliance"))
+    @if (@Model.Role.Contains("Compliance"))
     {
         @Html.Partial("_Normativa", Model)
     }
@@ -111,8 +114,8 @@
             <div class="bold align-top">Storico note</div>
             <div class="notes full-line">
                 <div class="blue">
-                    <span id="vizualizi">Riduci visualizzati</span>
-                    <img class="vizual" src="~/images/minus.png">
+                    <span id="vizualizi">Vizual tutti</span>
+                    <img class="vizual" src="~/images/plus.png">
                 </div>
                 <hr>
             </div>
