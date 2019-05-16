@@ -76,6 +76,17 @@
         return this; // <-- object chaining.
     };
 
+
+    var actDes = document.getElementById('ActionDescription');
+    var heightActDescr = actDes.clientHeight;
+    var widthActDescr = actDes.clientWidth;
+    var textActDescr = actDes.textContent;
+
+    var descr = document.getElementById('Description');
+    var heightDescr = descr.clientHeight;
+    var widthDescr = descr.clientWidth;
+    var textDescr = descr.textContent;
+
     // EDITABLE function
     $.fn.editable = function (target, options) {
 
@@ -598,6 +609,11 @@
             },
             text: {
                 element: function (settings, original) {
+                    if (original.id === 'ActionDescription') {
+                        var textarea = $('<textarea></textarea>');
+                        textarea.css('width', widthActDescr);
+                        textarea.css('height', heightActDescr + 100);
+                element: function (settings, original) {
                     var input = $('<input />').attr({
                         autocomplete: 'off',
                         list: settings.list,
@@ -608,22 +624,52 @@
                         type: 'text'
                     });
 
+                        $(this).append(textarea);
+                        return (textarea);
                     if (settings.width !== 'none') {
                         input.css('width', settings.width);
                     }
 
-                    if (settings.height !== 'none') {
-                        input.css('height', settings.height);
-                    }
+                    else
+                        if (original.id === 'Description') {
+                            var textarea = $('<textarea></textarea>');
+                            textarea.css('width', widthDescr);
+                            textarea.css('height', heightDescr + 100);
 
-                    if (settings.size) {
-                        input.attr('size', settings.size);
-                    }
+                            $(this).append(textarea);
+                            return (textarea);
+                        }
 
-                    if (settings.maxlength) {
-                        input.attr('maxlength', settings.maxlength);
-                    }
+                        else {
+                            var input = $('<input />').attr({
+                                autocomplete: 'off',
+                                list: settings.list,
+                                maxlength: settings.maxlength,
+                                pattern: settings.pattern,
+                                placeholder: settings.placeholder,
+                                tooltip: settings.tooltip,
+                                type: 'text'
+                            });
 
+                            if (settings.width !== 'none') {
+                                input.css('width', settings.width);
+                            }
+
+                            if (settings.height !== 'none') {
+                                input.css('height', settings.height);
+                            }
+
+                            if (settings.size) {
+                                input.attr('size', settings.size);
+                            }
+
+                            if (settings.maxlength) {
+                                input.attr('maxlength', settings.maxlength);
+                            }
+
+                            $(this).append(input);
+                            return (input);
+                        }
                     $(this).append(input);
                     return (input);
                 }

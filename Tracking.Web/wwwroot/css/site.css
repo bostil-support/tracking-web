@@ -12,6 +12,7 @@ header {
 
 footer {
     background: #ECEDEF;
+    background: red;
 }
 
 header, footer {
@@ -20,7 +21,7 @@ header, footer {
 
 .header-container > .header {
     cursor: pointer;
-}
+} 
 
 .footer {
     width: 100%;
@@ -66,6 +67,59 @@ header, footer {
         margin: 0;
         font-size: 9px;
     }
+
+    .user-container {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #214754;
+        position: relative;
+    }
+
+    .user-container .button {
+        cursor: pointer;
+    }
+
+    .user-container .user-popover {
+        position: absolute;
+        background: white;
+        white-space: nowrap;
+        border-radius: 10px;
+        padding: 20px;
+        top: 70px;
+        right: 0;
+        display: none;
+    }
+
+    .user-container .user-popover::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        transform: rotate(45deg);
+        background: white;
+        display: block;
+        top: -5px;
+        right: 36px;
+        position: absolute;
+    }
+
+    .user-popover .user-username {
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .user-popover hr {
+        border-bottom: 1px solid gray;
+        margin: 10px 0;
+    }
+
+    .user-popover .user-url {
+        font-weight: bold;
+    }
+
+   
 
 main {
     background: #ECEDEF;

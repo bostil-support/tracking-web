@@ -63,6 +63,14 @@ header, footer {
         font-size: 9px;
     }
 
+    header .user-container {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
 main {
     background: #ECEDEF;
     height: calc(100% - 210px);

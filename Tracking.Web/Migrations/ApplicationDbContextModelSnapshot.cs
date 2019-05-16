@@ -120,6 +120,41 @@ namespace Tracking.Web.Migrations
                     b.ToTable("Banks");
                 });
 
+            modelBuilder.Entity("Tracking.Web.Models.DescriptiveAttributes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Normativa_Livello_1");
+
+                    b.Property<string>("Normativa_Livello_2");
+
+                    b.Property<string>("Normativa_Livello_3");
+
+                    b.Property<string>("Processo_Livello_1");
+
+                    b.Property<string>("Processo_Livello_2");
+
+                    b.Property<string>("Processo_Livello_3");
+
+                    b.Property<string>("Risk")
+                        .HasColumnName("Rischio");
+
+                    b.Property<string>("SurveyId")
+                        .HasColumnName("Id_Rilievo");
+
+                    b.Property<Guid>("UID_Analisi");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SurveyId")
+                        .IsUnique()
+                        .HasFilter("[Id_Rilievo] IS NOT NULL");
+
+                    b.ToTable("DescriptiveAttributes");
+                });
+
             modelBuilder.Entity("Tracking.Web.Models.File", b =>
                 {
                     b.Property<int>("Id")
@@ -243,49 +278,49 @@ namespace Tracking.Web.Migrations
                     b.Property<string>("ActionOwner")
                         .HasColumnName("Owner_Azione_di_Mitigazione");
 
+                    b.Property<string>("Cod_ABI");
+
                     b.Property<string>("Description")
                         .HasColumnName("Descrizione_Rilievo");
 
-                    b.Property<DateTime>("DueDateLocal")
+                    b.Property<DateTime?>("DueDateLocal")
                         .HasColumnName("Data_Scadenza");
-
-                    b.Property<DateTime>("DueDateOriginal");
 
                     b.Property<string>("EvaluatedObject")
                         .HasColumnName("Oggetto_Valutato");
 
-                    b.Property<string>("EvaluatedObjectId")
+                    b.Property<int>("EvaluatedObjectId")
                         .HasColumnName("Id_Oggetto_Valutato");
 
                     b.Property<DateTime>("ImportDownloadDate");
 
-                    b.Property<int>("InterventionId");
+                    b.Property<int>("InterventionId")
+                        .HasColumnName("Id_Intervento");
 
-                    b.Property<string>("LegalEntityId");
+                    b.Property<string>("InterventionName")
+                        .HasColumnName("Titolo_Intervento");
 
-                    b.Property<int>("RiskTypeId");
+                    b.Property<bool>("IsUpdated");
 
-                    b.Property<string>("ScrepArea");
+                    b.Property<string>("LegalEntityName")
+                        .HasColumnName("Legal_Entity");
 
-                    b.Property<string>("SrepCluster");
+                    b.Property<int?>("RiskTypeId");
 
-                    b.Property<int>("StatusId");
+                    b.Property<int?>("StatusId");
 
                     b.Property<string>("SurveySeverity")
                         .HasColumnName("Severita_Rilievo");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .HasColumnName("Titolo_Rilievo");
 
                     b.Property<string>("UserName")
                         .HasColumnName("Utente_Censimento");
 
-                    b.Property<string>("ValidatorAttribute");
-
                     b.HasKey("Id");
 
                     b.HasIndex("InterventionId");
-
-                    b.HasIndex("LegalEntityId");
 
                     b.HasIndex("RiskTypeId");
 
@@ -416,6 +451,13 @@ namespace Tracking.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Tracking.Web.Models.DescriptiveAttributes", b =>
+                {
+                    b.HasOne("Tracking.Web.Models.Survey", "Survey")
+                        .WithOne("DescriptiveAttributes")
+                        .HasForeignKey("Tracking.Web.Models.DescriptiveAttributes", "SurveyId");
+                });
+
             modelBuilder.Entity("Tracking.Web.Models.Intervention", b =>
                 {
                     b.HasOne("Tracking.Web.Models.TrackingUser")
@@ -440,24 +482,18 @@ namespace Tracking.Web.Migrations
 
             modelBuilder.Entity("Tracking.Web.Models.Survey", b =>
                 {
-                    b.HasOne("Tracking.Web.Models.Intervention", "Intervention")
+                    b.HasOne("Tracking.Web.Models.Intervention")
                         .WithMany("Surveys")
                         .HasForeignKey("InterventionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Tracking.Web.Models.LegalEntity", "LegalEntity")
-                        .WithMany()
-                        .HasForeignKey("LegalEntityId");
-
-                    b.HasOne("Tracking.Web.Models.RiskType", "RiskType")
+                    b.HasOne("Tracking.Web.Models.RiskType")
                         .WithMany("Surveys")
-                        .HasForeignKey("RiskTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RiskTypeId");
 
                     b.HasOne("Tracking.Web.Models.Status", "Status")
                         .WithMany("Surveys")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("StatusId");
                 });
 #pragma warning restore 612, 618
         }

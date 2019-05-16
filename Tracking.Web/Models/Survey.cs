@@ -125,6 +125,9 @@ namespace Tracking.Web.Models
         [Column("Oggetto_Valutato")]
         public string EvaluatedObject { get; set; }
 
+        [Column("ValidatorAttribute")]
+        public string ValidatorAttribute { get; set; }
+
         [Column("Id_Oggetto_Valutato")]
         public int EvaluatedObjectId { get; set; }
 

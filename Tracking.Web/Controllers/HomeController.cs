@@ -79,7 +79,7 @@ namespace Tracking.Web.Controllers
                 EvaluatedObject = survey.EvaluatedObject,
                 SurveySeverity = survey.SurveySeverity,
                 DescriptiveAttributes = survey.DescriptiveAttributes,
-                //ValidatorAttribute = survey.ValidatorAttribute,
+                ValidatorAttribute = survey.ValidatorAttribute,
                 UserName = survey.UserName,
                 //ScrepArea = survey.ScrepArea,
                 //SrepCluster = survey.SrepCluster,
@@ -90,6 +90,7 @@ namespace Tracking.Web.Controllers
                 ActionDescription = survey.ActionDescription,
                 DueDateLocal = survey.DueDateLocal?.ToString("dd.MM.yyyy"),
                 Role = currentUserRole
+                
             };
 
             return View(survyViewModel);
@@ -175,7 +176,7 @@ namespace Tracking.Web.Controllers
                 survey.Title = model.Title;
                 survey.SurveySeverity = model.SurveySeverity;
                 survey.UserName = model.UserName;
-                // survey.ValidatorAttribute = model.ValidatorAttribute;
+                survey.ValidatorAttribute = model.ValidatorAttribute;
                 survey.Description = model.Description;
                 survey.Cod_ABI = model.Cod_ABI;
                 survey.LegalEntityName = model.LegalEntityName;
@@ -186,7 +187,7 @@ namespace Tracking.Web.Controllers
                 survey.ActionDescription = model.ActionDescription;
                 survey.ActionOwner = model.ActionOwner;
                 survey.IsUpdated = true;
-                // survey.StatusId = model.StatusId;
+                survey.StatusId = model.StatusId;
                 //survey.RiskTypeId = model.RiskType.Id != 0 ? model.RiskType.Id : survey.RiskTypeId;
                 survey.DueDateLocal = model.DueDateLocal == null ? (DateTime?)null : DateTime.ParseExact(model?.DueDateLocal, "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 survey.IsUpdated = model.IsUpdated;

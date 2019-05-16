@@ -22,15 +22,15 @@
         </div>
         <div class="card-item">
             <div>Titolo</div>
-            <div class="bold dati-rilievo" id="Title">@Model.InterventionName</div>
+            <div class="bold dati-rilievo" id="Title">@Model.Title</div>
             <div>ID</div>
             <div class="bold" id="Id">@Model.Id</div>
         </div>
         <div class="card-item">
             <div>Utente Censimento</div>
             <div class="bold dati-rilievo" id="UserName">@Model.UserName</div>
-            <div>Validatore</div>
-            <div class="bold dati-rilievo" id="ValidatorAttribute">Validator_attribute(not yet available)</div>
+            <!-- <div>Validatore</div> -->
+            <!-- <div class="bold dati-rilievo" id="ValidatorAttribute">@Model.ValidatorAttribute</div> -->
         </div>
         <div class="card-item description">
             <div>Descrizione</div>
@@ -56,25 +56,12 @@
                 <div>Cod. Legal Entity</div>
                 <div class="bold" id="Cod_ABI">@Model.Cod_ABI</div>
             </div>
-            @if (@Model.Role == "Auditor")
-            {
-                <div class="edit-container">
-                    <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.legal-entity').trigger('custom_event');">
-                        <img src="~/images/edit.png" alt="edit">
-                    </a>
-                </div>
-            }
         </div>
     }
 
     @if (@Model.Role.Contains("Compliance"))
     {
         @Html.Partial("_Normativa", Model)
-    }
-
-    @if (@Model.Role.Contains("Auditor"))
-    {
-        @Html.Partial("_Mappatura", Model)
     }
 
     <div class="card">
