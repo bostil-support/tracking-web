@@ -1,94 +1,4 @@
-﻿body {
-
-}
-
-html, body {
-    height: 100%;
-    margin: 0;
-    font-size: 14px;
-    font-family: 'Lato';
-}
-
-
-header {
-    display: flex;
-}
-
-header, footer {
-    z-index: 5;
-}
-
-.footer {
-    width: 100%;
-    height: 55px;
-    background: #C0C5C9;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-}
-
-.bottom-logo {
-    height: 48px;
-    margin-right: 26px;
-}
-
-.logo-container {
-    background: #1A3844;
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.logo {
-    width: 26px;
-    height: 26px;
-}
-
-.header-container {
-    flex: 1 1 auto;
-    background: #214754;
-    padding: 23px 20px;
-    color: #FFFFFF;
-}
-
-    .header-container .header {
-        margin: 0;
-        font-size: 18px;
-    }
-
-    .header-container .copyright {
-        margin: 0;
-        font-size: 9px;
-    }
-
-    header .user-container {
-        width: 80px;
-        height: 80px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-main {
-    background: #ECEDEF;
-    height: calc(100% - 210px);
-    padding: 0 90px;
-}
-
-    main h2 {
-        font-size: 18px;
-        margin: 0;
-        padding: 62px 0 42px 0;
-    }
-
-.main-content {
-    overflow-y: auto;
-    height: calc(100% - 184px);
-}
-
-.card {
+﻿/*.card {
     display: grid;
     grid-template-columns: 3fr 3fr 250px 81px;
     border: 1px solid #C0C5C9;
@@ -147,9 +57,9 @@ main {
         height: 30px;
         background: white;
         transform: rotate(45deg); /* Prefixes... */
-        bottom: 20px;
+/* bottom: 20px; 
         left: 93px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-s/*hadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
 .id-info {
@@ -274,4 +184,4 @@ input {
 
 .day {
     margin-bottom: 20px;
-}
+}*/

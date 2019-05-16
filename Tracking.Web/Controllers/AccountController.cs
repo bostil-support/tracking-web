@@ -66,6 +66,7 @@ namespace Tracking.Web.Controllers
                 string tokenString = _manager.Decrypt(token.ToString());
                 var json = JsonConvert.DeserializeObject<TokenModel>(tokenString);
                 var userName = json.userName.ToString();
+                var returnUrl = json.redirectUrl.ToString();
 
                 var result = await _signInManager.PasswordSignInAsync(userName, "Qwerty123!", true, false);                
                 if (result.Succeeded)
@@ -79,7 +80,12 @@ namespace Tracking.Web.Controllers
                     var userCompliance = _services.FindUserInComplaince(userName);
                     if(userAudience != null)
                     {
-                        TrackingUser user = new TrackingUser { Email = userAudience.ToString(), UserName = userName.ToString() };
+                        TrackingUser user = new TrackingUser
+                        {
+                            Email = userAudience.ToString(),
+                            UserName = userName.ToString(),
+                            ReturnUrl = returnUrl
+                        };
                         IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
                         IdentityRole role = await _roleManager.FindByNameAsync("Auditor");
                         //IdentityRole role = await _roleManager.FindByIdAsync("10");
@@ -97,7 +103,12 @@ namespace Tracking.Web.Controllers
                     }
                     else if(userCompliance!=null)
                     {
-                        TrackingUser user = new TrackingUser { Email = userCompliance.ToString(), UserName = userName.ToString() };
+                        TrackingUser user = new TrackingUser
+                        {
+                            Email = userCompliance.ToString(),
+                            UserName = userName.ToString(),
+                            ReturnUrl = returnUrl
+                        };
                         IdentityResult res = await _userManager.CreateAsync(user, "Qwerty123!");
                         IdentityRole role = await _roleManager.FindByNameAsync("Compliance");
                         //IdentityRole role = await _roleManager.FindByIdAsync("10");

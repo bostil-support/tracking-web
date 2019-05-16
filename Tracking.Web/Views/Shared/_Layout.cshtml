@@ -10,17 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Tracking.Web</title>
     <environment include="Development">
+        <link rel="stylesheet" href="~/css/index.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     </environment>
     <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     </environment>
 
 </head>
 <body>
-    <header>
+    <header class="header">
         <div class="logo-container">
             <img class="logo" src="~/images/logo.png" alt="">
         </div>
@@ -28,23 +30,25 @@
             <p class="header" onclick="location.href='../Home/Index'">Tracking</p>
             <p class="copyright">© The AvantGarde Group 2017 - Vers. 1.0.0.2</p>
         </div>
-        @if(SignInManager.IsSignedIn(User))
+        @if (SignInManager.IsSignedIn(User))
         {
+             var user = await UserManager.GetUserAsync(User);
+
             <div class="user-container">
                 <img id="userButton" class="button" src="~/images/user.png">
                 <div class="user-popover">
                     <div class="user-username">
-                        @UserManager.GetUserName(User)
+                        @user.UserName
                     </div>
                     <hr />
                     <div class="user-url">
-                        Torna alla lista applicationi
+                        <a href=@user.ReturnUrl>@user.ReturnUrl</a>
                     </div>
                 </div>
             </div>
         }
     </header>
-    <main>
+    <main class="main">
         @RenderBody()
     </main>
 

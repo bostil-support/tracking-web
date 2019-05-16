@@ -1,4 +1,4 @@
-﻿html, body {
+html, body {
     height: 100%;
     margin: 0;
     font-size: 14px;
@@ -6,7 +6,7 @@
 }
 
 
-header {
+.header {
     display: flex;
 }
 
@@ -18,10 +18,6 @@ footer {
 header, footer {
     z-index: 5;
 }
-
-.header-container > .header {
-    cursor: pointer;
-} 
 
 .footer {
     width: 100%;
@@ -53,12 +49,17 @@ header, footer {
 
 .header-container {
     flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    justify-content: center;
     background: #214754;
-    padding: 23px 20px;
+    padding: 0 20px;
     color: #FFFFFF;
 }
 
     .header-container .header {
+        cursor: pointer;
         margin: 0;
         font-size: 18px;
     }
@@ -68,15 +69,15 @@ header, footer {
         font-size: 9px;
     }
 
-    .user-container {
-        width: 80px;
-        height: 80px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #214754;
-        position: relative;
-    }
+.user-container {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #214754;
+    position: relative;
+}
 
     .user-container .button {
         cursor: pointer;
@@ -93,41 +94,43 @@ header, footer {
         display: none;
     }
 
-    .user-container .user-popover::before {
-        content: "";
-        width: 10px;
-        height: 10px;
-        transform: rotate(45deg);
-        background: white;
-        display: block;
-        top: -5px;
-        right: 36px;
-        position: absolute;
-    }
+        .user-container .user-popover::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            transform: rotate(45deg);
+            background: white;
+            display: block;
+            top: -5px;
+            right: 36px;
+            position: absolute;
+        }
 
-    .user-popover .user-username {
-        font-size: 17px;
-        font-weight: bold;
-    }
+.user-popover .user-username {
+    font-size: 17px;
+    font-weight: bold;
+}
 
-    .user-popover hr {
-        border-bottom: 1px solid gray;
-        margin: 10px 0;
-    }
+.user-popover hr {
+    border-bottom: 1px solid gray;
+    margin: 10px 0;
+}
 
-    .user-popover .user-url {
-        font-weight: bold;
-    }
+.user-popover .user-url {
+    font-weight: bold;
+}
 
-   
 
-main {
+
+.main {
+    display: flex;
+    flex-direction: column;
     background: #ECEDEF;
     height: calc(100% - 135px);
     padding: 0 90px;
 }
 
-    main h2 {
+    .main h2 {
         font-size: 18px;
         margin: 0;
         padding: 62px 0 42px 0;
@@ -135,239 +138,15 @@ main {
 
 .main-content {
     overflow-y: auto;
-    height: calc(100% - 184px);
-}
-
-.card {
-    display: grid;
-    grid-template-columns: 3fr 3fr 250px 81px;
-    border: 1px solid #C0C5C9;
-    background: #FFFFFF;
-    margin: 5px 0;
-}
-
-.card-item {
-    margin: 20px 30px;
 }
 
 .content {
     max-width: 358px;
 }
 
-.card-button {
-    background: #F1F3F4;
-    border-left: 1px solid #C0C5C9;
-    width: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-    .card-button img {
-        width: 22px;
-        height: 24px;
-    }
-
-.card-popover {
-    display: none;
-    position: absolute;
-    bottom: 5px;
-    left: -101px;
-    width: 185px;
-    z-index: 10;
-}
-
-    .card-popover .popover-body {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        bottom: 30px;
-        font-size: 12px;
-        font-weight: normal;
-        padding: 6px 10px;
-        background: white;
-    }
-
-.triangle {
-    width: 185px;
-    height: 30px;
-    position: relative;
-    overflow: hidden;
-}
-
-    .triangle:after {
-        content: "";
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        background: white;
-        transform: rotate(45deg); /* Prefixes... */
-        bottom: 20px;
-        left: 93px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-.id-info {
-    display: inline;
-    position: relative;
-}
-
-    .id-info:hover .card-popover {
-        display: block;
-    }
-
-    .id-info img {
-        width: 13px;
-        height: 13px;
-    }
 
 .bold {
     font-weight: bold;
-}
-
-.espandi, .riduci {
-    color: #3095BA;
-}
-
-.filters {
-    position: relative;
-    margin-bottom: 36px;
-    display: inline-block;
-}
-
-    .filters .label img {
-        height: 18px;
-    }
-
-.filters-popover {
-    display: none;
-    position: absolute;
-    right: 0;
-    min-width: 250px;
-    background: white;
-    border: 1px solid #C0C5C9;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-    z-index: 10;
-    overflow: auto;
-    max-height: calc(100vh - 250px);
-}
-
-    .filters-popover fieldset {
-        line-height: 25px;
-        white-space: nowrap;
-    }
-
-    .filters-popover legend {
-        letter-spacing: 0.4pt;
-    }
-
-    .filters-popover input {
-        opacity: 0;
-        cursor: pointer;
-        position: absolute;
-    }
-
-    .filters-popover label {
-        margin-left: 12px;
-        padding-left: 20px;
-    }
-
-        .filters-popover label .checkbox {
-            box-sizing: border-box;
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            background: #D5D9DA;
-            border: 1px solid #C0C5C9;
-            margin-right: 15px;
-            position: relative;
-        }
-
-        .filters-popover label input:checked ~ .checkbox::after {
-            position: absolute;
-            content: "";
-            -webkit-transform: rotate(45deg) scale(1);
-            -ms-transform: rotate(45deg) scale(1);
-            transform: rotate(45deg) scale(1);
-            left: 3px;
-            width: 4px;
-            height: 9px;
-            border: solid black;
-            border-width: 0 2px 2px 0;
-        }
-
-fieldset {
-    left: 0;
-    border: none;
-}
-
-hr {
-    border: 1px solid #F1F3F4;
-}
-
-fieldset {
-    padding: 0;
-    margin: 19px 19px 0 19px;
-}
-
-    fieldset:last-child {
-        margin: 19px;
-    }
-
-.legend {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.filters {
-    align-self: flex-end;
-}
-
-.big-label {
-    display: flex;
-    flex-direction: column;
-}
-
-.day {
-    margin-bottom: 20px;
-}
-
-#buttonFiltri, #ImportButton {
-    background: none;
-    color: #3095BA;
-    border: none;
-    outline: none;
-}
-
-.Import {
-    display: inline-block;
-    width: 50%;
-}
-
-.button-container {
-    width: 10%;
-    float: right;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0%;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    top: 30%;
-    width: 35%;
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
 }
 
 @-webkit-keyframes animatetop {
@@ -380,57 +159,4 @@ fieldset {
         top: 190px;
         opacity: 1
     }
-}
-
-.modal-header {
-    padding: 2px 16px;
-    color: black;
-}
-
-    .modal-header h4 {
-        font-weight: bold;
-        padding: 10px 0px;
-        text-align: center;
-    }
-
-.modal-body {
-    padding: 2px 16px;
-}
-
-.modal-footer {
-    padding: 30px 16px;
-    color: white;
-}
-
-    .modal-footer input {
-        margin-left: 20px;
-    }
-
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-
-.date{
-    margin-bottom:4px;
-}
-
-#imgFiltri{
-    width:90px;
-}
-
-.espandi,
-.riduci,
-#imgFiltri {
-    cursor: pointer;
 }
