@@ -1,4 +1,7 @@
 /*cards*/
+body {
+    font-family: 'Lato';
+}
 
 .card {
     border: 1px solid #C0C5C9;
@@ -315,4 +318,8 @@ input[type=submit].primary, input[type=button].primary {
 
 .user-popover .user-url {
     font-weight: bold;
+}
+
+.norm {
+    display:none;
 }
