@@ -8,6 +8,7 @@ namespace Tracking.Web.Models
 {
     public class TrackingUser : IdentityUser
     {
+        public string ReturnUrl { get; set; }
         public List<Intervention> UsersInterventions { get; set; }
     }
 }

@@ -54,7 +54,7 @@ function openModalForm() {
 $('.mappatura').trigger('custom_event');
 $('.screp').trigger('custom_event');
 
-$("#userButton").click(handler => {
+$("#userButton").off('click').click(handler => {
     const popover = handler.target.parentElement.querySelector('.user-popover');
     $(popover).toggle();
 })

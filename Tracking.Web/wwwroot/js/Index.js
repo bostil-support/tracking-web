@@ -31,7 +31,7 @@ function GetSurveys() {
 }
 
 function ButtonFilterClick() {
-    if ($('#filterDiv').css('display') == 'none')
+    if ($('#filterDiv').css('display') === 'none')
         $('#filterDiv').css('display', 'block');
     else
         $('#filterDiv').css('display', 'none');
@@ -44,37 +44,37 @@ function Filter(id) {
     var property = $(filedset).children('.legend').text();
 
     if ($(element).is(':checked')) {
-        if (property == "Legal entity") {
+        if (property === "Legal entity") {
             names.push(filter);
         }
 
-        if (property == "Owner azione correttiva") {
+        if (property === "Owner azione correttiva") {
             owners.push(filter);
         }
 
-        if (property == "Stato azione correttiva") {
+        if (property === "Stato azione correttiva") {
             statuses.push(filter);
         }
 
-        if (property == "Severità rilievo") {
+        if (property === "Severità rilievo") {
             severities.push(filter);
         }
     }
 
     else {
-        if (property == "Legal entity") {
+        if (property === "Legal entity") {
             remove(names, filter);
         }
 
-        if (property == "Owner azione correttiva") {
+        if (property === "Owner azione correttiva") {
             remove(owners, filter);
         }
 
-        if (property == "Stato azione correttiva") {
+        if (property === "Stato azione correttiva") {
             remove(statuses, filter);
         }
 
-        if (property == "Severità rilievo") {
+        if (property === "Severità rilievo") {
             remove(severities, filter);
         }
     }
@@ -114,8 +114,8 @@ function SetDescriptionText() {
         });
     }
 
-    for (var i = 0; i < descrptn.length; i++) {
-        descrptn[i].textContent = textDescr[i].value.substring(0, 110) + '...';
+    for (var j = 0; j < descrptn.length; j++) {
+        descrptn[j].textContent = textDescr[j].value.substring(0, 110) + '...';
     }
 
     $('.riduci').hide();
@@ -138,3 +138,8 @@ function RiduciText(id) {
         document.getElementById('Riduci ' + id).style.display = 'none';
     }
 }
+
+$("#userButton").off('click').click(handler => {
+    const popover = handler.target.parentElement.querySelector('.user-popover');
+    $(popover).toggle();
+})
