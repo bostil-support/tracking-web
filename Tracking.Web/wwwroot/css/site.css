@@ -109,6 +109,7 @@ header, footer {
 .user-popover .user-username {
     font-size: 17px;
     font-weight: bold;
+    color: black;
 }
 
 .user-popover hr {
@@ -116,8 +117,10 @@ header, footer {
     margin: 10px 0;
 }
 
-.user-popover .user-url {
+.user-popover .user-url a {
     font-weight: bold;
+    text-decoration: none;
+    color: black;
 }
 
 
