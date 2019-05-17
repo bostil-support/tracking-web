@@ -31,7 +31,7 @@ $('img[class="vizual"]').click(function () {
 
 
 var argumentsEdit = {
-    submit: 'Salva',
+    submit: 'Conferma',
     tooltip: "",
     style: 'display: inline',
     onblur: "ignore",
@@ -39,7 +39,7 @@ var argumentsEdit = {
 };
 
 var argumentsEditAzione = {
-    submit: 'Salva',
+    submit: 'Conferma',
     tooltip: "",
     style: 'display: inline',
     onblur: "ignore",
