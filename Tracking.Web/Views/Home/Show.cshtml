@@ -46,23 +46,27 @@
         }
     </div>
 
-    @if (@Model.Role.Contains("Audit"))
-    {
-        <div class="card">
-            <div class="card-header">Legal entity</div>
-            <div class="card-item">
-                <div>Denom. Legal Entity</div>
-                <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntityName</div>
-                <div>Cod. Legal Entity</div>
-                <div class="bold" id="Cod_ABI">@Model.Cod_ABI</div>
-            </div>
+    <div class="card">
+        <div class="card-header">Attributi</div>
+        <div class="card-item">
+            <div>Denom. Legal Entity</div>
+            <div class="bold legal-entity" id="LegalEntityName">@Model.LegalEntityName</div>
+            <div>Cod. Legal Entity</div>
+            <div class="bold" id="Cod_ABI">@Model.Cod_ABI</div>
+            <div>Titolo Verifica</div>
+            <div class="bold" id="intervTitle">@Model.InterventionName</div>
+            @if (@Model.Role.Contains("Auditor"))
+            {
+                <div>Tipologia di Rischio</div>
+                <div class="bold normativa norm" id="mrn">@Model.EvaluatedObject</div>
+            }
+            else
+            {
+                <div>MRN</div>
+                <div class="bold normativa norm" id="mrn">@Model.EvaluatedObject</div>
+            }
         </div>
-    }
-
-    @if (@Model.Role.Contains("Compliance"))
-    {
-        @Html.Partial("_Normativa", Model)
-    }
+    </div>
 
     <div class="card">
         <div class="card-header">Azione di mitigazione</div>
@@ -126,15 +130,14 @@
         <div class="button-container">
             <input type="button" id="annulla" value="ANNULLA" onclick="window.location='Index'">
             <input type="button" class="primary" id="salva" value="SALVA">
-            @if (@Model.Role != "Compliance business")
-            {
-                <input type="button" class="primary" value="CHIUDI RILIEVO" id="chiudi"
-                       onclick="window.location='Index'" />
-            }
         </div>
     </div>
 </div>
-@Html.Partial("_ConfirmWindow")
+
+@if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
+{
+    @Html.Partial("_ConfirmWindow")
+}
 
 @section scripts{
     <script>
@@ -153,7 +156,7 @@
                 on('dp.change', function (e) {
                     var previous = e.oldDate;
                     var end = e.date;
-                    if (previous !== end) { 
+                    if (previous !== end) {
                         window.Survey.IsUpdated = 'True';
                         console.log(window.Survey.IsUpdated);
                     }
@@ -168,7 +171,7 @@
             formData.append('SurveyId', '@Model.Id');
             formData.append('Description', $('textarea').val());
             formData.append('SurveyId', '@Model.Id');
-          
+
             $.ajax({
                 type: "POST",
                 url: "AddNote",
