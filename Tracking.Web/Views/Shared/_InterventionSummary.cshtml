@@ -1,4 +1,4 @@
-﻿@model List<IGrouping<int, Survey>>
+﻿@model List<IGrouping<string, Survey>>
 
 @foreach (var item in Model)
 {
@@ -8,7 +8,7 @@
                 @item.ElementAt(0).InterventionName
             </span>
             <span class="date">
-                Data inserimento: 12-01-2019
+                Data inserimento: @item.ElementAt(0).ImportDownloadDate.ToShortDateString()
             </span>
         </div>
         <div>

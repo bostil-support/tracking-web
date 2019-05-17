@@ -16,7 +16,7 @@ namespace Tracking.Web.Data
 
         Survey GetSurveyById(string id);
 
-        Task<List<IGrouping<int, Survey>>> GroupSurveyByIntervId(TrackingUser user);
+        Task<List<IGrouping<string, Survey>>> GroupSurveyByIntervId(TrackingUser user);
 
         Status GetStatusById(int? id);
 
@@ -40,7 +40,7 @@ namespace Tracking.Web.Data
 
         List<TrackingUser> GetAllUsers();
 
-        List<IGrouping<int, Survey>> Filter(FilterViewModel model,TrackingUser user);
+        List<IGrouping<string, Survey>> Filter(FilterViewModel model,TrackingUser user);
 
         void UpdateSurveyAsync(Survey survey);
 
