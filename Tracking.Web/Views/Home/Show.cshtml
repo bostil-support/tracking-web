@@ -118,7 +118,7 @@
             <div class="bold align-top">Storico note</div>
             <div class="notes full-line">
                 <div class="blue">
-                    <span id="vizualizi">Vizual tutti</span>
+                    <span id="vizualizi">Visualizza tutti</span>
                     <img class="vizual" src="~/images/plus.png">
                 </div>
                 <hr>
@@ -195,6 +195,10 @@
             $('#fileName').children().remove();
             $('textarea').val('');
             $('textarea').attr("placeholder", "Note").val('');
+
+            var notes = document.getElementById('notesList').children;
+            for (var i = 4; i < notes.length; i++)
+                notes[i].style.display = 'none';
         }
 
     </script>
