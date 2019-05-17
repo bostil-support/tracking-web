@@ -40,7 +40,7 @@ namespace Tracking.Web.Data
         /// get surveys by interventionId
         /// </summary>
         /// <returns></returns>
-        public async Task<List<IGrouping<int, Survey>>> GroupSurveyByIntervId(TrackingUser user)
+        public async Task<List<IGrouping<string, Survey>>> GroupSurveyByIntervId(TrackingUser user)
         {
             IList<Survey> surveys = new List<Survey>();
             var statuses = _context.Statuses.ToList();
@@ -61,7 +61,7 @@ namespace Tracking.Web.Data
             }
             //}
 
-            var groupSurv = surveys.GroupBy(x => x.InterventionId).ToList();
+            var groupSurv = surveys.GroupBy(x => x.InterventionName).ToList();
             return groupSurv;
         }
 
@@ -167,7 +167,7 @@ namespace Tracking.Web.Data
 
 
 
-        public List<IGrouping<int, Survey>> Filter(FilterViewModel model,TrackingUser user)
+        public List<IGrouping<string, Survey>> Filter(FilterViewModel model,TrackingUser user)
         {
             var statues = GetAllStatuses();
             var userRoles =  _userManager.GetRolesAsync(user).Result;
@@ -196,7 +196,7 @@ namespace Tracking.Web.Data
                     result = result.Where(x => model.Severities.Contains(x.SurveySeverity)).ToList();
             }
 
-            return result.GroupBy(x => x.InterventionId).ToList(); 
+            return result.GroupBy(x => x.InterventionName).ToList(); 
         }
 
         public  void UpdateSurveyAsync(Survey survey)
@@ -227,7 +227,12 @@ namespace Tracking.Web.Data
 
         public List<string> GetBankNames()
         {
-            var banks = _context.Surveys.Where(x => x.LegalEntityName != null).Select(x => x.LegalEntityName).Distinct().ToList();
+            var banks = _context.Surveys
+                .Where(x => x.LegalEntityName != null)
+                .Select(x => x.LegalEntityName)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
             return banks;                
         }
 

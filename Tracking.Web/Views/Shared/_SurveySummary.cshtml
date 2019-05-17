@@ -37,7 +37,7 @@
     </div>
     <div class="card-item card-status">
         <div class="bold">
-            Scadenza rilievo:<span>@Model.DueDateLocal?.ToShortDateString()</span>
+            Scadenza rilievo:<span>@Model.DueDateLocal?.ToString("dd/MM/yyyy")</span>
         </div>
         <div class="bold">
             Stato rilievo:<span>@Model.Status.Name</span>
