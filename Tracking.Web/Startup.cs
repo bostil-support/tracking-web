@@ -18,6 +18,9 @@ using Microsoft.Extensions.Hosting;
 using Tracking.Web.Scheduler;
 using Tracking.Web.Logigng;
 using Hangfire;
+using System;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Tracking.Web
 {
@@ -46,9 +49,16 @@ namespace Tracking.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromHours(8);
+            });
+
             services.AddIdentity<TrackingUser, TrackingRole>(options =>
                 {
                     options.SignIn.RequireConfirmedEmail = false;
+                   
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -88,10 +98,11 @@ namespace Tracking.Web
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseCookiePolicy();           
+            
 
             app.UseHangfireServer();
             RecurringJob.AddOrUpdate(() => fileServices.CleanFile(), Cron.Daily(3));
