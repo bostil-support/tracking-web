@@ -186,7 +186,7 @@ namespace Tracking.Web.Data
 
 
 
-        public List<IGrouping<string, Survey>> Filter(FilterViewModel model,TrackingUser user)
+        public List<IGrouping<Guid, Survey>> Filter(FilterViewModel model,TrackingUser user)
         {
             var statues = GetAllStatuses();
             var userRoles =  _userManager.GetRolesAsync(user).Result;
@@ -215,7 +215,7 @@ namespace Tracking.Web.Data
                     result = result.Where(x => model.Severities.Contains(x.SurveySeverity)).ToList();
             }
 
-            return result.GroupBy(x => x.InterventionName).ToList(); 
+            return result.GroupBy(x => x.UIdAnalisi).ToList();
         }
 
         public  void UpdateSurveyAsync(Survey survey)

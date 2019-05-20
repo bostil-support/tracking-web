@@ -97,44 +97,51 @@ namespace Tracking.DbInitialize.Providers
         {
             // Excel collumns
             string roleId, roleName, userId, userEmail;
-            using (var package = new ExcelPackage(_fileInfo))
+            try
             {
-                var workSheet = package.Workbook.Worksheets["Users"];
-                int totalRows = workSheet.Dimension.Rows;
-
-                List<TrackingUser> usersList = new List<TrackingUser>();
-
-                try
+                using (var package = new ExcelPackage(_fileInfo))
                 {
-                    using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
-                                                .GetRequiredService<IServiceScopeFactory>()
-                                                .CreateScope())
+                    var workSheet = package.Workbook.Worksheets["Users"];
+                    int totalRows = workSheet.Dimension.Rows;
+
+                    List<TrackingUser> usersList = new List<TrackingUser>();
+
+                    try
                     {
-                        var _userManager = _serviceScope.ServiceProvider.GetRequiredService<UserManager<TrackingUser>>();
-                        for (int i = 4; i <= totalRows; i++)
+                        using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
+                                                    .GetRequiredService<IServiceScopeFactory>()
+                                                    .CreateScope())
                         {
-                            roleId = workSheet.Cells[i, 7].Value.ToString();
-                            roleName = workSheet.Cells[i, 8].Value.ToString();
-                            userId = workSheet.Cells[i, 9].Value.ToString();
-                            userEmail = workSheet.Cells[i, 10].Value.ToString();
-                                                        
-                            if (await _userManager.FindByEmailAsync(userEmail) == null)
+                            var _userManager = _serviceScope.ServiceProvider.GetRequiredService<UserManager<TrackingUser>>();
+                            for (int i = 4; i <= totalRows; i++)
                             {
-                                var user = new TrackingUser { Email = userEmail, UserName = userEmail, Id = userId };
-                                var result = await _userManager.CreateAsync(user, "Qwerty123!");
-                                if (result.Succeeded)
+                                roleId = workSheet.Cells[i, 7].Value.ToString();
+                                roleName = workSheet.Cells[i, 8].Value.ToString();
+                                userId = workSheet.Cells[i, 9].Value.ToString();
+                                userEmail = workSheet.Cells[i, 10].Value.ToString();
+
+                                if (await _userManager.FindByEmailAsync(userEmail) == null)
                                 {
-                                    await _userManager.AddToRoleAsync(user, roleName);
+                                    var user = new TrackingUser { Email = userEmail, UserName = userEmail, Id = userId };
+                                    var result = await _userManager.CreateAsync(user, "Qwerty123!");
+                                    if (result.Succeeded)
+                                    {
+                                        await _userManager.AddToRoleAsync(user, roleName);
+                                    }
                                 }
                             }
+                            Console.Write("Users imported. Done!\r\n");
                         }
-                        Console.Write("Users imported. Done!\r\n");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 

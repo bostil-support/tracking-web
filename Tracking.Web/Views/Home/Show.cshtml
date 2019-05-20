@@ -72,17 +72,14 @@
         <div class="card-header">Azione di mitigazione</div>
         <div class="card-item">
             <div>Owner</div>
-            @if (@Model.ActionOwner != null)
-            {
-                <div class="bold">
-                    <span class="azione" id="ActionOwner">@Model.ActionOwner</span>
-                    @if (@Model.Role == "Auditor business")
-                    {
-                        <span id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>
-                    }
-                </div>
-            }
+            <div class="bold">
+                <span class="azione" id="ActionOwner">@if (Model.ActionOwner == null) { } else { @Model.ActionOwner}</span>
+                @if (@Model.Role == "Auditor business")
+                {
+                    <span id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>
+                }
             </div>
+        </div>
             <div class="card-item description">
                 <div>Descrizione</div>
                 @if (@Model.Role == "Auditor business")

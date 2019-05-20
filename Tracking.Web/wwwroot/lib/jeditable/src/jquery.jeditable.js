@@ -138,7 +138,7 @@
 
             /* If element is empty add something clickable (if requested) */
             if (!$.trim($(this).html())) {
-                $(this).html(settings.placeholder);
+                //$(this).html(settings.placeholder);
             }
 
             if ('destroy' === target) {
@@ -186,10 +186,7 @@
                 }
 
                 /* Remove placeholder text, replace is here because of IE. */
-                if ($(this).html().toLowerCase().replace(/(;|"|\/)/g, '') ===
-                    settings.placeholder.toLowerCase().replace(/(;|"|\/)/g, '')) {
-                    $(this).html('');
-                }
+              
 
                 self.editing = true;
                 self.revert = $(self).text();
@@ -382,7 +379,7 @@
                                     self.editing = false;
                                     callback.apply(self, [self.innerHTML, settings]);
                                     if (!$.trim($(self).html())) {
-                                        $(self).html(settings.placeholder);
+                                       
                                     }
                                 };
                                 /* Call the user target function */
@@ -432,7 +429,7 @@
                                         self.editing = false;
                                         callback.apply(self, [result, settings, submitdata]);
                                         if (!$.trim($(self).html())) {
-                                            $(self).html(settings.placeholder);
+                                          
                                         }
                                     },
                                     error: function (xhr, status, error) {
@@ -464,7 +461,7 @@
                         $(self).html(self.revert);
                         self.editing = false;
                         if (!$.trim($(self).html())) {
-                            $(self).html(settings.placeholder);
+                          
                         }
                         /* Show tooltip again. */
                         if (settings.tooltip) {
@@ -634,7 +631,6 @@
                                 list: settings.list,
                                 maxlength: settings.maxlength,
                                 pattern: settings.pattern,
-                                placeholder: settings.placeholder,
                                 tooltip: settings.tooltip,
                                 type: 'text'
                             });
@@ -758,7 +754,6 @@
                 element: function (settings, original) {
                     var input = $('<input />').attr({
                         maxlength: settings.maxlength,
-                        placeholder: settings.placeholder,
                         min: settings.min,
                         max: settings.max,
                         step: settings.step,
@@ -825,10 +820,8 @@
         // Keyboard accessibility - use mouse click OR press any key to enable editing
         event: 'click.editable keydown.editable',
         onblur: 'cancel',
-        tooltip: 'Click to edit',
         loadtype: 'GET',
         loadtext: 'Loading...',
-        placeholder: 'Click to edit',
         sortselectoptions: false,
         loaddata: {},
         submitdata: {},

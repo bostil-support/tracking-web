@@ -42,7 +42,7 @@ namespace Tracking.Web.Data
 
         List<TrackingUser> GetAllUsers();
 
-        List<IGrouping<string, Survey>> Filter(FilterViewModel model,TrackingUser user);
+        List<IGrouping<Guid, Survey>> Filter(FilterViewModel model,TrackingUser user);
 
         void UpdateSurveyAsync(Survey survey);
 
