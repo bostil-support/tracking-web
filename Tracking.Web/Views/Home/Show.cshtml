@@ -70,40 +70,39 @@
 
     <div class="card">
         <div class="card-header">Azione di mitigazione</div>
-        @if (@Model.ActionOwner != null)
-        {
-            <div class="card-item">
-                <div>Owner</div>
+        <div class="card-item">
+            <div>Owner</div>
+            @if (@Model.ActionOwner != null)
+            {
                 <div class="bold">
                     <span class="azione" id="ActionOwner">@Model.ActionOwner</span>
-                    }
                     @if (@Model.Role == "Auditor business")
                     {
                         <span id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>
                     }
                 </div>
-            </div>
-        }
-        <div class="card-item description">
-            <div>Descrizione</div>
-            @if (@Model.Role == "Auditor business")
-            {
-                <div class="bold full-line" id="ActionDescription">@Model.ActionDescription</div>
             }
-            else
+            </div>
+            <div class="card-item description">
+                <div>Descrizione</div>
+                @if (@Model.Role == "Auditor business")
+                {
+                    <div class="bold full-line" id="ActionDescription">@Model.ActionDescription</div>
+                }
+                else
+                {
+                    <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
+                }
+            </div>
+            @if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
             {
-                <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
+                <div class="edit-container">
+                    <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">
+                        <img src="~/images/edit.png" alt="edit">
+                    </a>
+                </div>
             }
         </div>
-        @if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
-        {
-            <div class="edit-container">
-                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">
-                    <img src="~/images/edit.png" alt="edit">
-                </a>
-            </div>
-        }
-    </div>
     <div class="controls">
         <div class="bold">Stato</div>
         <select asp-for="StatusId" asp-items="@Model.Statuses" class="form-control" id="StatusId" onchange="GetStatus(this.options[this.selectedIndex].value)"></select>

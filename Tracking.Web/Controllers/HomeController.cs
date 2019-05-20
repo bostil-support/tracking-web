@@ -42,7 +42,7 @@ namespace Tracking.Web.Controllers
         public async Task<IActionResult> GetSurveys()
         {
             var curUser = await _userService.GetCurrentUserAsync();
-            var surveys = _rep.GroupSurveyByIntervId(curUser).Result;
+            var surveys = _rep.GroupSurveyByUidAnalisi(curUser).Result;
             return PartialView("_InterventionSummary", surveys);
         }
 

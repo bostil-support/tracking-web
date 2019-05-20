@@ -65,6 +65,25 @@ namespace Tracking.Web.Data
             return groupSurv;
         }
 
+        public async Task<List<IGrouping<Guid, Survey>>> GroupSurveyByUidAnalisi(TrackingUser user)
+        {
+            IList<Survey> surveys = new List<Survey>();
+            var statuses = _context.Statuses.ToList();
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            if (userRoles[0] == "Compliance")
+            {
+                surveys = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
+            }
+            else
+            {
+                surveys = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
+            }
+
+            var groupSurv = surveys.GroupBy(x => x.UIdAnalisi).ToList();
+            return groupSurv;
+        }
+
         /// <summary>
         /// Find survey by id
         /// </summary>

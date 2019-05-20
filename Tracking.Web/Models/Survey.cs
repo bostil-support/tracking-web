@@ -12,6 +12,9 @@ namespace Tracking.Web.Models
         [Column("Titolo_Rilievo")]
         public string Title { get; set; }
 
+        [Column("uID_Analisi")]
+        public Guid UIdAnalisi { get; set; }
+
         /// <summary>
         /// Field Descrizione from mockups. It`s from italian means Description
         /// Survey description
