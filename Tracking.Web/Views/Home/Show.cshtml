@@ -74,15 +74,15 @@
             <div>Owner</div>
             <div class="bold">
                 <span class="azione" id="ActionOwner">@if (Model.ActionOwner == null) { } else { @Model.ActionOwner}</span>
-                @if (@Model.Role == "Auditor business")
+                @if (@Model.Role == "Auditor business" && @Model.Role == "Compliance business")
                 {
-                    <span id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>
+                    <span hidden id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>
                 }
             </div>
         </div>
             <div class="card-item description">
                 <div>Descrizione</div>
-                @if (@Model.Role == "Auditor business")
+                @if (@Model.Role == "Auditor business" && @Model.Role == "Compliance business")
                 {
                     <div class="bold full-line" id="ActionDescription">@Model.ActionDescription</div>
                 }
