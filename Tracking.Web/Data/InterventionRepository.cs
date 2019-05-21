@@ -195,7 +195,26 @@ namespace Tracking.Web.Data
         {
             var statues = GetAllStatuses();
             var userRoles =  _userManager.GetRolesAsync(user).Result;
-            IList<Survey> result = null; 
+            IList<Survey> result = null;
+
+            if (userRoles[0] == "Compliance")
+            {
+                result = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
+            }
+            else if (userRoles[0] == "Auditor business")
+            {
+                result = _surveysService.GetSurveysBusinessAuditor(user);
+            }
+            else if (userRoles[0] == "Compliancer business")
+            {
+                result = _surveysService.GetSurveysBusinessCompliancer(user);
+            }
+            else
+            {
+                result = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
+            }
+
+            /*
             if (userRoles[0] == "Compliance")
             {
                result = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
@@ -205,7 +224,7 @@ namespace Tracking.Web.Data
             {
                result = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
             }
-            
+            */
             //var result = _context.Surveys.ToList();
 
             if (model != null)
