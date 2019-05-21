@@ -137,5 +137,7 @@ namespace Tracking.Web.Models
         public DescriptiveAttributes DescriptiveAttributes { get; set; }
 
         public bool IsUpdated { get; set; }
+
+        public string Funzione { get; set; }
     }
 }
