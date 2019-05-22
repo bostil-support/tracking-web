@@ -10,12 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Tracking.Web</title>
     <environment include="Development">
-        <link rel="stylesheet" href="~/css/index.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     </environment>
@@ -60,14 +58,10 @@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/jeditable/src/jquery.jeditable.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/js/index.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/jeditable/dist/jquery.jeditable.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/js/index.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("Scripts", required: false)
