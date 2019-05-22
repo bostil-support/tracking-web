@@ -77,6 +77,30 @@ namespace Tracking.Web.Services
 
             return surveys;
         }
+
+        /// <summary>
+        /// get all surveys for buisness auditor user related by bank`s code
+        /// </summary>
+        /// <param name="email">current complaince user email</param>
+        public IList<Survey> GetSurveysBusinessAuditor(TrackingUser user)
+        {
+            var surveys = _context.Surveys
+                .Where(o => o.Cod_ABI == user.CodeABI && o.Funzione == "IA").ToList();
+            
+            return surveys;
+        }
+
+        /// <summary>
+        /// get all surveys for buisness compliancer user related by bank`s code
+        /// </summary>
+        /// <param name="email">current complaince user email</param>
+        public IList<Survey> GetSurveysBusinessCompliancer(TrackingUser user)
+        {
+            var surveys = _context.Surveys
+                .Where(o => o.Cod_ABI == user.CodeABI && o.Funzione == "CPL").ToList();
+
+            return surveys;
+        }
     }
 
     class IdsSurveys

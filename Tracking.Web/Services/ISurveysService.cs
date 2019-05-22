@@ -7,5 +7,7 @@ namespace Tracking.Web.Services
     {
         IList<Survey> GetSurveysAuditorByUserEmail(string email);
         IList<Survey> GetSurveysComplainceByUserEmail(string email);
+        IList<Survey> GetSurveysBusinessAuditor(TrackingUser user);
+        IList<Survey> GetSurveysBusinessCompliancer(TrackingUser user);
     }
 }

@@ -97,6 +97,29 @@ namespace Tracking.DbInitialize.Providers
         {
             // Excel collumns
             string roleId, roleName, userId, userEmail;
+
+            using (var _serviceScope = ServiceInitialize.ServiceProviderInitialize()
+                                                    .GetRequiredService<IServiceScopeFactory>()
+                                                    .CreateScope())
+            {
+                var _userManager = _serviceScope.ServiceProvider.GetRequiredService<UserManager<TrackingUser>>();
+
+
+                if (await _userManager.FindByNameAsync("BPVi_PowerBi") == null)
+                {
+
+                    var user = new TrackingUser { Email = "bpvi_powerbi@test.test", UserName = "BPVi_PowerBi", ReturnUrl = "https://www.suat.ics.cassacentrale.it/Authentication/login.aspx" };
+                    var result = await _userManager.CreateAsync(user, "Qwerty123!");
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Auditor business");
+                    }
+                }  
+                
+                Console.Write("Users imported. Done!\r\n");
+            }
+
+            /*
             try
             {
                 using (var package = new ExcelPackage(_fileInfo))
@@ -118,7 +141,7 @@ namespace Tracking.DbInitialize.Providers
                                 roleId = workSheet.Cells[i, 7].Value.ToString();
                                 roleName = workSheet.Cells[i, 8].Value.ToString();
                                 userId = workSheet.Cells[i, 9].Value.ToString();
-                                userEmail = workSheet.Cells[i, 10].Value.ToString();
+                                userEmail = "bpvi_powerbi@test.test";//workSheet.Cells[i, 10].Value.ToString();
 
                                 if (await _userManager.FindByEmailAsync(userEmail) == null)
                                 {
@@ -143,6 +166,7 @@ namespace Tracking.DbInitialize.Providers
             {
                 Console.WriteLine(ex.Message);
             }
+            */
         }
 
         public void SetInitializeBanks()

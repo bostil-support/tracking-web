@@ -18,7 +18,7 @@ namespace Tracking.DbInitialize
         {
             //Display display = _db.SetCreateDatabase;
             //display.Invoke();
-             _db.SetInitializeUsersAsync();
+            //_db.SetInitializeUsersAsync().Wait();
             //display.Invoke();
             //Display display = _db.ImportSurveysAudit;
             //display.Invoke();

@@ -44,12 +44,10 @@ namespace Tracking.Web.Data
         {
             IList<Survey> surveys = new List<Survey>();
             var statuses = _context.Statuses.ToList();
-            //var surv = _context.Surveys.ToList();
+            
 
             var userRoles = await _userManager.GetRolesAsync(user);
-
-            //foreach (var role in userRoles)
-            //{
+                        
             if (userRoles[0] == "Compliance")
             {
                 surveys = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
@@ -59,8 +57,7 @@ namespace Tracking.Web.Data
             {
                 surveys = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
             }
-            //}
-
+            
             var groupSurv = surveys.GroupBy(x => x.InterventionName).ToList();
             return groupSurv;
         }
@@ -75,11 +72,19 @@ namespace Tracking.Web.Data
             {
                 surveys = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
             }
+            else if(userRoles[0] == "Auditor business")
+            {
+                surveys = _surveysService.GetSurveysBusinessAuditor(user);
+            }
+            else if (userRoles[0] == "Compliancer business")
+            {
+                surveys = _surveysService.GetSurveysBusinessCompliancer(user);
+            }
             else
             {
                 surveys = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
             }
-
+            
             var groupSurv = surveys.GroupBy(x => x.UIdAnalisi).ToList();
             return groupSurv;
         }
@@ -190,7 +195,26 @@ namespace Tracking.Web.Data
         {
             var statues = GetAllStatuses();
             var userRoles =  _userManager.GetRolesAsync(user).Result;
-            IList<Survey> result = null; 
+            IList<Survey> result = null;
+
+            if (userRoles[0] == "Compliance")
+            {
+                result = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
+            }
+            else if (userRoles[0] == "Auditor business")
+            {
+                result = _surveysService.GetSurveysBusinessAuditor(user);
+            }
+            else if (userRoles[0] == "Compliancer business")
+            {
+                result = _surveysService.GetSurveysBusinessCompliancer(user);
+            }
+            else
+            {
+                result = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
+            }
+
+            /*
             if (userRoles[0] == "Compliance")
             {
                result = _surveysService.GetSurveysComplainceByUserEmail(user.Email);
@@ -200,7 +224,7 @@ namespace Tracking.Web.Data
             {
                result = _surveysService.GetSurveysAuditorByUserEmail(user.Email);
             }
-            
+            */
             //var result = _context.Surveys.ToList();
 
             if (model != null)

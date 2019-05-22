@@ -51,7 +51,7 @@ namespace Tracking.Web.Controllers
         {
             var curUser = _userService.GetCurrentUserAsync().Result;
             
-            var surveys = _rep.Filter(model,curUser);
+            var surveys = _rep.Filter(model, curUser);
             return PartialView("_InterventionSummary", surveys);
         }
 

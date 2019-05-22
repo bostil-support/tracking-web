@@ -22,8 +22,8 @@ $('img[class="vizual"]').click(function () {
 
     else {
         showNotes = false;
-        for (var i = 4; i < notes.length; i++)
-            notes[i].style.display = 'block';
+        for (var j = 4; j < notes.length; j++)
+            notes[j].style.display = 'block';
         $(this).attr('src', "../images/minus.png");
         $('#vizualizi').text('Riduci visualizzati');
     }
@@ -74,7 +74,7 @@ $("#StatusId").on('focus', function () {
     previous = this.value;
 }).change(function () {
     var end = this.value;
-    if (previous != end) {
+    if (previous !== end) {
         window.Survey.IsUpdated = 'True';
     }
 });
@@ -121,9 +121,9 @@ function Edit(value, settings) {
             break;
     }
 
-    if ($(this).attr('id') == 'LegalEntityName')
+    if ($(this).attr('id') === 'LegalEntityName')
         return name;
-    else if ($(this).attr('id') == 'RiskType')
+    else if ($(this).attr('id') === 'RiskType')
         return type;
     else
         return value;
@@ -162,6 +162,7 @@ $('#conferma').click(function () {
 });
 
 $('#salva').click(function () {
+    console.log("button salva");
     $('#modalWindow').css('display', 'block');
 });
 
