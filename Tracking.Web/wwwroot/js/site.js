@@ -183,3 +183,4 @@ function GetStatus(value) {
 $("#dueDateLocal").on("dp.change", function () {
     window.Survey.DueDateLocal = $('#dueDateLocal1').val();
 });
+
