@@ -11,6 +11,7 @@ using Tracking.Web.Models;
 using Tracking.Web.Models.ViewModel;
 using System.Globalization;
 using Tracking.Web.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Tracking.Web.Controllers
 {
@@ -19,17 +20,20 @@ namespace Tracking.Web.Controllers
         private readonly IInterventionRepository _rep;
         private readonly IWorkContext _workContext;
         private readonly IImportExportService _service;
-        private readonly IUserService _userService;        
+        private readonly IUserService _userService;
+        private readonly ILogger _logger;
 
         public HomeController(IInterventionRepository repo, 
             IWorkContext workContext, 
             IImportExportService service,
-            IUserService userService)
+            IUserService userService,
+            ILogger<HomeController> logger)
         {
             _rep = repo;
             _workContext = workContext;
             _service = service;
             _userService = userService;
+            _logger = logger;
         }
 
         [Authorize]

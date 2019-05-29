@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Data.SqlClient;
-using Tracking.Web.Logigng;
+using Tracking.Web.Loging;
 
 namespace Tracking.Web.Services
 {
@@ -38,7 +38,7 @@ namespace Tracking.Web.Services
             }
             catch (SqlException e)
             {
-                _logger.Write(e.Message);
+                _logger.LogError(e.Message);
             }
         }
 
@@ -62,8 +62,7 @@ namespace Tracking.Web.Services
             }
             catch (SqlException e)
             {
-                var text = e.Message;
-                //_logger.Write(e.Message);
+                _logger.LogError(e.Message);
             }
         }
 
@@ -87,7 +86,7 @@ namespace Tracking.Web.Services
             }
             catch (SqlException e)
             {
-                _logger.Write(e.Message);
+                _logger.LogError(e.Message);
             }
         }
 
@@ -111,7 +110,7 @@ namespace Tracking.Web.Services
             }
             catch (SqlException e)
             {
-                _logger.Write(e.Message);
+                _logger.LogError(e.Message);
             }
         }
 

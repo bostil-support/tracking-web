@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Tracking.Web.Logigng
+namespace Tracking.Web.Loging
 {
     public class FileLoggerProvider : ILoggerProvider
     {
         private string path;
-
         public FileLoggerProvider(string _path)
         {
             path = _path;

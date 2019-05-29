@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Tracking.Web.Logigng;
+using Tracking.Web.Loging;
 
 namespace Tracking.Web.Managers
 {
@@ -35,7 +35,7 @@ namespace Tracking.Web.Managers
             }
             catch(Exception e)
             {
-                _logger.Write(e.Message);
+                _logger.LogError(e.Message);
                 return e.Message;
             }
 

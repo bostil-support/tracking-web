@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Tracking.Web.Data;
-using Tracking.Web.Logigng;
+using Tracking.Web.Loging;
 using Tracking.Web.Models;
 
 namespace Tracking.Web.Services
@@ -46,8 +46,7 @@ namespace Tracking.Web.Services
             }
             catch (Exception e)
             {
-                var err = e.Message;
-                //_logger.Write(e.Message);
+                _logger.LogError(e.Message);
             }
 
             return surveys;
@@ -72,7 +71,7 @@ namespace Tracking.Web.Services
             }
             catch (Exception e)
             {
-                _logger.Write(e.Message);
+                _logger.LogError(e.Message);
             }
 
             return surveys;

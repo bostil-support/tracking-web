@@ -6,7 +6,7 @@ using Tracking.Web.Managers;
 using Newtonsoft.Json;
 using System;
 using Microsoft.Extensions.Logging;
-using Tracking.Web.Logigng;
+using Tracking.Web.Loging;
 
 namespace Tracking.Web.Controllers
 {
@@ -131,7 +131,7 @@ namespace Tracking.Web.Controllers
             }
             catch(Exception e)
             {
-                _logger.Write(e.Message);                
+                _logger.LogError(e.Message);                
                 return RedirectToAction("Error", "Account");                
             }                      
         }

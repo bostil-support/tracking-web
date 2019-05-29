@@ -16,7 +16,7 @@ using Serilog;
 using Tracking.Web.Services;
 using Microsoft.Extensions.Hosting;
 using Tracking.Web.Scheduler;
-using Tracking.Web.Logigng;
+using Tracking.Web.Loging;
 using Hangfire;
 using System;
 using Microsoft.Extensions.Options;
@@ -78,9 +78,10 @@ namespace Tracking.Web
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,8 +105,8 @@ namespace Tracking.Web
             app.UseCookiePolicy();           
             
 
-            app.UseHangfireServer();
-            RecurringJob.AddOrUpdate(() => fileServices.CleanFile(), Cron.Daily(3));
+            //app.UseHangfireServer();
+            //RecurringJob.AddOrUpdate(() => fileServices.CleanFile(), Cron.Daily(3));
 
             app.UseAuthentication();
             
@@ -116,13 +117,6 @@ namespace Tracking.Web
                     template: "{controller=Account}/{action=Index}");
             });
 
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(Configuration)
-                .Enrich.FromLogContext()
-                .CreateLogger();
-
-            loggerFactory.AddFile(Path.Combine(".\\Logigng", "logger.txt"));
-            var logger = loggerFactory.CreateLogger("FileLogger");
         }
     }
 }

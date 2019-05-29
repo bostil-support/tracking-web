@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Tracking.Web.Logigng
+namespace Tracking.Web.Loging
 {
     public class FileLogger : ILogger
     {
@@ -30,10 +30,10 @@ namespace Tracking.Web.Logigng
         {
             if (formatter != null)
             {
-                //lock (_lock)
-                //{
-                //    File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
-                //}
+                lock (_lock)
+                {
+                    File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
+                }
             }
         }
     }
