@@ -42,7 +42,7 @@ namespace Tracking.Web.Scheduler
             _scopeFactory = scopeFactory;
         }
 
-        protected override string Schedule => "59 23 * * *"; // runs every day 23:59 minutes
+        protected override string Schedule => "10 12 * * *"; // runs every day 23:59 minutes
         public override Task ProcessInScope(IServiceProvider serviceProvider)
         {
             int result, result1, result2;

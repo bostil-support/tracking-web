@@ -320,3 +320,20 @@ input[type=submit].primary, input[type=button].primary {
     font-weight: bold;
 }
 
+.date {
+    margin-bottom: 4px;
+}
+
+#imgFiltri {
+    width: 90px;
+}
+
+.espandi,
+.riduci,
+#imgFiltri {
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}

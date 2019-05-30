@@ -62,7 +62,7 @@
         background: white;
         transform: rotate(45deg); /* Prefixes... */
         bottom: 20px;
-        left: 93px;
+        left: 62px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
@@ -73,6 +73,7 @@
 
     .id-info:hover .card-popover {
         display: block;
+        left: -70px;
     }
 
     .id-info img {
@@ -282,12 +283,12 @@ fieldset {
     }
 
 
-.date{
-    margin-bottom:4px;
+.date {
+    margin-bottom: 4px;
 }
 
-#imgFiltri{
-    width:90px;
+#imgFiltri {
+    width: 90px;
 }
 
 .espandi,

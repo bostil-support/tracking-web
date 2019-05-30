@@ -6,8 +6,9 @@
 }
 
 <link rel="stylesheet" href="~/css/detail-survey.css" />
+<link href="~/css/bootstrap.css" rel="stylesheet" />
 <link href="~/css/bootstrap-datetimepicker.css" rel="stylesheet" />
-<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet" />
 
 <div class="big-label">
     <h2>
@@ -81,71 +82,83 @@
                     @if (Model.ActionOwner == null) { }
                     else
                     {@Model.ActionOwner}
-            </span>
+                </span>
+                @if (@Model.Role == "Auditor business" && @Model.Role == "Compliance business")
+                {
+                    <span hidden id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>
+                }
+            </div>
+        </div>
+        <div class="card-item description">
+            <div>Descrizione</div>
             @if (@Model.Role == "Auditor business" && @Model.Role == "Compliance business")
             {
-                <span hidden id="editSpan"> <a id="EditOwner" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">Edit</a></span>
+                <div class="bold full-line" id="ActionDescription">@Model.ActionDescription</div>
+            }
+            else
+            {
+                <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
             }
         </div>
-    </div>
-    <div class="card-item description">
-        <div>Descrizione</div>
-        @if (@Model.Role == "Auditor business" && @Model.Role == "Compliance business")
+        @if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
         {
-            <div class="bold full-line" id="ActionDescription">@Model.ActionDescription</div>
+            <div class="edit-container">
+                <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">
+                    <img src="~/images/edit.png" alt="edit">
+                </a>
+            </div>
+        }
+    </div>
+    <div class="controls">
+        <div class="bold">Stato</div>
+        <select asp-for="StatusId" asp-items="@Model.Statuses" class="form-control" id="StatusId" onchange="GetStatus(this.options[this.selectedIndex].value)"></select>
+        <div class="bold" id="nuova">Nuova Data Scadenza</div>
+        <div class="form-group">
+            <div id="dueDateLocal" class='input-group date'>
+                <input type="text" asp-for="@Model.DueDateLocal" class="form-control" id="dueDateLocal1">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                </span>
+            </div>
+        </div>
+
+        @if (@Model.Notes.Count > 0)
+        {
+            <div class="bold align-top">Storico note</div>
+            <div class="notes full-line">
+                <div class="blue">
+                    <span id="vizualizi">Visualizza tutti</span>
+                    <img class="vizual" src="~/images/plus.png">
+                </div>
+                <hr>
+            </div>
         }
         else
         {
-            <div class="bold full-line azione" id="ActionDescription">@Model.ActionDescription</div>
-        }
-    </div>
-    @if (@Model.Role == "Auditor" || @Model.Role == "Compliance")
-    {
-        <div class="edit-container">
-            <a href="#" class="edit-all-dati-rilievo-btn" onclick="$('.azione').trigger('custom_event');">
-                <img src="~/images/edit.png" alt="edit">
-            </a>
-        </div>
-    }
-</div>
-<div class="controls">
-    <div class="bold">Stato</div>
-    <select asp-for="StatusId" asp-items="@Model.Statuses" class="form-control" id="StatusId" onchange="GetStatus(this.options[this.selectedIndex].value)"></select>
-    <div class="bold" id="nuova">Nuova Data Scadenza</div>
-    <div class="form-group">
-        <div id="dueDateLocal" class='input-group date'>
-            <input type="text" asp-for="@Model.DueDateLocal" class="form-control" id="dueDateLocal1">
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-            </span>
-        </div>
-    </div>
-
-    @if (@Model.Notes.Count > 0)
-    {
-        <div class="bold align-top">Storico note</div>
-        <div class="notes full-line">
-            <div class="blue">
-                <span id="vizualizi">Visualizza tutti</span>
-                <img class="vizual" src="~/images/plus.png">
+            <div class="bold align-top viewNotes" style="visibility:hidden">Storico note</div>
+            <div class="notes full-line viewNotes" style="visibility:hidden">
+                <div class="blue">
+                    <span id="vizualizi">Visualizza tutti</span>
+                    <img class="vizual" src="~/images/plus.png">
+                </div>
+                <hr>
             </div>
-            <hr>
-        </div>
-    }
-    <div class="notes full-line" id="notesList"></div>
-    @Html.Partial("AddNotePartial", Model.Note)
+        }
+        <div class="notes full-line" id="notesList"></div>
+        @Html.Partial("AddNotePartial", Model.Note)
 
-    <div class="button-container">
-        <input type="button" id="annulla" value="ANNULLA" onclick="window.location='Index'">
-        <input type="button" class="primary" id="salva" value="SALVA">
+        <div class="button-container">
+            <input type="button" id="annulla" value="ANNULLA" onclick="window.location='Index'">
+            <input type="button" class="primary" id="salva" value="SALVA">
+        </div>
     </div>
 </div>
-</div>
+
 
 @Html.Partial("_ConfirmWindow")
 
 @section scripts{
-    
+
     <script src="~/lib/jeditable/src/jquery.jeditable.js"></script>
     <script src="~/js/site.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
@@ -206,9 +219,14 @@
             $('textarea').attr("placeholder", "Note").val('');
 
             var notes = document.getElementById('notesList').children;
+            if (notes.length > 4) {
+                $('.viewNotes').css('visibility', 'visible');
+            }
+
             for (var i = 4; i < notes.length; i++)
                 notes[i].style.display = 'none';
         }
+
 
     </script>
 }
